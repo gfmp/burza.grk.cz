@@ -1,0 +1,13 @@
+################################################################################
+#
+# Latte template engine
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+services:
+    nette.latteFactory:
+        setup:
+            #- addFilter(Site\Templating\TemplateHelpers::)
+            #- addFilter(thumb, @thumbatorTemplateHelper::image)

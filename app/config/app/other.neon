@@ -1,0 +1,26 @@
+################################################################################
+#
+# Services
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+services:
+
+	# Routing ==============================================
+	router: App\Routing\RouterFactory::createRouter
+
+	# Config ===============================================
+	config:
+		class: App\Core\Utils\DIConfig
+		factory: App\Core\Utils\DIConfig::factory
+		arguments: {[
+			consoleMode: %consoleMode%
+			debugMode: %debugMode%
+			system: %system%,
+			site: %site%,
+			deploy: %deploy%,
+			paths: %paths%,
+			dirs: %dirs%,
+		]}

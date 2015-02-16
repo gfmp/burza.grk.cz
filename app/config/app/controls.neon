@@ -1,0 +1,10 @@
+################################################################################
+#
+# Controls
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+services:
+	- App\Common\Controls\ICategoryFactory

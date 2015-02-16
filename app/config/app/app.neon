@@ -1,0 +1,40 @@
+################################################################################
+#
+# Application
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+parameters:
+
+    # System settings
+    system:
+        errorEmail: error@webtoad.cz
+        errorPresenter: Front:Error
+
+    # Site settings
+    site:
+        domain: burza.knihy.cz
+        email: robot@burza.knihy.cz
+        emailName: Burza GRK
+
+    # Deploy settings
+    deploy:
+        rev: 16022015
+
+    # Dirs
+    # appDir, libsDir, tempDir, logDir -> already configured
+    dirs:
+        storage: %wwwDir%/uploads
+        webtemp: %wwwDir%/temp
+
+    # Paths
+    paths:
+        webtemp: /temp
+        storage: /uploads
+
+services:
+    nette.userStorage:
+        setup:
+            - setNamespace(Burza)

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="shortcut icon" href="{$basePath}/favicon.png" type="image/x-icon">
+
+	<!-- TITLE -->
+	<title>Shop Homepage - Start Bootstrap Template</title>
+
+	<!-- SEO -->
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<meta name="googlebot" content="snippet,archive">
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Felix <sulcmil@gmail.com>">
+
+	<!-- FACEBOOK -->
+	<meta property="og:image" content="fb-logo.png">
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="">
+	<meta property="og:url" content="{link //this}">
+	<meta property="og:site_name" content="">
+	<meta property="og:description" content="">
+
+	<!-- CSS -->
+	<link href="{$basePath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{$basePath}/vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="{$basePath}/assets/css/theme.css" rel="stylesheet">
+</head>
+<body>
+	<!-- Navigation -->
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
+			</div>
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li>
+						<a n:href=":Front:Home:">Poslední nabídky</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3">
+				{control category}
+			</div>
+			<div class="col-md-9">
+				{include #content}
+			</div>
+		</div>
+	</div>
+	<!-- /.container -->
+
+	<div class="container">
+		<hr>
+		<!-- Footer -->
+		<footer>
+			<div class="row">
+				<div class="col-lg-12 clearfix">
+					<p class="pull-left">Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}</p>
+					<p class="pull-right">Developed by <a href="http://jfx.cz">Milan Felix Sulc</a></p>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- /.container -->
+
+	<!-- SCRIPTS -->
+	<script src="{$basePath}/vendor/bootstrap/bootstrap.min.js"></script>
+</body>
+</html>

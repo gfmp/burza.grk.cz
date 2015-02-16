@@ -1,0 +1,14 @@
+################################################################################
+#
+# Server environment
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+database:
+	dsn: 'mysql:host=localhost;dbname=burza'
+	user: root
+	password:
+	options:
+		lazy: yes

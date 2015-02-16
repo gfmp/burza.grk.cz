@@ -1,0 +1,22 @@
+{
+  "homepage": "http://burza.grk.cz",
+  "authors": [
+    {
+      "name": "Milan Felix Sulc",
+      "homepage": "http://jfx.cz"
+    }
+  ],
+  "require": {
+    "php": ">= 5.5",
+    "nette/nette": "~2.2@dev"
+  },
+  "require-dev": {
+    "nette/tester": "~1.0"
+  },
+  "minimum-stability": "dev",
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.3-dev"
+    }
+  }
+}

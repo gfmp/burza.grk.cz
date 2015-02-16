@@ -1,0 +1,37 @@
+################################################################################
+#
+# Low-level nette config
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+parameters:
+
+includes:
+	# Application configs
+	- app/app.neon
+	- app/forms.neon
+	- app/controls.neon
+	- app/latte.neon
+	- app/other.neon
+
+php:
+	date.timezone: Europe/Prague
+
+application:
+	catchExceptions: %productionMode%
+	errorPresenter: %system.errorPresenter%
+	mapping:
+		*: App\*\*Presenter
+
+tracy:
+	email: %system.errorEmail%
+	strictMode: TRUE
+
+latte:
+	xhtml: FALSE
+
+session:
+	expiration: 14 days
+	autoStart: smart
