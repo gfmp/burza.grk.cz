@@ -1,0 +1,18 @@
+{block}
+<form n:name="form" class="sign-in" role="login">
+    <div class="form-group">
+        {label username /}
+        <input n:name="username" class="form-control" placeholder="jan@novak.cz">
+    </div>
+    <div class="form-group">
+        {label password /}
+        <input n:name="password" class="form-control" placeholder="********">
+    </div>
+    <div class="checkbox">
+        <label>
+            <input n:name="remember"> Zapamatovat
+        </label>
+    </div>
+    <a class="btn btn-success btn-block" href="{plink :Front:Sign:up}">Zaregistrovat</a>
+    <input class="btn btn-primary btn-block" n:name="send">
+</form>

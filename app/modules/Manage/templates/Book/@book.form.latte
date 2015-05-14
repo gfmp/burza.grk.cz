@@ -1,0 +1,55 @@
+{block}
+<form n:name="bookForm" class="form-manage">
+    <fieldset>
+        <legend>Základní informace</legend>
+        {*<div class="form-group checkbox">*}
+        {*{label active}*}
+        {*{input active, class => "form-control"}*}
+        {*{$form['active']->getLabel()}*}
+        {*{/label}*}
+        {*</div>*}
+        <div class="form-group">
+            {label name /}
+            {input name, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label price /}
+            {input price, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label category /}
+            {input category, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label description /}
+            {input description, rows => 5, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label wear /}
+            <div class="col-md-offset-1" n:inner-foreach="$form['wear']->items as $key=>$item">
+                <div class="radio">
+                    <label n:name="wear:$key"> <input n:name="wear:$key">
+                        {$form['wear']->getLabelPart($key)->getText()}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Dodatečné informace</legend>
+        <div class="form-group">
+            {label author /}
+            {input author, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label year /}
+            {input year, class => "form-control"}
+        </div>
+        <div class="form-group">
+            {label publisher /}
+            {input publisher, class => "form-control"}
+        </div>
+    </fieldset>
+    <input n:name="send" class="btn btn-primary">
+</form>

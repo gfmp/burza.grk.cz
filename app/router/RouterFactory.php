@@ -25,7 +25,34 @@ class RouterFactory
     public static function createRouter()
     {
         $router = new RouteList();
-        $router[] = new Route('<presenter>/<action>[/<id>]', 'Front:Home:default');
+
+        // Front ===============================================================
+        $router[] = new Route('category/<categoryId [0-9]+>/', [
+            'module' => 'Front',
+            'presenter' => 'List',
+            'action' => 'category',
+        ]);
+
+        $router[] = new Route('book/<bookId [0-9]+>/', [
+            'module' => 'Front',
+            'presenter' => 'Book',
+            'action' => 'detail',
+        ]);
+
+        // Manage ==============================================================
+        $router[] = new Route('account/<presenter>/<action>[/<id>]', [
+            'module' => 'Manage',
+            'presenter' => 'Profile',
+            'action' => 'default',
+        ]);
+
+        // Default
+        $router[] = new Route('<presenter>/<action>[/<id>]', [
+            'module' => 'Front',
+            'presenter' => 'Home',
+            'action' => 'default',
+        ]);
+
         return $router;
     }
 

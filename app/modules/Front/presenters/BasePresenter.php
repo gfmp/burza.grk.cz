@@ -9,8 +9,10 @@
 namespace App\Front;
 
 use App\Common\BasePresenter as CommonBasePresenter;
-use App\Common\Controls\Category;
-use App\Common\Controls\ICategoryFactory;
+use App\Front\Controls\Category;
+use App\Front\Controls\ICategoryFactory;
+use App\Front\Controls\ILoginFactory;
+use App\Front\Controls\Login;
 
 /**
  * Base presenter for all front presenters
@@ -18,16 +20,11 @@ use App\Common\Controls\ICategoryFactory;
 abstract class BasePresenter extends CommonBasePresenter
 {
 
-    /** @var ICategoryFactory */
-    protected $categoryFactory;
+    /** @var ICategoryFactory @inject */
+    public $categoryFactory;
 
-    /**
-     * @param ICategoryFactory $categoryFactory
-     */
-    function __construct(ICategoryFactory $categoryFactory)
-    {
-        $this->categoryFactory = $categoryFactory;
-    }
+    /** @var ILoginFactory @inject */
+    public $loginFactory;
 
     /**
      * @return Category
@@ -37,4 +34,20 @@ abstract class BasePresenter extends CommonBasePresenter
         return $this->categoryFactory->create();
     }
 
+    /**
+     * @return Login
+     */
+    protected function createComponentLogin()
+    {
+        $login = $this->loginFactory->create();
+
+        $login->onLogin[] = function () {
+            // Display info
+            $this->flashMessage('Vítejte! Nyní můžete spravovat vaše knihy.', 'success');
+            // Redirect
+            $this->redirect('this');
+        };
+
+        return $login;
+    }
 }

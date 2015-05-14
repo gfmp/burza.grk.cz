@@ -1,5 +1,12 @@
+# Folders
 /.idea
 /log
 /temp
 /vendor
+/www/temp
+/www/uploads
+/bin
+# Files
 /composer.lock
+/app/config/config.local.neon
+/app/config/config.server.neon

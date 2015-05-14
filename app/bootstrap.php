@@ -7,6 +7,7 @@
  */
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/shortcuts.php';
 
 $configurator = new Nette\Configurator;
 

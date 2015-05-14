@@ -9,9 +9,16 @@
 namespace App\Front;
 
 /**
- * Homepage presenter.
+ * Home presenter.
  */
-class HomePresenter extends BasePresenter
+final class HomePresenter extends BasePresenter
 {
 
+    /**
+     * Forward request
+     */
+    public function actionDefault()
+    {
+        $this->forward('List:default');
+    }
 }

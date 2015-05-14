@@ -10,7 +10,7 @@ parameters:
 
     # System settings
     system:
-        errorEmail: error@webtoad.cz
+        errorEmail: sulcmil@gmail.com
         errorPresenter: Front:Error
 
     # Site settings
@@ -31,10 +31,10 @@ parameters:
 
     # Paths
     paths:
-        webtemp: /temp
-        storage: /uploads
+        storage: uploads
+        webtemp: temp
 
 services:
     nette.userStorage:
         setup:
-            - setNamespace(Burza)
+            - setNamespace(GFMP/Burza)

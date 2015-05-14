@@ -1,0 +1,18 @@
+################################################################################
+#
+# Nextras/Dbal
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+extensions:
+    dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
+
+dbal:
+	driver: %database.driver%
+	host: %database.host%
+	database: %database.database%
+	username: %database.username%
+	password: %database.password%
+	connectionTz: '+2:00'

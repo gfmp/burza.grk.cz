@@ -7,4 +7,19 @@
 # @version $$REV$$
 #
 services:
-	- App\Common\Controls\ICategoryFactory
+	- class: App\Front\Controls\Category(@App\Model\ORM\Orm::categories)
+	  implement: App\Front\Controls\ICategoryFactory
+
+	- implement: App\Front\Controls\IBookListFactory
+
+	- class: App\Front\Controls\Login(@App\Model\ORM\Orm::users)
+	  implement: App\Front\Controls\ILoginFactory
+
+	- class: App\Front\Controls\Registration(@App\Model\ORM\Orm::users)
+	  implement: App\Front\Controls\IRegistrationFactory
+
+	- class: App\Manage\Controls\BookTable(@App\Model\ORM\Orm::books, ...)
+	  implement: App\Manage\Controls\IBookTableFactory
+
+	- class: App\Front\Controls\BookContact(@App\Model\ORM\Orm::books, ..., ...)
+	  implement: App\Front\Controls\IBookContactFactory

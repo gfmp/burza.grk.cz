@@ -14,18 +14,11 @@ use Tracy\ILogger;
 /**
  * Error presenter.
  */
-class ErrorPresenter extends BasePresenter
+final class ErrorPresenter extends BasePresenter
 {
-    /** @var ILogger */
-    private $logger;
 
-    /**
-     * @param ILogger $logger
-     */
-    public function __construct(ILogger $logger)
-    {
-        $this->logger = $logger;
-    }
+    /** @var ILogger @inject */
+    public $logger;
 
     /**
      * @param  Exception

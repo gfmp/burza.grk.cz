@@ -8,32 +8,67 @@
 
 namespace App\Front;
 
+use App\Front\Controls\IRegistrationFactory;
+use App\Front\Controls\Registration;
+use App\Model\ORM\Entity\User;
+
 /**
  * Sign in/out presenters.
  */
-class SignPresenter extends BasePresenter
+final class SignPresenter extends BasePresenter
 {
 
+    /** @var IRegistrationFactory @inject */
+    public $registrationFactory;
+
+
     /**
-     * Sign-in form factory.
-     *
-     * @return Nette\Application\UI\Form
+     * SIGN IN/OUT *************************************************************
+     * *************************************************************************
      */
-    protected function createComponentSignInForm()
-    {
-        $form = $this->factory->create();
-        $form->onSuccess[] = function ($form) {
-            $form->getPresenter()->redirect('Homepage:');
-        };
-        return $form;
-    }
 
-
+    /**
+     * Logout
+     */
     public function actionOut()
     {
-        $this->getUser()->logout();
-        $this->flashMessage('You have been signed out.');
-        $this->redirect('in');
+        $this->user->logout(TRUE);
+        $this->flashMessage('Byl(a) jste úspěšně odhlášen(a).', 'success');
+        $this->redirect(':Front:Home:');
     }
 
+    /**
+     * REGISRATION *************************************************************
+     * *************************************************************************
+     */
+
+    /**
+     * Sign up
+     */
+    public function actionUp()
+    {
+    }
+
+    /**
+     * Registration control factory.
+     *
+     * @return Registration
+     */
+    protected function createComponentRegistration()
+    {
+        $registration = $this->registrationFactory->create();
+
+        $registration->onRegistration[] = function (User $user) {
+            // Display info
+            $this->flashMessage('Děkujeme za registraci. V sekci můj účet můžete nastavit vše nezbytné.', 'success');
+
+            // Autologin
+            $this->user->login($user->toIdentity());
+
+            // Redirect to profile
+            $this->redirect(':Manage:Profile:');
+        };
+
+        return $registration;
+    }
 }

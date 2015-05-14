@@ -1,0 +1,19 @@
+{block}
+<table class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Kategorie</th>
+        <th>Kniha</th>
+        <th>Cena</th>
+        <th>Přidána</th>
+    </tr>
+    <tr n:foreach="$books as $book">
+        <td>{$book->id}</td>
+        <td>{$book->category->name}</td>
+        <td>{$book->name}</td>
+        <td>{$book->price|price}</td>
+        <td>{$book->createdAt|date:'d.m.Y'}</td>
+    </tr>
+    </tbody>
+</table>

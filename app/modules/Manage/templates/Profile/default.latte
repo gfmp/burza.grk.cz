@@ -1,0 +1,15 @@
+{block #content}
+
+<h2>Vítej!
+    <small>{$user->identity->username}</small>
+</h2>
+
+<div class="well well-large">
+    <a n:href="Book:add" class="btn btn-primary">Přidat novou knihu</a>
+</div>
+
+<h2>Aktivní inzeráty</h2>
+{control active:active}
+
+<h2>Archivované inzeráty</h2>
+{control archive:archive}

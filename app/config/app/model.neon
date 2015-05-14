@@ -1,0 +1,15 @@
+################################################################################
+#
+# Model
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+services:
+    authenticator: App\Model\Security\Authenticator
+
+    - App\Model\Image\ImageConfigFactory(..., %wwwDir%, %dirs.storage%, %dirs.webtemp%)
+    - App\Model\Image\ImageManager(@App\Model\Image\ImageConfigFactory::create())
+    - App\Model\Image\ImageService(@App\Model\Image\ImageConfigFactory::create())
+    - App\Model\Image\ImageFilter

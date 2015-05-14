@@ -1,0 +1,7 @@
+{block}
+<div class="list-group" n:inner-foreach="$categories as $category">
+    <a n:class="$presenter->isLinkCurrent('List:category', $category->id) ? active, list-group-item" href="{plink List:category, $category->id}">
+        {$category->name}
+        <span class="badge badge-">{count($category->books)}</span>
+    </a>
+</div>

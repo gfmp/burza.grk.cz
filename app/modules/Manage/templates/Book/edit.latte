@@ -1,0 +1,15 @@
+{block #content}
+
+<h2>{$book->name}</h2>
+
+<div class="col-md-6">
+    {include '@book.form.latte'}
+</div>
+
+<div class="col-md-6">
+    {include '@image.form.latte'}
+    <div class="well text-center" n:ifset="$book" n:if="$book->image">
+        <img src="{$book|imgbook:200:200}"><br><br>
+        <a onClick="return confirm('Opravdu smazat hlavní obrázek?');" n:href="removeImage!, $book->id" class="btn btn-danger">Smazat obrázek</a>
+    </div>
+</div>

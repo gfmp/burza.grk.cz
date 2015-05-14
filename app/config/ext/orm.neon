@@ -1,0 +1,13 @@
+################################################################################
+#
+# Nextras/ORM
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+extensions:
+    orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+
+orm:
+    model: App\Model\ORM\Orm

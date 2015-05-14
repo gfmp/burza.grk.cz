@@ -1,0 +1,28 @@
+{block}
+{if count($books) <= 0}
+    <p class="alert alert-info">Nenalezli jsme žádné knížky.</p>
+    <p class="alert alert-success">Buďte první a <a href="{plink :Manage:Book:add}">vložte novou knihu</a>.</p>
+{else}
+<div class="row" id="book-list">
+    <div class="col-sm-4 col-lg-4 col-md-4" n:foreach="$books as $book">
+        <div class="thumbnail">
+            <a href="{plink :Front:Book:detail, $book->id}"><img src="{$book|imgbook:100:100}" alt="{$book->name}" title="{$book->name}"></a>
+            <div class="caption">
+                <h4 class="pull-right">{$book->price|price}</h4>
+                <h4><a href="{plink :Front:Book:detail, $book->id}">{$book->name}</a></h4>
+                <p>{$book->description|striptags|truncate:130}</p>
+            </div>
+            {*<div class="ratings">*}
+                {*<p class="pull-right">15 reviews</p>*}
+                {*<p>*}
+                    {*<span class="glyphicon glyphicon-star"></span>*}
+                    {*<span class="glyphicon glyphicon-star"></span>*}
+                    {*<span class="glyphicon glyphicon-star"></span>*}
+                    {*<span class="glyphicon glyphicon-star"></span>*}
+                    {*<span class="glyphicon glyphicon-star"></span>*}
+                {*</p>*}
+            {*</div>*}
+        </div>
+    </div>
+</div>
+{/if}

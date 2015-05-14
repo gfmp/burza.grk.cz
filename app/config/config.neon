@@ -9,12 +9,7 @@
 parameters:
 
 includes:
-	# Application configs
-	- app/app.neon
-	- app/forms.neon
-	- app/controls.neon
-	- app/latte.neon
-	- app/other.neon
+	- engine.neon
 
 php:
 	date.timezone: Europe/Prague
@@ -26,12 +21,17 @@ application:
 		*: App\*\*Presenter
 
 tracy:
-	email: %system.errorEmail%
+	email: sulcmil@gmail.com
 	strictMode: TRUE
 
 latte:
 	xhtml: FALSE
 
 session:
+	debugger: true
 	expiration: 14 days
 	autoStart: smart
+
+di:
+	debugger: true
+

@@ -9,5 +9,7 @@
 services:
     nette.latteFactory:
         setup:
-            #- addFilter(Site\Templating\TemplateHelpers::)
-            #- addFilter(thumb, @thumbatorTemplateHelper::image)
+            - addFilter(NULL, 'App\Core\Latte\Filters::loader')
+            - addFilter(img, [@App\Model\Image\ImageFilter, string])
+            - addFilter(imgbook, [@App\Model\Image\ImageFilter, book])
+            - addFilter(imgimage, [@App\Model\Image\ImageFilter, image])

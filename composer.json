@@ -8,15 +8,11 @@
   ],
   "require": {
     "php": ">= 5.5",
-    "nette/nette": "~2.2@dev"
+    "nette/nette": "~2.3.0",
+    "nextras/orm": "~1.0.0",
+    "nextras/dbal": "~1.0.0"
   },
   "require-dev": {
-    "nette/tester": "~1.0"
-  },
-  "minimum-stability": "dev",
-  "extra": {
-    "branch-alias": {
-      "dev-master": "2.3-dev"
-    }
+    "nette/tester": "~1.4"
   }
 }

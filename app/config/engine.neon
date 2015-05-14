@@ -1,0 +1,20 @@
+################################################################################
+#
+# Heart of application
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+includes:
+    # Application configs
+	- app/app.neon
+	- app/forms.neon
+	- app/controls.neon
+	- app/latte.neon
+	- app/model.neon
+	- app/other.neon
+
+	# Extensions configs
+	- ext/dbal.neon
+	- ext/orm.neon

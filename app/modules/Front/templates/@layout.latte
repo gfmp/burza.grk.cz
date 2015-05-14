@@ -4,10 +4,14 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="{$basePath}/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
 
 	<!-- TITLE -->
-	<title>Shop Homepage - Start Bootstrap Template</title>
+	{ifset #title}
+	<title>{include #title} | Burza učebnic - GFMP</title>
+	{else}
+	<title>Burza učebnic | Gymnázium F.M. Pelcla</title>
+	{/ifset}
 
 	<!-- SEO -->
 	<meta name="keywords" content="">
@@ -17,7 +21,7 @@
 	<meta name="author" content="Felix <sulcmil@gmail.com>">
 
 	<!-- FACEBOOK -->
-	<meta property="og:image" content="fb-logo.png">
+	<meta property="og:image" content="{$basePath}/assets/img/facebook.png">
 	<meta property="og:type" content="website">
 	<meta property="og:title" content="">
 	<meta property="og:url" content="{link //this}">
@@ -25,11 +29,10 @@
 	<meta property="og:description" content="">
 
 	<!-- CSS -->
-	<link href="{$basePath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="{$basePath}/vendor/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="{$basePath}/assets/css/theme.css" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{$basePath}/assets/css/theme.css?rev={$rev}" rel="stylesheet">
 </head>
-<body>
+<body data-rev="{$rev}" data-basepath="{$basePath}">
 	<!-- Navigation -->
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
@@ -47,13 +50,48 @@
 					<li>
 						<a n:href=":Front:Home:">Poslední nabídky</a>
 					</li>
+					<li>
+						<a n:href=":Manage:Profile:" n:if="$user->isLoggedIn()">Můj účet</a>
+					</li>
 				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						{if $user->isLoggedIn()}
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$user->identity->username} <span class="caret"></span></a>
+							<ul class="dropdown-menu" role="menu">
+								<li><a n:href=":Manage:Profile:">Můj učet</a></li>
+								<li class="divider"></li>
+								<li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
+							</ul>
+						{else}
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit <span class="caret"></span></a>
+							<div class="dropdown-menu">
+								{control login}
+							</div>
+						{/if}
+					</li>
+				</ul>
+
+				{*<form class="navbar-form navbar-right" role="search">*}
+					{*<div class="form-group">*}
+						{*<input type="text" class="form-control input-large search-query" placeholder="Search">*}
+					{*</div>*}
+					{*<button type="submit" class="btn btn-default">Submit</button>*}
+				{*</form>*}
 			</div>
 		</div>
 	</nav>
 
 	<!-- Page Content -->
 	<div class="container">
+
+		<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			{$flash->message}
+		</div>
+
+		{block #main}
 		<div class="row">
 			<div class="col-md-3">
 				{control category}
@@ -62,6 +100,7 @@
 				{include #content}
 			</div>
 		</div>
+		{/block}
 	</div>
 	<!-- /.container -->
 
@@ -72,14 +111,21 @@
 			<div class="row">
 				<div class="col-lg-12 clearfix">
 					<p class="pull-left">Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}</p>
-					<p class="pull-right">Developed by <a href="http://jfx.cz">Milan Felix Sulc</a></p>
+					<p class="pull-right">Developed by <a href="http://jfx.cz">Felix</a></p>
 				</div>
 			</div>
 		</footer>
 	</div>
 	<!-- /.container -->
 
+	<!-- TRACKING -->
+	{include 'parts/@ga.latte'}
+
 	<!-- SCRIPTS -->
-	<script src="{$basePath}/vendor/bootstrap/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
+	<script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
+	<script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>
 </body>
 </html>
