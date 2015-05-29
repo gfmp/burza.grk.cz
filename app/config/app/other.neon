@@ -11,6 +11,9 @@ services:
 	# Routing ==============================================
 	router: App\Routing\RouterFactory::createRouter
 
+	# Facebok ==============================================
+	facebook: App\Model\Facebook\FacebookService(%facebook.appId%, %facebook.appSecret%)
+
 	# Config ===============================================
 	config:
 		class: App\Core\Utils\DIConfig
