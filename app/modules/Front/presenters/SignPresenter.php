@@ -138,6 +138,9 @@ final class SignPresenter extends BasePresenter
             if ($registered) {
                 // Display info
                 $this->flashMessage('Děkujeme za registraci přes Facebook. V sekci můj účet můžete nastavit vše nezbytné.', 'success');
+            } else {
+                // Display info
+                $this->flashMessage('Vítejte zpět. Systém vás přihlásil přes Facebook.', 'success');
             }
 
             // Autologin
