@@ -13,6 +13,10 @@
 	# prevents files starting with dot to be viewed by browser
 	RewriteRule /\.|^\. - [F]
 
+	# redirect burza.jfx.cz to burza.grk.cz
+	RewriteCond %{HTTP_HOST} !^burza\.grk\.cz$ [NC]
+	RewriteRule ^(.*)$ http://burza.grk.cz [R=301,L]
+
 	# front controller
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-d
