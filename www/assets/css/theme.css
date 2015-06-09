@@ -76,6 +76,24 @@ form.form-manage {
   margin: 0 0 20px 0;
 }
 /**
+ * Responsive-480px ============================================================
+ */
+@media (max-width: 768px) {
+  div.container div.row div.col-md-9 {
+    margin-top: 15px;
+  }
+  .navbar-nav .open .dropdown-sign {
+    background: #fff;
+  }
+  .navbar-nav .open .dropdown-sign form {
+    width: 95%;
+  }
+  .navbar-fixed-bottom .navbar-collapse,
+  .navbar-fixed-top .navbar-collapse {
+    max-height: 430px;
+  }
+}
+/**
  * Responsive-768px ============================================================
  */
 @media (max-width: 768px) {

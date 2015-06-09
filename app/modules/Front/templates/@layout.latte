@@ -38,7 +38,7 @@
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navbar">
 					<span class="sr-only">Toggle navigation</span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
@@ -46,7 +46,7 @@
 				</button>
 				<a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
 			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<div class="collapse navbar-collapse" id="menu-navbar">
 				<ul class="nav navbar-nav">
 					<li>
 						<a n:href=":Front:Home:">Poslední nabídky</a>
@@ -67,7 +67,7 @@
 							</ul>
 						{else}
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit <span class="caret"></span></a>
-							<div class="dropdown-menu">
+							<div class="dropdown-menu dropdown-sign">
 								{control login}
 							</div>
 						{/if}
