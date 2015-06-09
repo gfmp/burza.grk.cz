@@ -65,8 +65,12 @@ final class ImageService
                 return $relPath;
             }
 
-            // Create image obj
-            $image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);
+            if (!file_exists($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename)) {
+                return NULL;
+            } else {
+                // Create image obj
+                $image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);
+            }
 
             // Resize
             $image->resize($width, $height, $method);
