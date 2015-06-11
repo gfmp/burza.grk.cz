@@ -14,7 +14,7 @@
 	RewriteRule /\.|^\. - [F]
 
 	# redirect burza.jfx.cz to burza.grk.cz
-	RewriteCond %{HTTP_HOST} !^burza\.grk\.cz$ [NC]
+	RewriteCond %{HTTP_HOST} ^burza\.jfx\.cz$ [NC]
 	RewriteRule ^(.*)$ http://burza.grk.cz [R=301,L]
 
 	# front controller
