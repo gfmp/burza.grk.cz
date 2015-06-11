@@ -14,7 +14,7 @@ use Nette\Utils\DateTime;
 /**
  * User
  *
- * @property int        $fbid
+ * @property int|NULL   $fbid
  * @property string     $username
  * @property string     $password
  * @property string     $role           {default self::ROLE_USER} {enum self::ROLE_*}
