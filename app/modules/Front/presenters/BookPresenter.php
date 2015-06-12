@@ -51,6 +51,7 @@ final class BookPresenter extends BasePresenter
 
         if (!$this->book) {
             $this->flashMessage('Kniha nebyla nalezena.', 'warning');
+            $this->redirect('Home:');
         }
     }
 
