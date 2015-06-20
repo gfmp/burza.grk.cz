@@ -15,4 +15,4 @@ dbal:
 	database: %database.database%
 	username: %database.username%
 	password: %database.password%
-	connectionTz: '+0:00'
+	connectionTz: '+2:00'
