@@ -21,12 +21,17 @@ footer {
 #book-list .item {
   border-radius: 4px;
 }
+#book-list h3 {
+  padding: 0 9px;
+  font-size: 19px;
+  margin: 15px 0 0 0;
+}
 #book-list .caption {
-  height: 130px;
   overflow: hidden;
 }
-#book-list .caption h4 {
-  white-space: nowrap;
+#book-list .btn-price {
+  border-radius: 0;
+  padding: 3px 0;
 }
 #book-list .thumbnail img {
   max-width: 150px;
@@ -37,8 +42,27 @@ footer {
   padding-left: 10px;
   color: #d17581;
 }
+#book-list .price {
+  font-size: 20px;
+  line-height: 150%;
+  position: absolute;
+  z-index: 10;
+  margin-left: -10px;
+  margin-top: 0px;
+  width: 115px;
+  padding: 5px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  transform: rotate(350deg);
+}
+#book-list .price-info {
+  background-color: #3a87ad;
+}
 #book-list .thumbnail {
   padding: 0;
+  height: 250px;
+  position: relative;
 }
 #book-list .thumbnail .caption-full {
   padding: 9px;
@@ -76,7 +100,7 @@ form.form-manage {
   margin: 0 0 20px 0;
 }
 /**
- * Responsive-480px ============================================================
+ * Responsive-768px ============================================================
  */
 @media (max-width: 768px) {
   div.container div.row div.col-md-9 {
@@ -92,12 +116,15 @@ form.form-manage {
   .navbar-fixed-top .navbar-collapse {
     max-height: 430px;
   }
-}
-/**
- * Responsive-768px ============================================================
- */
-@media (max-width: 768px) {
   #book-list .thumbnail img {
     max-width: 100px;
+  }
+}
+/**
+ * Responsive-992px ============================================================
+ */
+@media (max-width: 992px) {
+  div.container div.row div.col-md-9 {
+    margin-top: 15px;
   }
 }
