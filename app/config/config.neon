@@ -29,7 +29,6 @@ latte:
 
 session:
 	debugger: true
-	expiration: 14 days
 	autoStart: smart
 
 di:
