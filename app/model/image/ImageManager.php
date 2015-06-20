@@ -37,7 +37,7 @@ final class ImageManager
 
         // Generate image unique name
         $filename = md5($file->getName() . time());
-        $ext = pathinfo($file->getName(), PATHINFO_EXTENSION);
+        $ext = strtolower(pathinfo($file->getName(), PATHINFO_EXTENSION));
         $filename = sprintf('%s/%s.%s', date('Y/m/d'), $filename, $ext);
 
         // Create folder
