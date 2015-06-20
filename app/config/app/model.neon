@@ -9,7 +9,10 @@
 services:
     authenticator: App\Model\Security\Authenticator
 
+    - class: App\Model\Image\ImageConfig
+      factory: @App\Model\Image\ImageConfigFactory::create()
+
     - App\Model\Image\ImageConfigFactory(..., %wwwDir%, %dirs.storage%, %dirs.webtemp%)
-    - App\Model\Image\ImageManager(@App\Model\Image\ImageConfigFactory::create())
-    - App\Model\Image\ImageService(@App\Model\Image\ImageConfigFactory::create())
+    - App\Model\Image\ImageManager
+    - App\Model\Image\ImageService
     - App\Model\Image\ImageFilter

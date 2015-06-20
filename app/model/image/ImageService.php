@@ -9,6 +9,7 @@
 namespace App\Model\Image;
 
 use App\Model\ORM\Entity\Book;
+use Nette\NotImplementedException;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Image;
 
@@ -35,7 +36,7 @@ final class ImageService
      */
     public function fromString($image, $width, $height, $method)
     {
-        $stop();
+        throw new NotImplementedException;
     }
 
     /**
@@ -54,11 +55,11 @@ final class ImageService
             $filename = "{$width}x{$height}/" . $book->image->filename;
 
             // Absolute path
-            $absPath = rtrim($this->config->getWebtempDir(), '/') . '/' . $filename;
+            $absPath = $this->config->getWebtempDir() . '/' . $filename;
 
             // Relative path
-            $relPath = rtrim($this->config->getBasePath(), '/') . '/'
-                . trim(str_replace($this->config->getWwwDir(), NULL, $this->config->getWebtempDir()), '/') . '/'
+            $relPath = $this->config->getBasePath() . '/'
+                . str_replace($this->config->getWwwDir() . '/', NULL, $this->config->getWebtempDir()) . '/'
                 . $filename;
 
             if (file_exists($absPath)) {
@@ -86,14 +87,14 @@ final class ImageService
     }
 
     /**
-     * @param Book $book
+     * @param Image $image
      * @param int|NULL $width
      * @param int|NULL $height
      * @param int $method
      * @return string
      */
-    public function fromImageEntity(Book $book, $width, $height, $method)
+    public function fromImageEntity(Image $image, $width, $height, $method)
     {
-        $stop();
+        throw new NotImplementedException;
     }
 }

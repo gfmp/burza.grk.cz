@@ -7,9 +7,11 @@
 # @version $$REV$$
 #
 services:
+
     nette.latteFactory:
         setup:
             - addFilter(NULL, 'App\Core\Latte\Filters::loader')
             - addFilter(img, [@App\Model\Image\ImageFilter, string])
             - addFilter(imgbook, [@App\Model\Image\ImageFilter, book])
             - addFilter(imgimage, [@App\Model\Image\ImageFilter, image])
+            - addFilter(lightbox, [@App\Model\Image\ImageFilter, lightbox])

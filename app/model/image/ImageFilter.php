@@ -18,12 +18,17 @@ final class ImageFilter
     /** @var ImageService */
     private $service;
 
+    /** @var ImageConfig */
+    private $config;
+
     /**
      * @param ImageService $service
+     * @param ImageConfig $config
      */
-    public function __construct(ImageService $service)
+    public function __construct(ImageService $service, ImageConfig $config)
     {
         $this->service = $service;
+        $this->config = $config;
     }
 
     /**
@@ -59,6 +64,20 @@ final class ImageFilter
      */
     public function image($e, $width = NULL, $height = NULL, $method = NImage::SHRINK_ONLY)
     {
-        return $this->service->fromImageEntity($e,$width, $height, $method);
+        return $this->service->fromImageEntity($e, $width, $height, $method);
+    }
+
+    /**
+     * @param Book $e
+     * @return string
+     */
+    public function lightbox(Book $e)
+    {
+        $image = $e->mainImage;
+        if ($image) {
+            return $this->config->getUploadsPath() . '/' . $image;
+        } else {
+            return '#';
+        }
     }
 }

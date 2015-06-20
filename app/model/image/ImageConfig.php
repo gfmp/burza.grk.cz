@@ -88,4 +88,12 @@ final class ImageConfig
         $this->webtempDir = $webtempDir;
     }
 
+    /**
+     * @return string
+     */
+    public function getUploadsPath()
+    {
+        return $this->getBasePath() . '/' . str_replace($this->getWwwDir() . '/', NULL, $this->getStorageDir());
+    }
+
 }

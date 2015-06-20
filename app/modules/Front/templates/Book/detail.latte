@@ -36,7 +36,9 @@
         </table>
     </div>
     <div class="col-md-4">
-        <img class="img-responsive" src="{$book|imgbook:200:200}" alt="{$book->name}" title="{$book->name}">
+        <a class="lightbox img-thumbnail" href="{$book|lightbox}">
+            <img class="img-responsive" src="{$book|imgbook:200:200}" alt="{$book->name}" title="{$book->name}">
+        </a>
     </div>
 
 </div>

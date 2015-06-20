@@ -92,6 +92,10 @@
 			{$flash->message}
 		</div>
 
+		<div class="alert alert-warning" n:if="$presenter->isLinkCurrent(':Front:List:*')">
+			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a n:href=":Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
+		</div>
+
 		{block #main}
 		<div class="row">
 			<div class="col-md-3">
@@ -125,6 +129,8 @@
 	<!-- SCRIPTS -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
+	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
 	<script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
 	<script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
 	<script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>

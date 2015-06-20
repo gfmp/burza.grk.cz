@@ -34,9 +34,9 @@ final class ImageConfigFactory
     public function __construct(Request $httpRequest, $wwwDir, $storageDir, $webtempDir)
     {
         $this->httpRequest = $httpRequest;
-        $this->wwwDir = $wwwDir;
-        $this->storageDir = $storageDir;
-        $this->webtempDir = $webtempDir;
+        $this->wwwDir = rtrim($wwwDir);
+        $this->storageDir = rtrim($storageDir, '/');
+        $this->webtempDir = rtrim($webtempDir, '/');
     }
 
     /**

@@ -45,7 +45,9 @@ final class ListPresenter extends BasePresenter
     {
         $this->booksCollection = $this->booksReposity
             ->findActive()
-            ->orderBy('createdAt', 'DESC');
+            ->orderBy('id', 'DESC');
+
+        $this->template->books = $this->booksCollection;
     }
 
     /**
@@ -61,7 +63,9 @@ final class ListPresenter extends BasePresenter
         $this->booksCollection = $this->booksReposity
             ->findActive()
             ->findBy(['category' => $categoryId])
-            ->orderBy('createdAt', 'DESC');
+            ->orderBy('id', 'DESC');
+
+        $this->template->books = $this->booksCollection;
     }
 
     /**
