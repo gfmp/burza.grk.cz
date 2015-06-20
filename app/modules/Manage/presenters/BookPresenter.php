@@ -19,6 +19,7 @@ use App\Model\ORM\Orm;
 use App\Model\ORM\Repository\BooksRepository;
 use App\Model\ORM\Repository\ImagesRepository;
 use Nette\Http\FileUpload;
+use Nette\Utils\DateTime;
 
 /**
  * Book presenter.
@@ -144,11 +145,13 @@ final class BookPresenter extends BasePresenter
                 $this->flashMessage('Chyba při editaci knihy. Prosím zkuste znovu.', 'danger');
                 return;
             }
+            $book->updatedAt = new DateTime();
         } else {
             // New book
             $book = new Book();
             $book->active = TRUE;
             $book->state = $book::STATE_SELLING;
+            $book->createdAt = new DateTime();
         }
 
         // Attach book
