@@ -50,7 +50,8 @@ final class BookForm extends Form
 
         $this->addText('year', 'Rok vydání')
             ->addCondition(self::FILLED)
-            ->addRule(self::INTEGER, 'Rok vydání musí být celočíselný.');
+            ->addRule(self::INTEGER, 'Rok vydání musí být celočíselný.')
+            ->addRule(self::PATTERN, 'Zadejte rok jako RRRR.', '[0-9]{4}');
 
         $this->addHidden('id');
 

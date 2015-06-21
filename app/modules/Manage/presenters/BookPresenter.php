@@ -168,7 +168,7 @@ final class BookPresenter extends BasePresenter
         // Aditional
         $book->author = $values->author;
         $book->publisher = $values->publisher;
-        $book->year = $values->year;
+        $book->year = is_numeric($values->year) ? $values->year : NULL;
 
         try {
             // Save/update book

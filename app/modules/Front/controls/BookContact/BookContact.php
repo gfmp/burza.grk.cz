@@ -96,6 +96,7 @@ final class BookContact extends BaseControl
         $template = $this->createTemplate();
         $template->setFile(__DIR__ . '/templates/@mail.latte');
         $template->form = $values;
+        $template->book = $book;
         $template->mail = $message;
         $message->setHtmlBody($template);
 

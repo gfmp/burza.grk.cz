@@ -7,6 +7,8 @@
 <body>
     <h1>Hurá! Nová poptávka</h1>
 
+    <h2>{$book->name}</h2>
+
     <table>
         <tr>
             <th>Poptávající:</th>
@@ -18,7 +20,7 @@
         </tr>
         <tr>
             <th>Telefon:</th>
-            <td>{if $form->phone}{$form->phone}{else}Nevyplnil{/if}</td>
+            <td>{if $form->phone}{$form->phone}{else}Nevyplněn{/if}</td>
         </tr>
         <tr>
             <th>Zpráva:</th>

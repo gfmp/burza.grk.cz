@@ -43,6 +43,6 @@ final class Helpers extends Model
      */
     public static function getPlaceholdImage($id)
     {
-        return sprintf('assets/img/books/book%d.png', $id % 9);
+        return sprintf('assets/img/books/book%d.png', ($id % 9) + 1);
     }
 }

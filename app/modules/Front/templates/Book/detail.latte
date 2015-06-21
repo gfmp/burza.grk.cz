@@ -1,3 +1,6 @@
+{block #title}{$book->name}{/block}
+{block #description}{$book->description|striptags|truncate:100}{/block}
+
 {block #content}
 <div class="row">
     <div class="col-lg-12">
@@ -10,7 +13,7 @@
     <div class="col-md-8">
         <h3>Popisek</h3>
 
-        <p>{$book->description|nl2br|noescape}</p>
+        <p>{$book->description|noescape}</p>
 
         <h3>Info</h3>
 
@@ -20,22 +23,22 @@
                 <th>Opotřebení:</th>
                 <td>{$book->wear|wear}</td>
             </tr>
-            <tr>
+            <tr n:if="$book->year">
                 <th>Rok vydání:</th>
                 <td>{$book->year}</td>
             </tr>
-            <tr>
+            <tr n:if="$book->author">
                 <th>Autor:</th>
                 <td>{$book->author}</td>
             </tr>
-            <tr>
+            <tr n:if="$book->publisher">
                 <th>Nakladatelství:</th>
                 <td>{$book->publisher}</td>
             </tr>
             </tbody>
         </table>
     </div>
-    <div class="col-md-4">
+    <div n:if="$book->image" class="col-md-4">
         <a class="lightbox img-thumbnail" href="{$book|lightbox}">
             <img class="img-responsive" src="{$book|imgbook:200:200}" alt="{$book->name}" title="{$book->name}">
         </a>

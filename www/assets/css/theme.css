@@ -35,7 +35,8 @@ footer {
   padding: 3px 0;
 }
 #book-list .thumbnail img {
-  max-width: 150px;
+  max-width: 100px;
+  max-height: 100px;
   margin: 15px auto 0 auto;
 }
 #book-list .ratings {
@@ -49,7 +50,7 @@ footer {
   position: absolute;
   z-index: 10;
   margin-left: -10px;
-  margin-top: 0px;
+  margin-top: 0;
   width: 115px;
   padding: 5px;
   text-align: center;
@@ -62,7 +63,7 @@ footer {
 }
 #book-list .thumbnail {
   padding: 0;
-  height: 250px;
+  height: 300px;
   position: relative;
 }
 #book-list .thumbnail .caption-full {

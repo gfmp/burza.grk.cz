@@ -14,8 +14,8 @@
 	{/ifset}
 
 	<!-- SEO -->
-	<meta name="keywords" content="">
-	<meta name="description" content="">
+	<meta name="keywords" n:ifset="#keywords" content="{include #keywords}">
+	<meta name="description" n:ifset="#description" content="{include #description}">
 	<meta name="googlebot" content="snippet,archive">
 	<meta name="robots" content="index, follow">
 	<meta name="author" content="Felix <sulcmil@gmail.com>">
@@ -23,10 +23,10 @@
 	<!-- FACEBOOK -->
 	<meta property="og:image" content="{$basePath}/assets/img/facebook.png">
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="">
+	<meta property="og:title" n:ifset="#title" content="{include #title|striptags}">
 	<meta property="og:url" content="{link //this}">
-	<meta property="og:site_name" content="">
-	<meta property="og:description" content="">
+	<meta property="og:site_name" content="{$baseUri}">
+	<meta property="og:description" n:ifset="#description" content="{include #description}">
 
 	<!-- CSS -->
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
@@ -127,8 +127,9 @@
 	{include 'parts/@ga.latte'}
 
 	<!-- SCRIPTS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
 	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
 	<script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
