@@ -10,6 +10,7 @@ namespace App\Front;
 
 use App\Front\Controls\BookContact;
 use App\Front\Controls\IBookContactFactory;
+use App\Front\Controls\IContactFactory;
 use App\Model\ORM\Entity\Book;
 use App\Model\ORM\Orm;
 use App\Model\ORM\Repository\BooksRepository;
@@ -74,7 +75,7 @@ final class BookPresenter extends BasePresenter
      *
      * @return BookContact
      */
-    protected function createComponentContact()
+    protected function createComponentBookContact()
     {
         return $this->bookContactFactory->create($this->book->id);
     }

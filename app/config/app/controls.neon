@@ -23,3 +23,5 @@ services:
 
 	- class: App\Front\Controls\BookContact(@App\Model\ORM\Orm::books, ..., ...)
 	  implement: App\Front\Controls\IBookContactFactory
+
+	- implement: App\Front\Controls\IContactFactory

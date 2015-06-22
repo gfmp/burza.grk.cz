@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{$mail->subject}</title>
+</head>
+<body>
+    <h1>Nová zpráva</h1>
+
+    <table>
+        <tr>
+            <th>Email:</th>
+            <td>{if $form->email}{$form->email}{else}Nevyplněn{/if}</td>
+        </tr>
+        <tr>
+            <th>Zpráva:</th>
+            <td>{$form->message|nl2br|noescape}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <small>Zprávu vygeneroval systém
+        <a href="{plink //:Front:Home:default}">burza.grk.cz</a> dne {date('d.m.Y')} v {date('H:i:s')}.
+    </small>
+</body>
+</html>

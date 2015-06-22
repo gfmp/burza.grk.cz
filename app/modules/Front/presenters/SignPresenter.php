@@ -108,7 +108,7 @@ final class SignPresenter extends BasePresenter
     {
         // Authorization failed
         if ($this->getParameter('error_code')) {
-            $this->flashMessage('Nepodařilo se vás přihlasít pomocí facebooku. Musíte se u nás zaregistrovat ručně.', 'danger');
+            $this->flashMessage('Nepodařilo se vás přihlásit pomocí facebooku. Musíte se u nás zaregistrovat ručně.', 'danger');
             $this->redirect('up');
             return;
         }

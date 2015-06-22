@@ -15,6 +15,7 @@ use Facebook\GraphObject;
 use Nette\Application\UI\Form;
 use Nette\Security\Passwords;
 use Nette\Security\User as UserSecurity;
+use Tracy\Debugger;
 
 /**
  * Registration
@@ -129,7 +130,7 @@ final class Registration extends BaseControl
             return;
         }
 
-        // Exists user with this FBEMAIL?
+        // Exists user with this USERNAME?
         $user = $this->repository->getBy(['username' => $email]);
         if ($user) {
             try {
@@ -144,22 +145,21 @@ final class Registration extends BaseControl
             } catch (\PDOException $e) {
                 $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
             }
-            return;
-        }
+        } else {
+            try {
+                $user = new User();
+                $user->setRawValue('fbid', $fbid);
+                $user->username = $email;
+                $user->password = Passwords::hash(time() . $me->getProperty('id'));
 
-        try {
-            $user = new User();
-            $user->fbid = $fbid;
-            $user->username = $email;
-            $user->password = Passwords::hash(time() . $me->getProperty('id'));
+                // Save user
+                $this->repository->persistAndFlush($user);
 
-            // Save user
-            $this->repository->persistAndFlush($user);
-
-            // Fire events!
-            $this->onRegistration($user, TRUE);
-        } catch (\PDOException $e) {
-            $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
+                // Fire events!
+                $this->onRegistration($user, TRUE);
+            } catch (\PDOException $e) {
+                $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
+            }
         }
     }
 

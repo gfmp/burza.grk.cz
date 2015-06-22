@@ -4,6 +4,7 @@
     <tr>
         <th>ID</th>
         <th>Prodává se</th>
+        <th>Má fotku</th>
         <th>Kategorie</th>
         <th>Kniha</th>
         <th>Cena</th>
@@ -14,6 +15,13 @@
         <td>{$book->id}</td>
         <td>
             {if $book->active}
+                <span class="label label-success">ANO</span>
+            {else}
+                <span class="label label-danger">NE</span>
+            {/if}
+        </td>
+        <td>
+            {if $book->image}
                 <span class="label label-success">ANO</span>
             {else}
                 <span class="label label-danger">NE</span>

@@ -9,6 +9,8 @@
 namespace App\Manage;
 
 use App\Common\BasePresenter as CommonBasePresenter;
+use App\Front\Controls\Contact;
+use App\Front\Controls\IContactFactory;
 use Nette\Application\ForbiddenRequestException;
 
 /**
@@ -16,6 +18,9 @@ use Nette\Application\ForbiddenRequestException;
  */
 abstract class BasePresenter extends CommonBasePresenter
 {
+    
+    /** @var IContactFactory @inject */
+    public $contactFactory;
 
     /**
      * @param $element
@@ -31,4 +36,13 @@ abstract class BasePresenter extends CommonBasePresenter
         }
     }
 
+    /**
+     * Contact factory.
+     *
+     * @return Contact
+     */
+    protected function createComponentContact()
+    {
+        return $this->contactFactory->create();
+    }
 }

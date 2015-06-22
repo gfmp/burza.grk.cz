@@ -92,8 +92,16 @@
 			{$flash->message}
 		</div>
 
+		<div class="alert alert-danger" n:if="!$user->isLoggedIn()">
+			Opravili jsme problém s registrací/přihlašováním přes Facebook. Nyný by mělo vše fungovat. <a class="badge" n:href=":Front:Sign:facebook">Vyzkoušejte zde!</a>
+		</div>
+
+		<div class="alert alert-info">
+			Pokud narazíte na chybu nebo máte nějaký napád na vylepšení. <a href="#" class="badge" data-toggle="modal" data-target="#contact-modal">Neváhejte nás kontaktovat.</a>
+		</div>
+
 		<div class="alert alert-warning" n:if="$presenter->isLinkCurrent(':Front:List:*')">
-			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a n:href=":Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
+			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a class="badge" n:href=":Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
 		</div>
 
 		{block #main}
@@ -122,6 +130,8 @@
 		</footer>
 	</div>
 	<!-- /.container -->
+
+	{control contact:modal}
 
 	<!-- TRACKING -->
 	{include 'parts/@ga.latte'}
