@@ -150,6 +150,11 @@ final class SignPresenter extends BasePresenter
             $this->redirect(':Manage:Profile:');
         };
 
+        $registration->onError[] = function ($message) {
+            $this->flashMessage($message, 'danger');
+            $this->redirect('up');
+        };
+
         $registration->processFacebook($me);
     }
 

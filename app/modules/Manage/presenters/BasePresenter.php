@@ -18,7 +18,7 @@ use Nette\Application\ForbiddenRequestException;
  */
 abstract class BasePresenter extends CommonBasePresenter
 {
-    
+
     /** @var IContactFactory @inject */
     public $contactFactory;
 

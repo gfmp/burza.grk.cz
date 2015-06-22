@@ -15,18 +15,18 @@ use Facebook\GraphObject;
 use Nette\Application\UI\Form;
 use Nette\Security\Passwords;
 use Nette\Security\User as UserSecurity;
-use Tracy\Debugger;
 
 /**
  * Registration
- *
- * @method onRegistration(User $user, bool $registered)
  */
 final class Registration extends BaseControl
 {
 
     /** @var array */
     public $onRegistration = [];
+
+    /** @var array */
+    public $onError = [];
 
     /** @var UsersRepository */
     private $repository;
@@ -108,7 +108,7 @@ final class Registration extends BaseControl
             // Fire events!
             $this->onRegistration($user, TRUE);
         } catch (\PDOException $e) {
-            $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
+            $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
         }
     }
 
@@ -122,12 +122,15 @@ final class Registration extends BaseControl
         $fbid = $me->getProperty('id');
         $email = $me->getProperty('email');
 
+        if (!$fbid || !$email) {
+            $this->onError('Registrace proběhla neúspěšně. Prosím registrujte se ručně.');
+        }
+
         // Exists user with this FBID?
         $user = $this->repository->getBy(['fbid' => $fbid]);
         if ($user) {
             // Fire events!
             $this->onRegistration($user, FALSE);
-            return;
         }
 
         // Exists user with this USERNAME?
@@ -143,7 +146,7 @@ final class Registration extends BaseControl
                 // Fire events!
                 $this->onRegistration($user, FALSE);
             } catch (\PDOException $e) {
-                $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
+                $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
             }
         } else {
             try {
@@ -158,7 +161,7 @@ final class Registration extends BaseControl
                 // Fire events!
                 $this->onRegistration($user, TRUE);
             } catch (\PDOException $e) {
-                $this->presenter->flashMessage('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', 'danger');
+                $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
             }
         }
     }
