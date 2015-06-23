@@ -1,3 +1,4 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,700,600,800);
 @import "bootstrap-social.css";
 @import "../../vendor/colorbox/colorbox.css";
 /**
@@ -5,6 +6,7 @@
  */
 body {
   padding-top: 70px;
+  font-family: 'Open Sans', sans-serif;
 }
 footer {
   margin: 20px 0 50px 0;
@@ -44,7 +46,7 @@ footer {
 #book-list .thumbnail img {
   max-width: 100px;
   max-height: 100px;
-  margin: 15px auto 0 auto;
+  margin: 30px auto 0 auto;
 }
 #book-list .ratings {
   padding-right: 10px;
@@ -64,9 +66,22 @@ footer {
   color: #fff;
   border-radius: 8px;
   transform: rotate(350deg);
-}
-#book-list .price-info {
   background-color: #3a87ad;
+}
+#book-list .wear {
+  font-size: 13px;
+  line-height: 150%;
+  position: absolute;
+  z-index: 10;
+  right: 0;
+  margin-top: 5px;
+  width: 115px;
+  padding: 5px;
+  text-align: center;
+  color: #fff;
+  border-radius: 8px;
+  transform: rotate(10deg);
+  background-color: #b1240c;
 }
 #book-list .thumbnail {
   padding: 0;

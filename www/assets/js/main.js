@@ -2,7 +2,8 @@ $(function () {
 
     // Lightbox
     $('.lightbox').colorbox({
-        maxWidth: 1024
+        maxWidth: 1024,
+        maxHeight: 768
     });
 
     // TinyMCE
@@ -19,4 +20,9 @@ $(function () {
             toolbar: "undo redo | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link"
         });
     }
+
+    // Animations
+    $('.thumbnail .price').hover(function () {
+        $(this).addClass('animated flipInY');
+    });
 });

@@ -26,6 +26,9 @@ class RouterFactory
     {
         $router = new RouteList();
 
+        // Static
+        $router[] = new Route('sitemap.xml', 'Front:Generator:sitemap');
+
         // Front ===============================================================
         $router[] = new Route('category/<categoryId [0-9]+>/', [
             'module' => 'Front',

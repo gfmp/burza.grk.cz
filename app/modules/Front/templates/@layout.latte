@@ -15,23 +15,25 @@
 	{/ifset}
 
 	<!-- SEO -->
-	<meta name="keywords" n:ifset="#keywords" content="{include #keywords}">
-	<meta name="description" n:ifset="#description" content="{include #description}">
+	<meta name="keywords" content="{block #keywords}burza, knížky, grk, gfmp, škola, prodej, rychnov, prodej knih{/block}">
+	<meta name="description" content="{block #description}Burza nepotřebných knížek ze středních škol. Nebojte se vložit svoje knížky.{/block}">
 	<meta name="googlebot" content="snippet,archive">
 	<meta name="robots" content="index, follow">
 	<meta name="author" content="Felix <sulcmil@gmail.com>">
 
 	<!-- FACEBOOK -->
-	<meta property="og:image" content="{$basePath}/assets/img/facebook.png">
+	<meta property="og:image" content="{$baseUri}/assets/img/logo.png">
+	<meta property="fb:app_id" content="707095916103660">
 	<meta property="og:type" content="website">
-	<meta property="og:title" n:ifset="#title" content="{include #title|striptags}">
+	<meta property="og:title" content="{ifset #title}{include #title|striptags}{else}Burza učebnic | Gymnázium F.M. Pelcla{/ifset}">
 	<meta property="og:url" content="{link //this}">
-	<meta property="og:site_name" content="{$baseUri}">
-	<meta property="og:description" n:ifset="#description" content="{include #description}">
+	<meta property="og:site_name" content="Burza GRK">
+	<meta property="og:description" content="{include #description}">
 
 	<!-- CSS -->
-	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css">
 	<link href="{$basePath}/assets/css/theme.css?rev={$rev}" rel="stylesheet">
 </head>
 <body data-rev="{$rev}" data-basepath="{$basePath}">
@@ -108,7 +110,7 @@
 		{block #main}
 		<div class="row">
 			<div class="col-md-3 sidebar">
-                <div class="social-facebook">
+                <div class="social-facebook hidden-xs">
                     <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
                 </div>
 				{control category}
