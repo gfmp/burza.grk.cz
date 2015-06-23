@@ -15,13 +15,17 @@ parameters:
 
     # Site settings
     site:
-        domain: burza.knihy.cz
-        email: robot@burza.knihy.cz
+        domain: burza.grk.cz
         emailName: Burza GRK
+
+        email:
+            from: robot@burza.grk.cz
+            to: rkfelix@gmail.com
+            returnPath: rkfelix@gmail.com
 
     # Deploy settings
     deploy:
-        rev: 20062015
+        rev: 23062015
 
     # Dirs
     # appDir, libsDir, tempDir, logDir -> already configured

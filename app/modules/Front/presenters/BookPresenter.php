@@ -9,10 +9,8 @@
 namespace App\Front;
 
 use App\Front\Controls\BookContact;
-use App\Front\Controls\IBookContactFactory;
-use App\Front\Controls\IContactFactory;
+use App\Front\Controls\BookContact\IBookContactFactory;
 use App\Model\ORM\Entity\Book;
-use App\Model\ORM\Orm;
 use App\Model\ORM\Repository\BooksRepository;
 
 /**
@@ -24,19 +22,11 @@ final class BookPresenter extends BasePresenter
     /** @var IBookContactFactory @inject */
     public $bookContactFactory;
 
-    /** @var BooksRepository */
+    /** @var BooksRepository @inject */
     public $booksRepository;
 
     /** @var Book */
     private $book;
-
-    /**
-     * @param Orm $orm
-     */
-    public function __construct(Orm $orm)
-    {
-        $this->booksRepository = $orm->books;
-    }
 
     /**
      * DETAIL ******************************************************************

@@ -8,16 +8,17 @@
 
 namespace App\Front;
 
-use App\Front\Controls\IRegistrationFactory;
-use App\Front\Controls\Registration;
+use App\Front\Controls\Registration\IRegistrationFactory;
+use App\Front\Controls\Registration\Registration;
 use App\Model\Facebook\FacebookService;
 use App\Model\ORM\Entity\User;
 use App\Model\ORM\Orm;
 use App\Model\ORM\Repository\UsersRepository;
+use App\Model\Security\FacebookAuthenticator;
 use Facebook\FacebookAuthorizationException;
-use Facebook\FacebookRequest;
 use Facebook\FacebookSDKException;
 use Nette\Application\Responses\RedirectResponse;
+use Nette\Security\AuthenticationException;
 
 /**
  * Sign in/out presenters.
@@ -30,6 +31,9 @@ final class SignPresenter extends BasePresenter
 
     /** @var FacebookService @inject */
     public $facebook;
+
+    /** @var FacebookAuthenticator @inject */
+    public $facebookAuthenticator;
 
     /** @var UsersRepository */
     private $usersRepository;
@@ -86,7 +90,12 @@ final class SignPresenter extends BasePresenter
             $this->user->login($user->toIdentity());
 
             // Redirect to profile
-            $this->redirect(':Manage:Profile:');
+            $this->redirect(':Front:Manage:Profile:');
+        };
+
+        $registration->onError[] = function ($message) {
+            $this->flashMessage($message, 'danger');
+            $this->redirect('this');
         };
 
         return $registration;
@@ -97,6 +106,7 @@ final class SignPresenter extends BasePresenter
      */
     public function actionFacebook()
     {
+        $this->checkLoginRequirements();
         $helper = $this->facebook->createLoginHelper($this->link('//facebookAuthorize'));
         $this->sendResponse(new RedirectResponse($helper->getLoginUrl(['email', 'public_profile'])));
     }
@@ -106,6 +116,8 @@ final class SignPresenter extends BasePresenter
      */
     public function actionFacebookAuthorize()
     {
+        $this->checkLoginRequirements();
+
         // Authorization failed
         if ($this->getParameter('error_code')) {
             $this->flashMessage('Nepodařilo se vás přihlásit pomocí facebooku. Musíte se u nás zaregistrovat ručně.', 'danger');
@@ -120,42 +132,36 @@ final class SignPresenter extends BasePresenter
 
             // Retrieving session failed
             if (!$session) {
-                throw new FacebookAuthorizationException('Přihlášení selhalo. Kontaktujte správce.', NULL, 800);
+                throw new FacebookAuthorizationException('Přihlášení selhalo. Kontaktujte správce nebo se registrujte ručně.', NULL, 800);
             }
+
+            // Retrieve user
+            $user = $this->facebook->createUserFromSession($session);
+
+            // Try login
+            $this->user->setAuthenticator($this->facebookAuthenticator);
+            $this->user->login($user);
+
+            // Display info
+            $this->flashMessage('Systém vás přihlásil přes Facebook.', 'success');
+            $this->redirect('Home:');
         } catch (FacebookSDKException $ex) {
             $this->flashMessage($ex->getMessage(), 'danger');
             $this->redirect('up');
-        }
-
-        // Request user details
-        $request = new FacebookRequest($session, 'GET', '/me');
-        $response = $request->execute();
-        $me = $response->getGraphObject();
-
-        // Create registration component
-        $registration = $this->registrationFactory->create();
-        $registration->onRegistration[] = function (User $user, $registered) {
-            if ($registered) {
-                // Display info
-                $this->flashMessage('Děkujeme za registraci přes Facebook. V sekci můj účet můžete nastavit vše nezbytné.', 'success');
-            } else {
-                // Display info
-                $this->flashMessage('Vítejte zpět. Systém vás přihlásil přes Facebook.', 'success');
-            }
-
-            // Autologin
-            $this->user->login($user->toIdentity());
-
-            // Redirect to profile
-            $this->redirect(':Manage:Profile:');
-        };
-
-        $registration->onError[] = function ($message) {
-            $this->flashMessage($message, 'danger');
+        } catch (AuthenticationException $ex) {
+            $this->flashMessage($ex->getMessage(), 'danger');
             $this->redirect('up');
-        };
+        }
+    }
 
-        $registration->processFacebook($me);
+    /**
+     * @return void
+     */
+    private function checkLoginRequirements()
+    {
+        if ($this->user->isLoggedIn()) {
+            $this->redirect('Home:');
+        }
     }
 
 }

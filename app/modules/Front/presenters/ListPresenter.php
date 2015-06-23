@@ -8,9 +8,8 @@
 
 namespace App\Front;
 
-use App\Front\Controls\BookList;
-use App\Front\Controls\IBookListFactory;
-use App\Model\ORM\Orm;
+use App\Front\Controls\BookList\BookList;
+use App\Front\Controls\BookList\IBookListFactory;
 use App\Model\ORM\Repository\BooksRepository;
 use Nextras\Orm\Collection\ICollection;
 
@@ -23,19 +22,11 @@ final class ListPresenter extends BasePresenter
     /** @var IBookListFactory @inject */
     public $bookListFactory;
 
-    /** @var BooksRepository */
-    private $booksReposity;
+    /** @var BooksRepository @inject */
+    public $booksReposity;
 
     /** @var ICollection */
     private $booksCollection;
-
-    /**
-     * @param Orm $orm
-     */
-    public function __construct(Orm $orm)
-    {
-        $this->booksReposity = $orm->books;
-    }
 
     /**
      * DEFAULT *****************************************************************

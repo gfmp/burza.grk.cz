@@ -6,7 +6,7 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\Login;
 
 use App\Core\Controls\BaseControl;
 use App\Model\ORM\Repository\UsersRepository;
@@ -16,14 +16,15 @@ use Nette\Security\User;
 
 /**
  * Login
- *
- * @method onLogin()
  */
 final class Login extends BaseControl
 {
 
     /** @var array */
     public $onLogin = [];
+
+    /** @var array */
+    public $onError = [];
 
     /** @var UsersRepository */
     private $repository;
@@ -37,6 +38,7 @@ final class Login extends BaseControl
      */
     public function __construct(UsersRepository $repository, User $user)
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->user = $user;
     }
@@ -91,7 +93,7 @@ final class Login extends BaseControl
             // Fire event
             $this->onLogin();
         } catch (AuthenticationException $e) {
-            $this->presenter->flashMessage($e->getMessage(), 'danger');
+            $this->onError($e->getMessage());
             return;
         }
     }

@@ -5,6 +5,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <meta name="google-site-verification" content="X_n9WvJ_q3DyTfp_1Ds9QPbQUVH0T_pP3Ul413XEac4">
 
 	<!-- TITLE -->
 	{ifset #title}
@@ -52,7 +53,7 @@
 						<a n:href=":Front:Home:">Poslední nabídky</a>
 					</li>
 					<li>
-						<a n:href=":Manage:Profile:" n:if="$user->isLoggedIn()">Můj účet</a>
+						<a n:href=":Front:Manage:Profile:" n:if="$user->isLoggedIn()">Můj účet</a>
 					</li>
 				</ul>
 
@@ -61,7 +62,7 @@
 						{if $user->isLoggedIn()}
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$user->identity->username} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">
-								<li><a n:href=":Manage:Profile:">Můj učet</a></li>
+								<li><a n:href=":Front:Manage:Profile:">Můj učet</a></li>
 								<li class="divider"></li>
 								<li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
 							</ul>
@@ -93,7 +94,7 @@
 		</div>
 
 		<div class="alert alert-danger" n:if="!$user->isLoggedIn()">
-			Opravili jsme problém s registrací/přihlašováním přes Facebook. Nyný by mělo vše fungovat. <a class="badge" n:href=":Front:Sign:facebook">Vyzkoušejte zde!</a>
+			Opravili jsme problém s registrací/přihlašováním přes Facebook. Nyní by mělo vše fungovat. <a class="badge" n:href=":Front:Sign:facebook">Vyzkoušejte zde!</a>
 		</div>
 
 		<div class="alert alert-info">
@@ -101,12 +102,15 @@
 		</div>
 
 		<div class="alert alert-warning" n:if="$presenter->isLinkCurrent(':Front:List:*')">
-			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a class="badge" n:href=":Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
+			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a class="badge" n:href=":Front:Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
 		</div>
 
 		{block #main}
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-md-3 sidebar">
+                <div class="social-facebook">
+                    <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                </div>
 				{control category}
 			</div>
 			<div class="col-md-9">
@@ -133,12 +137,16 @@
 
 	{control contact:modal}
 
+	{if !$debug}
 	<!-- TRACKING -->
 	{include 'parts/@ga.latte'}
+	{/if}
+
+	{include 'parts/@fb.latte'}
 
 	<!-- SCRIPTS -->
 	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
 	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
 	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>

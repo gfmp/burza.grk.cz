@@ -6,9 +6,7 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
-
-use Nextras\Orm\Collection\ICollection;
+namespace App\Front\Controls\Category;
 
 interface ICategoryFactory
 {

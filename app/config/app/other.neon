@@ -15,9 +15,9 @@ services:
 	facebook: App\Model\Facebook\FacebookService(..., %facebook.appId%, %facebook.appSecret%)
 
 	# Config ===============================================
-	config:
-		class: App\Core\Utils\DIConfig
-		factory: App\Core\Utils\DIConfig::factory
+	config.portal:
+		class: App\Core\Config\PortalConfig
+		factory: App\Core\Config\PortalConfig::factory
 		arguments: {[
 			consoleMode: %consoleMode%
 			debugMode: %debugMode%
@@ -26,4 +26,12 @@ services:
 			deploy: %deploy%,
 			paths: %paths%,
 			dirs: %dirs%,
+		]}
+
+	config.email:
+		factory: App\Core\Config\EmailConfig
+		arguments: {[
+			from: %site.email.from%,
+			to: %site.email.to%,
+			returnPath: %site.email.returnPath%,
 		]}

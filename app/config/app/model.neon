@@ -7,7 +7,12 @@
 # @version $$REV$$
 #
 services:
-    authenticator: App\Model\Security\Authenticator
+    authenticator.site:
+        class: App\Model\Security\SiteAuthenticator
+    authenticator.facebook:
+        class: App\Model\Security\FacebookAuthenticator
+
+    security.user: Nette\Security\User(..., @App\Model\Security\SiteAuthenticator, ...)
 
     - class: App\Model\Image\ImageConfig
       factory: @App\Model\Image\ImageConfigFactory::create()

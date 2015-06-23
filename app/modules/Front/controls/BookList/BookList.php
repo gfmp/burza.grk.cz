@@ -6,7 +6,7 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\BookList;
 
 use App\Core\Controls\BaseControl;
 use Nextras\Orm\Collection\ICollection;
@@ -22,6 +22,7 @@ final class BookList extends BaseControl
      */
     public function __construct(ICollection $collection)
     {
+        parent::__construct();
         $this->collection = $collection;
     }
 

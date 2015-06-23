@@ -41,7 +41,7 @@ class RouterFactory
 
         // Manage ==============================================================
         $router[] = new Route('account/<presenter>/<action>[/<id>]', [
-            'module' => 'Manage',
+            'module' => 'Front:Manage',
             'presenter' => 'Profile',
             'action' => 'default',
         ]);

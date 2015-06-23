@@ -6,7 +6,7 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\Login;
 
 interface ILoginFactory
 {

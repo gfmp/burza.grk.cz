@@ -1,0 +1,40 @@
+{block}
+<table class="table table-striped table-bordered">
+    <tbody>
+    <tr>
+        <th>ID</th>
+        <th>Prodává se</th>
+        <th>Má fotku</th>
+        <th>Kategorie</th>
+        <th>Kniha</th>
+        <th>Cena</th>
+        <th>Přidána</th>
+        <th></th>
+    </tr>
+    <tr n:foreach="$books as $book">
+        <td>{$book->id}</td>
+        <td>
+            {if $book->active}
+                <span class="label label-success">ANO</span>
+            {else}
+                <span class="label label-danger">NE</span>
+            {/if}
+        </td>
+        <td>
+            {if $book->image}
+                <span class="label label-success">ANO</span>
+            {else}
+                <span class="label label-danger">NE</span>
+            {/if}
+        </td>
+        <td>{$book->category->name}</td>
+        <td>{$book->name}</td>
+        <td>{$book->price|price}</td>
+        <td>{$book->createdAt|date:'d.m.Y'}</td>
+        <td>
+            <a href="{plink :Front:Manage:Book:edit, $book->id}" class="btn btn-info btn-sm">Upravit</a>
+            <a n:href="archive!, $book->id" onClick="return confirm('Opravdu archivovat tuto knihu?');" class="btn btn-danger btn-sm">Archivovat</a>
+        </td>
+    </tr>
+    </tbody>
+</table>

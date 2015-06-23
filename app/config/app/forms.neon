@@ -7,9 +7,7 @@
 # @version $$REV$$
 #
 services:
-	- class: App\Manage\Forms\BookForm(@App\Model\ORM\Orm::categories)
-	  implement: App\Manage\Forms\IBookFormFactory
+	- App\Front\Manage\Forms\IBookFormFactory
 
-	- class: App\Manage\Forms\ImageForm
-	  implement: App\Manage\Forms\IImageFormFactory
+	- App\Front\Manage\Forms\IImageFormFactory
 

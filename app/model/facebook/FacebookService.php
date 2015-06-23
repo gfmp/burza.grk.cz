@@ -8,8 +8,12 @@
 
 namespace App\Model\Facebook;
 
+use Facebook\FacebookAuthorizationException;
 use Facebook\FacebookRedirectLoginHelper;
+use Facebook\FacebookRequest;
+use Facebook\FacebookSDKException;
 use Facebook\FacebookSession;
+use Facebook\GraphObject;
 use Nette\Http\Session;
 
 final class FacebookService
@@ -45,6 +49,28 @@ final class FacebookService
     {
         $this->session->start();
         return new FacebookRedirectLoginHelper($redirectUrl, $this->appId, $this->appSecret);
+    }
+
+    /**
+     * @param FacebookSession $session
+     * @return GraphObject
+     */
+    public function createUserFromSession(FacebookSession $session)
+    {
+        // Request user details
+        $request = new FacebookRequest($session, 'GET', '/me');
+        $response = $request->execute();
+        $me = $response->getGraphObject();
+
+        $fbid = $me->getProperty('id');
+        $email = $me->getProperty('email');
+
+        // Validate user
+        if (!$fbid || !$email) {
+            throw new FacebookAuthorizationException('Registrace proběhla neúspěšně. Prosím registrujte se ručně.', NULL, 801);
+        }
+
+        return $me;
     }
 
 }

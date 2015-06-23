@@ -6,7 +6,7 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\Category;
 
 use App\Core\Controls\BaseControl;
 use App\Model\ORM\Repository\CategoriesRepository;
@@ -22,6 +22,7 @@ final class Category extends BaseControl
      */
     public function __construct(CategoriesRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
     }
 

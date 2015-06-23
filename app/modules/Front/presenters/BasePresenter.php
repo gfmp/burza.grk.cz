@@ -9,12 +9,12 @@
 namespace App\Front;
 
 use App\Common\BasePresenter as CommonBasePresenter;
-use App\Front\Controls\Category;
-use App\Front\Controls\Contact;
-use App\Front\Controls\ICategoryFactory;
-use App\Front\Controls\IContactFactory;
-use App\Front\Controls\ILoginFactory;
-use App\Front\Controls\Login;
+use App\Front\Controls\Category\Category;
+use App\Front\Controls\Category\ICategoryFactory;
+use App\Front\Controls\IssueContact\IIssueContactFactory;
+use App\Front\Controls\IssueContact\IssueContact;
+use App\Front\Controls\Login\ILoginFactory;
+use App\Front\Controls\Login\Login;
 
 /**
  * Base presenter for all front presenters
@@ -25,7 +25,7 @@ abstract class BasePresenter extends CommonBasePresenter
     /** @var ICategoryFactory @inject */
     public $categoryFactory;
 
-    /** @var IContactFactory @inject */
+    /** @var IIssueContactFactory @inject */
     public $contactFactory;
 
     /** @var ILoginFactory @inject */
@@ -59,7 +59,7 @@ abstract class BasePresenter extends CommonBasePresenter
     /**
      * Contact factory.
      *
-     * @return Contact
+     * @return IssueContact
      */
     protected function createComponentContact()
     {

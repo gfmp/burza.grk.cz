@@ -8,7 +8,7 @@
 
 namespace App\Common;
 
-use App\Core\Utils\DIConfig;
+use App\Core\Config\PortalConfig;
 use Nette\Application\UI\Presenter;
 
 /**
@@ -17,8 +17,8 @@ use Nette\Application\UI\Presenter;
 abstract class BasePresenter extends Presenter
 {
 
-    /** @var DIConfig @inject */
-    public $diConfig;
+    /** @var PortalConfig @inject */
+    public $portalConfig;
 
     /**
      * Common render method.
@@ -28,13 +28,14 @@ abstract class BasePresenter extends Presenter
         parent::beforeRender();
 
         // Paths
-        $this->template->storagePath = $this->template->basePath . '/' . $this->diConfig->expand('paths.storage');
+        $this->template->storagePath = $this->template->basePath . '/' . $this->portalConfig->expand('paths.storage');
         $this->template->assetsPath = $this->template->basePath . '/assets';
         $this->template->distPath = $this->template->basePath . '/dist';
         $this->template->vendorPath = $this->template->basePath . '/vendor';
 
         // Deploy
-        $this->template->rev = $this->diConfig->expand('deploy.rev');
+        $this->template->rev = $this->portalConfig->expand('deploy.rev');
+        $this->template->debug = $this->portalConfig->expand('debugMode') == TRUE;
     }
 
     /**

@@ -6,8 +6,9 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\BookContact;
 
+use App\Core\Config\EmailConfig;
 use App\Core\Controls\BaseControl;
 use App\Model\ORM\Repository\BooksRepository;
 use Nette\Application\UI\Form;
@@ -17,8 +18,17 @@ use Nette\Mail\Message;
 final class BookContact extends BaseControl
 {
 
+    /** @var array */
+    public $onSent = [];
+
+    /** @var array */
+    public $onError = [];
+
     /** @var BooksRepository */
     private $repository;
+
+    /** @var EmailConfig */
+    private $config;
 
     /** @var IMailer */
     private $mailer;
@@ -29,12 +39,15 @@ final class BookContact extends BaseControl
     /**
      * @param BooksRepository $usersRepository
      * @param IMailer $mailer
+     * @param EmailConfig $config
      * @param int $bookId
      */
-    public function __construct(BooksRepository $repository, IMailer $mailer, $bookId)
+    public function __construct(BooksRepository $repository, IMailer $mailer, EmailConfig $config, $bookId)
     {
+        parent::__construct();
         $this->repository = $repository;
         $this->mailer = $mailer;
+        $this->config = $config;
         $this->bookId = $bookId;
     }
 
@@ -103,9 +116,9 @@ final class BookContact extends BaseControl
         try {
             // Send message
             $this->mailer->send($message);
-            $this->presenter->flashMessage('Poptávka byla úspěšně odeslána.', 'success');
+            $this->onSent('Poptávka byla úspěšně odeslána.');
         } catch (\Exception $e) {
-            $this->presenter->flashMessage('Vaši zprávu se nepodařilo odeslat.', 'danger');
+            $this->onError('Vaši zprávu se nepodařilo odeslat.');
         }
 
         $this->redirect('this');

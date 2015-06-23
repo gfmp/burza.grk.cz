@@ -1,7 +1,7 @@
 {block}
 {if count($books) <= 0}
     <p class="alert alert-info">Nenalezli jsme žádné knížky.</p>
-    <p class="alert alert-success">Buďte první a <a href="{plink :Manage:Book:add}">vložte novou knihu</a>.</p>
+    <p class="alert alert-success">Buďte první a <a href="{plink :Front:Manage:Book:add}">vložte novou knihu</a>.</p>
 {else}
 <div class="row" id="book-list">
     <div class="col-sm-4 col-lg-4 col-md-4" n:foreach="$books as $book">

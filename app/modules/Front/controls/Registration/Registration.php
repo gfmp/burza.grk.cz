@@ -6,12 +6,11 @@
  * @version $$REV$$
  */
 
-namespace App\Front\Controls;
+namespace App\Front\Controls\Registration;
 
 use App\Core\Controls\BaseControl;
 use App\Model\ORM\Entity\User;
 use App\Model\ORM\Repository\UsersRepository;
-use Facebook\GraphObject;
 use Nette\Application\UI\Form;
 use Nette\Security\Passwords;
 use Nette\Security\User as UserSecurity;
@@ -31,17 +30,13 @@ final class Registration extends BaseControl
     /** @var UsersRepository */
     private $repository;
 
-    /** @var UserSecurity */
-    private $user;
-
     /**
      * @param UsersRepository $repository
-     * @param UserSecurity $user
      */
-    public function __construct(UsersRepository $repository, UserSecurity $user)
+    public function __construct(UsersRepository $repository)
     {
+        parent::__construct();
         $this->repository = $repository;
-        $this->user = $user;
     }
 
     /**
@@ -109,60 +104,6 @@ final class Registration extends BaseControl
             $this->onRegistration($user, TRUE);
         } catch (\PDOException $e) {
             $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
-        }
-    }
-
-    /**
-     * Process registration from facebook
-     *
-     * @param object|GraphObject $me
-     */
-    public function processFacebook($me)
-    {
-        $fbid = $me->getProperty('id');
-        $email = $me->getProperty('email');
-
-        if (!$fbid || !$email) {
-            $this->onError('Registrace proběhla neúspěšně. Prosím registrujte se ručně.');
-        }
-
-        // Exists user with this FBID?
-        $user = $this->repository->getBy(['fbid' => $fbid]);
-        if ($user) {
-            // Fire events!
-            $this->onRegistration($user, FALSE);
-        }
-
-        // Exists user with this USERNAME?
-        $user = $this->repository->getBy(['username' => $email]);
-        if ($user) {
-            try {
-                // Update fbid
-                $user->fbid = $fbid;
-
-                // Save user
-                $this->repository->persistAndFlush($user);
-
-                // Fire events!
-                $this->onRegistration($user, FALSE);
-            } catch (\PDOException $e) {
-                $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
-            }
-        } else {
-            try {
-                $user = new User();
-                $user->setRawValue('fbid', $fbid);
-                $user->username = $email;
-                $user->password = Passwords::hash(time() . $me->getProperty('id'));
-
-                // Save user
-                $this->repository->persistAndFlush($user);
-
-                // Fire events!
-                $this->onRegistration($user, TRUE);
-            } catch (\PDOException $e) {
-                $this->onError('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.');
-            }
         }
     }
 
