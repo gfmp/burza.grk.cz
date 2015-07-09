@@ -21,32 +21,20 @@ footer {
 /**
  * Book-list ===================================================================
  */
-#book-list .slide-image {
-  width: 100%;
-}
-#book-list .carousel-holder {
-  margin-bottom: 30px;
-}
-#book-list .carousel-control,
-#book-list .item {
-  border-radius: 4px;
-}
 #book-list h3 {
   padding: 0 9px;
-  font-size: 19px;
+  font-size: 16px;
+  font-weight: bold;
   margin: 15px 0 0 0;
-}
-#book-list .caption {
-  overflow: hidden;
 }
 #book-list .btn-price {
   border-radius: 0;
   padding: 3px 0;
 }
 #book-list .thumbnail img {
-  max-width: 100px;
-  max-height: 100px;
-  margin: 30px auto 0 auto;
+  max-width: 105px;
+  max-height: 140px;
+  margin: 10px auto 0 auto;
 }
 #book-list .ratings {
   padding-right: 10px;
@@ -54,43 +42,37 @@ footer {
   color: #d17581;
 }
 #book-list .price {
+  display: inline-block;
   font-size: 20px;
   line-height: 150%;
-  position: absolute;
-  z-index: 10;
-  margin-left: -10px;
-  margin-top: 0;
-  width: 115px;
-  padding: 5px;
+  margin: 5px 0 0 5px;
+  padding: 4px 8px;
   text-align: center;
   color: #fff;
-  border-radius: 8px;
-  transform: rotate(350deg);
+  border-radius: 6px;
   background-color: #3a87ad;
 }
-#book-list .wear {
-  font-size: 13px;
-  line-height: 150%;
-  position: absolute;
-  z-index: 10;
-  right: 0;
-  margin-top: 5px;
-  width: 115px;
-  padding: 5px;
+#book-list .image {
+  line-height: 150px;
+  height: 150px;
   text-align: center;
-  color: #fff;
-  border-radius: 8px;
-  transform: rotate(10deg);
-  background-color: #b1240c;
+}
+#book-list .image img {
+  display: inline;
+  vertical-align: middle;
+}
+#book-list .wear {
+  display: inline-block;
+  font-size: 13px;
+  padding: 5px;
+  font-weight: bold;
+  color: #b1240c;
 }
 #book-list .thumbnail {
   padding: 0;
-  height: 300px;
+  height: 250px;
   position: relative;
-}
-#book-list .thumbnail .caption-full {
-  padding: 9px;
-  color: #333;
+  background: #fafafa;
 }
 /**
  * Font-awesome ================================================================

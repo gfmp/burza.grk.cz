@@ -8,12 +8,14 @@
 
 namespace App\Front\Controls\BookContact;
 
+use App\Model\ORM\Entity\Book;
+
 interface IBookContactFactory
 {
 
     /**
-     * @param int $bookId
+     * @param Book $book
      * @return BookContact
      */
-    function create($bookId);
+    function create(Book $book);
 }

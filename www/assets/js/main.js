@@ -22,7 +22,7 @@ $(function () {
     }
 
     // Animations
-    $('.thumbnail .price').hover(function () {
-        $(this).addClass('animated flipInY');
-    });
+    //$('.thumbnail .price').hover(function () {
+    //    $(this).addClass('animated flipInY');
+    //});
 });

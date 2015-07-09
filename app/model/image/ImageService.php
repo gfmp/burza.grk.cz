@@ -71,6 +71,10 @@ final class ImageService
             } else {
                 // Create image obj
                 $image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);
+
+                if ($image->width > $image->height) {
+                    $image = $image->rotate(-90, Image::rgb(0,0,0));
+                }
             }
 
             // Resize

@@ -9,12 +9,14 @@
 namespace App\Front;
 
 use App\Common\BasePresenter as CommonBasePresenter;
+use App\Front\Controls\BookList\Statistics;
 use App\Front\Controls\Category\Category;
 use App\Front\Controls\Category\ICategoryFactory;
 use App\Front\Controls\IssueContact\IIssueContactFactory;
 use App\Front\Controls\IssueContact\IssueContact;
 use App\Front\Controls\Login\ILoginFactory;
 use App\Front\Controls\Login\Login;
+use App\Front\Controls\Statistics\IStatisticsFactory;
 
 /**
  * Base presenter for all front presenters
@@ -30,6 +32,9 @@ abstract class BasePresenter extends CommonBasePresenter
 
     /** @var ILoginFactory @inject */
     public $loginFactory;
+
+    /** @var IStatisticsFactory @inject */
+    public $statisticsFactory;
 
     /**
      * @return Category
@@ -57,12 +62,18 @@ abstract class BasePresenter extends CommonBasePresenter
     }
 
     /**
-     * Contact factory.
-     *
      * @return IssueContact
      */
     protected function createComponentContact()
     {
         return $this->contactFactory->create();
+    }
+
+    /**
+     * @return Statistics
+     */
+    protected function createComponentStatistics()
+    {
+        return $this->statisticsFactory->create();
     }
 }

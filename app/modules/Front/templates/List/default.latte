@@ -1,8 +1,5 @@
 {block #content}
 
-{var $count => $books->count()}
-<div class="alert alert-info">
-    Celkem je v databázi uloženo <strong>{$count}</strong> knih.
-</div>
+{control statistics:books}
 
 {control bookList}

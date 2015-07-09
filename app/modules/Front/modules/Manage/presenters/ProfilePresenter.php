@@ -10,7 +10,6 @@ namespace App\Front\Manage;
 
 use App\Front\Manage\Controls\BookTable\BookTable;
 use App\Front\Manage\Controls\BookTable\IBookTableFactory;
-use App\Model\ORM\Orm;
 use App\Model\ORM\Repository\BooksRepository;
 
 /**
@@ -34,7 +33,7 @@ final class ProfilePresenter extends BasePresenter
     {
         return $this->bookTableFactory->create(
             $this->booksRepository
-                ->findActive()
+                ->findSelling()
                 ->findBy(['user' => $this->user->id])
         );
     }
@@ -48,7 +47,21 @@ final class ProfilePresenter extends BasePresenter
     {
         return $this->bookTableFactory->create(
             $this->booksRepository
-                ->findInactive()
+                ->findArchived()
+                ->findBy(['user' => $this->user->id])
+        );
+    }
+
+    /**
+     * Sold book table
+     *
+     * @return BookTable
+     */
+    protected function createComponentSold()
+    {
+        return $this->bookTableFactory->create(
+            $this->booksRepository
+                ->findSold()
                 ->findBy(['user' => $this->user->id])
         );
     }

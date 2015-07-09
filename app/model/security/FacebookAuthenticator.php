@@ -60,7 +60,7 @@ final class FacebookAuthenticator implements IAuthenticator
         if ($user) {
             try {
                 // Update fbid
-                $user->fbid = $fbid;
+                $user->setRawValue('fbid', $fbid);
                 $user->loggedAt = new DateTime();
 
                 // Save user

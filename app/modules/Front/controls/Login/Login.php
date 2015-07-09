@@ -106,5 +106,14 @@ final class Login extends BaseControl
         $this->template->setFile(__DIR__ . '/templates/login.latte');
         $this->template->render();
     }
+
+    /**
+     * Render navbar
+     */
+    public function renderNavbar()
+    {
+        $this->template->setFile(__DIR__ . '/templates/navbar.latte');
+        $this->template->render();
+    }
 }
 

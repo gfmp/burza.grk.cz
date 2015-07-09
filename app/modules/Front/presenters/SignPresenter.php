@@ -35,16 +35,8 @@ final class SignPresenter extends BasePresenter
     /** @var FacebookAuthenticator @inject */
     public $facebookAuthenticator;
 
-    /** @var UsersRepository */
-    private $usersRepository;
-
-    /**
-     * @param Orm $orm
-     */
-    public function injectOrm(Orm $orm)
-    {
-        $this->usersRepository = $orm->users;
-    }
+    /** @var UsersRepository @inject */
+    public $usersRepository;
 
     /**
      * SIGN IN/OUT *************************************************************

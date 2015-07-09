@@ -64,6 +64,9 @@ final class BookPresenter extends BasePresenter
         if (!$this->book) {
             $this->flashMessage('Kniha nebyla nalezena.', 'warning');
             $this->redirect('Profile:');
+        } else if ($this->book->user->id !== $this->user->identity->id) {
+            $this->flashMessage('Nelze upravovat cizí knihu.', 'danger');
+            $this->redirect('Profile:');
         }
 
         $this['bookForm']->setDefaults($this->book->toArray(Book::TO_ARRAY_RELATIONSHIP_AS_ID));

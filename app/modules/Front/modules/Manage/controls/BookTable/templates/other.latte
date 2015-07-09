@@ -7,6 +7,7 @@
         <th>Kniha</th>
         <th>Cena</th>
         <th>Přidána</th>
+        <th></th>
     </tr>
     <tr n:foreach="$books as $book">
         <td>{$book->id}</td>
@@ -14,6 +15,9 @@
         <td>{$book->name}</td>
         <td>{$book->price|price}</td>
         <td>{$book->createdAt|date:'d.m.Y'}</td>
+        <td>
+            <a n:href="active!, $book->id" onClick="return confirm('Opravdu tuto knihu aktivovat?');" class="btn btn-success btn-sm">Aktivovat</a>
+        </td>
     </tr>
     </tbody>
 </table>

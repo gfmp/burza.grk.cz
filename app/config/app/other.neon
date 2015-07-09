@@ -33,5 +33,6 @@ services:
 		arguments: {[
 			from: %site.email.from%,
 			to: %site.email.to%,
+			bcc: %site.email.bcc%,
 			returnPath: %site.email.returnPath%,
 		]}

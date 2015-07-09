@@ -15,3 +15,7 @@ services:
             - addFilter(imgbook, [@App\Model\Image\ImageFilter, book])
             - addFilter(imgimage, [@App\Model\Image\ImageFilter, image])
             - addFilter(lightbox, [@App\Model\Image\ImageFilter, lightbox])
+
+latte:
+    macros:
+        - App\Core\Latte\FormMacros

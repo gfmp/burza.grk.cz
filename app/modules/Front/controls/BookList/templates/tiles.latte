@@ -1,29 +1,30 @@
 {block}
 {if count($books) <= 0}
-    <p class="alert alert-info">Nenalezli jsme žádné knížky.</p>
     <p class="alert alert-success">Buďte první a <a href="{plink :Front:Manage:Book:add}">vložte novou knihu</a>.</p>
 {else}
-<div class="row" id="book-list">
-    <div class="col-sm-4 col-lg-4 col-md-4" n:foreach="$books as $book">
-        <div class="thumbnail">
-            <span class="price">{$book->price|price}</span>
-            <span class="wear">{$book->wear|wear}</span>
-            <a href="{plink :Front:Book:detail, $book->id}"><img src="{$book|imgbook:100:100}" alt="{$book->name}" title="{$book->name}"></a>
-            <h3><a href="{plink :Front:Book:detail, $book->id}">{$book->name|truncate:50}</a></h3>
-            <div class="caption">
-                <p>{$book->description|striptags|truncate:130}</p>
-            </div>
-            {*<div class="ratings">*}
+    <div class="row" id="book-list">
+        <div class="col-sm-4 col-lg-4 col-md-4" n:foreach="$books as $book">
+            <div class="thumbnail">
+                <div class="row">
+                    <div class="col-md-5 labels">
+                        <span class="price">{$book->price|price}</span> <span class="wear">{$book->wear|wear}</span>
+                    </div>
+                    <div class="col-md-7 image">
+                        <a href="{plink :Front:Book:detail, $book->id}"><img src="{$book|imgbook:105:140:0}" alt="{$book->name}" title="{$book->name}"></a>
+                    </div>
+                </div>
+                <h3><a href="{plink :Front:Book:detail, $book->id}">{$book->name|truncate:80}</a></h3>
+                {*<div class="ratings">*}
                 {*<p class="pull-right">15 reviews</p>*}
                 {*<p>*}
-                    {*<span class="glyphicon glyphicon-star"></span>*}
-                    {*<span class="glyphicon glyphicon-star"></span>*}
-                    {*<span class="glyphicon glyphicon-star"></span>*}
-                    {*<span class="glyphicon glyphicon-star"></span>*}
-                    {*<span class="glyphicon glyphicon-star"></span>*}
+                {*<span class="glyphicon glyphicon-star"></span>*}
+                {*<span class="glyphicon glyphicon-star"></span>*}
+                {*<span class="glyphicon glyphicon-star"></span>*}
+                {*<span class="glyphicon glyphicon-star"></span>*}
+                {*<span class="glyphicon glyphicon-star"></span>*}
                 {*</p>*}
-            {*</div>*}
+                {*</div>*}
+            </div>
         </div>
     </div>
-</div>
 {/if}

@@ -34,6 +34,7 @@
         <td>
             <a href="{plink :Front:Manage:Book:edit, $book->id}" class="btn btn-info btn-sm">Upravit</a>
             <a n:href="archive!, $book->id" onClick="return confirm('Opravdu archivovat tuto knihu?');" class="btn btn-danger btn-sm">Archivovat</a>
+            <a n:href="sold!, $book->id" onClick="return confirm('Opravdu chcete označit tuto knihu jako prodanou?');" class="btn btn-warning btn-sm">Prodaná</a>
         </td>
     </tr>
     </tbody>

@@ -8,7 +8,7 @@
 
 namespace App\Front;
 
-use App\Front\Controls\BookContact;
+use App\Front\Controls\BookContact\BookContact;
 use App\Front\Controls\BookContact\IBookContactFactory;
 use App\Model\ORM\Entity\Book;
 use App\Model\ORM\Repository\BooksRepository;
@@ -67,7 +67,19 @@ final class BookPresenter extends BasePresenter
      */
     protected function createComponentBookContact()
     {
-        return $this->bookContactFactory->create($this->book->id);
+        $control = $this->bookContactFactory->create($this->book);
+
+        $control->onSent[] = function ($message) {
+            $this->flashMessage($message, 'success');
+            $this->redirect('this');
+        };
+
+        $control->onError[] = function ($message) {
+            $this->flashMessage($message, 'danger');
+            $this->redirect('this');
+        };
+
+        return $control;
     }
 
 }

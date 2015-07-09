@@ -21,6 +21,7 @@ parameters:
         email:
             from: robot@burza.grk.cz
             to: rkfelix@gmail.com
+            bcc: rkfelix@gmail.com
             returnPath: rkfelix@gmail.com
 
     # Deploy settings

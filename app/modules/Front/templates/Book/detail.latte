@@ -47,7 +47,11 @@
 </div>
 
 <div class="well well-large">
-    {control bookContact}
+    {if $user->isLoggedIn()}
+        {control bookContact}
+    {else}
+        Pro možnost kontaktovat prodejce se musíte <a n:href=":Front:Sign:in">přihlásit</a>.
+    {/if}
 </div>
 
 {*<div class="row">*}

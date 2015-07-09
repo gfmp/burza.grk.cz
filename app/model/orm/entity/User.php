@@ -10,17 +10,19 @@ namespace App\Model\ORM\Entity;
 
 use Nette\Security\Identity;
 use Nette\Utils\DateTime;
+use Nextras\Orm\Relationships\OneHasMany;
 
 /**
  * User
  *
- * @property int|NULL   $fbid
- * @property string     $username
- * @property string     $password
- * @property string     $role           {default self::ROLE_USER} {enum self::ROLE_*}
- * @property DateTime   $loggedAt       {default now}
- * @property DateTime   $createdAt      {default now}
- * @property Book       $books          {1:m \App\Model\ORM\Repository\BooksRepository}
+ * @property int|NULL               $fbid
+ * @property string                 $username
+ * @property string                 $password
+ * @property string                 $role           {default self::ROLE_USER} {enum self::ROLE_*}
+ * @property DateTime               $loggedAt       {default now}
+ * @property DateTime               $createdAt      {default now}
+ * @property OneHasMany|Book[]      $books          {1:m \App\Model\ORM\Repository\BooksRepository}
+ * @property OneHasMany|Message[]   $messages       {1:m \App\Model\ORM\Repository\MessagesRepository}
  */
 final class User extends AbstractEntity
 {

@@ -9,6 +9,7 @@
 services:
 
     - App\Front\Controls\Category\ICategoryFactory
+    - App\Front\Controls\Statistics\IStatisticsFactory
 
     - App\Front\Controls\Login\ILoginFactory
     - App\Front\Controls\Registration\IRegistrationFactory

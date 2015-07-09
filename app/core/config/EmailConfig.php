@@ -49,4 +49,12 @@ final class EmailConfig
         return $this->parameters['to'];
     }
 
+    /**
+     * @return string
+     */
+    public function getBcc()
+    {
+        return $this->parameters['bcc'];
+    }
+
 }

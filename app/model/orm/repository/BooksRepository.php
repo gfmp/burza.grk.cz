@@ -8,24 +8,41 @@
 
 namespace App\Model\ORM\Repository;
 
+use App\Model\ORM\Entity\Book;
 use Nextras\Orm\Collection\ICollection;
 
 final class BooksRepository extends AbstractRepository
 {
 
     /**
-     * @return ICollection
+     * @return ICollection|Book[]
      */
-    public function findActive()
+    public function findSelling()
     {
-        return $this->findBy(['active' => TRUE]);
+        return $this->findBy(['state' => Book::STATE_SELLING]);
     }
 
     /**
-     * @return ICollection
+     * @return ICollection|Book[]
      */
-    public function findInactive()
+    public function findArchived()
     {
-        return $this->findBy(['active' => FALSE]);
+        return $this->findBy(['state' => Book::STATE_ARCHIVED]);
+    }
+
+    /**
+     * @return ICollection|Book[]
+     */
+    public function findExpired()
+    {
+        return $this->findBy(['state' => Book::STATE_EXPIRED]);
+    }
+
+    /**
+     * @return ICollection|Book[]
+     */
+    public function findSold()
+    {
+        return $this->findBy(['state' => Book::STATE_SOLD]);
     }
 }

@@ -10,10 +10,13 @@ namespace App\Front\Controls\BookContact;
 
 use App\Core\Config\EmailConfig;
 use App\Core\Controls\BaseControl;
+use App\Model\ORM\Entity\Book;
+use App\Model\ORM\Entity\Message;
 use App\Model\ORM\Repository\BooksRepository;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
-use Nette\Mail\Message;
+use Nette\Mail\Message as Mail;
+use Nette\Security\User;
 
 final class BookContact extends BaseControl
 {
@@ -33,22 +36,32 @@ final class BookContact extends BaseControl
     /** @var IMailer */
     private $mailer;
 
-    /** @var int */
-    private $bookId;
+    /** @var User */
+    private $user;
+
+    /** @var Book */
+    private $book;
 
     /**
-     * @param BooksRepository $usersRepository
-     * @param IMailer $mailer
+     * @param BooksRepository $repository
      * @param EmailConfig $config
-     * @param int $bookId
+     * @param IMailer $mailer
+     * @param User $user
      */
-    public function __construct(BooksRepository $repository, IMailer $mailer, EmailConfig $config, $bookId)
+    public function __construct(
+        BooksRepository $repository,
+        EmailConfig $config,
+        IMailer $mailer,
+        User $user,
+        Book $book
+    )
     {
         parent::__construct();
         $this->repository = $repository;
-        $this->mailer = $mailer;
         $this->config = $config;
-        $this->bookId = $bookId;
+        $this->mailer = $mailer;
+        $this->user = $user;
+        $this->book = $book;
     }
 
     /**
@@ -92,30 +105,41 @@ final class BookContact extends BaseControl
     public function processForm(Form $form)
     {
         $values = $form->values;
-
-        // Fetch book
-        $book = $this->repository->getById($this->bookId);
-        if (!$book) $this->presenter->error();
+        $book = $this->book;
 
         // Create message
         $message = new Message();
-        $message->setFrom($values->email, $values->name);
-        $message->setReturnPath('info@burza.grk.cz');
-        $message->addTo($book->user->username);
-        $message->addBcc('rkfelix@gmail.com');
-        $message->setSubject('Poptávka: ' . $book->name);
+
+        // Add to book messages
+        $book->messages->add($message);
+        $this->repository->attach($book);
+
+        $message->message = $values->message;
+        $message->user = $this->user->identity->id;
+        $message->book = $book;
+
+        // Persist
+        $this->repository->persistAndFlush($book);
+
+        // Create mail message
+        $mail = new Mail();
+        $mail->setFrom($this->config->getFrom());
+        $mail->addReplyTo($values->email, $values->name);
+        $mail->setReturnPath($this->config->getReturnPath());
+        $mail->addTo($book->user->username);
+        $mail->setSubject('Poptávka: ' . $book->name);
 
         // Create template
         $template = $this->createTemplate();
         $template->setFile(__DIR__ . '/templates/@mail.latte');
         $template->form = $values;
         $template->book = $book;
-        $template->mail = $message;
-        $message->setHtmlBody($template);
+        $template->mail = $mail;
+        $mail->setHtmlBody($template);
 
         try {
             // Send message
-            $this->mailer->send($message);
+            $this->mailer->send($mail);
             $this->onSent('Poptávka byla úspěšně odeslána.');
         } catch (\Exception $e) {
             $this->onError('Vaši zprávu se nepodařilo odeslat.');

@@ -35,8 +35,9 @@ final class ListPresenter extends BasePresenter
     public function actionDefault()
     {
         $this->booksCollection = $this->booksReposity
-            ->findActive()
-            ->orderBy('id', 'DESC');
+            ->findSelling()
+            ->orderBy('id', 'DESC')
+            ->limitBy(12);
 
         $this->template->books = $this->booksCollection;
     }
@@ -52,7 +53,7 @@ final class ListPresenter extends BasePresenter
     public function actionCategory($categoryId)
     {
         $this->booksCollection = $this->booksReposity
-            ->findActive()
+            ->findSelling()
             ->findBy(['category' => $categoryId])
             ->orderBy('id', 'DESC');
 
