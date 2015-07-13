@@ -15,7 +15,7 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * User
  *
- * @property int|NULL               $fbid
+ * @property string|NULL               $fbid
  * @property string                 $username
  * @property string                 $password
  * @property string                 $role           {default self::ROLE_USER} {enum self::ROLE_*}
