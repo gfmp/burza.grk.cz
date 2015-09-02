@@ -14,6 +14,8 @@ services:
 
     security.user: Nette\Security\User(..., @App\Model\Security\SiteAuthenticator, ...)
 
+    - App\Model\ORM\Service\RouterService
+
     - class: App\Model\Image\ImageConfig
       factory: @App\Model\Image\ImageConfigFactory::create()
 

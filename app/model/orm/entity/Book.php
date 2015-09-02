@@ -16,12 +16,13 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * Book
  *
- * @property Category $category                 {m:1 \App\Model\ORM\Repository\CategoriesRepository $allBooks}
- * @property User $user                         {m:1 \App\Model\ORM\Repository\UsersRepository}
-* @property Image|NULL $image                   {1:1d \App\Model\ORM\Repository\ImagesRepository primary}
- * @property ManyHasMany|Image[] $images        {m:n \App\Model\ORM\Repository\ImagesRepository primary}
- * @property OneHasMany|Message[] $messages     {1:m \App\Model\ORM\Repository\MessagesRepository}
+ * @property Category $category                 {m:1 Category::$allBooks}
+ * @property User $user                         {m:1 User}
+ * @property Image|NULL $image                  {1:1d Image primary}
+ * @property ManyHasMany|Image[] $images        {1:m Image::$books order:id,DESC}
+ * @property OneHasMany|Message[] $messages     {1:m Message}
  * @property string $name
+ * @property string $slug
  * @property int $price
  * @property string $description
  * @property int|NULL $wear

@@ -1,160 +1,164 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
     <meta name="google-site-verification" content="X_n9WvJ_q3DyTfp_1Ds9QPbQUVH0T_pP3Ul413XEac4">
 
-	<!-- TITLE -->
-	{ifset #title}
-	<title>{include #title|striptags} | Burza učebnic - GFMP</title>
-	{else}
-	<title>Burza učebnic | Gymnázium F.M. Pelcla</title>
-	{/ifset}
+    <!-- TITLE -->
+    {ifset #title}
+        <title>{include #title|striptags} | Burza učebnic - GFMP</title>
+    {else}
+        <title>Burza učebnic | Gymnázium F.M. Pelcla</title>
+    {/ifset}
 
-	<!-- SEO -->
-	<meta name="keywords" content="{block #keywords}burza, knížky, grk, gfmp, škola, prodej, rychnov, prodej knih{/block}">
-	<meta name="description" content="{block #description}Burza nepotřebných knížek ze středních škol. Nebojte se vložit svoje knížky.{/block}">
-	<meta name="googlebot" content="snippet,archive">
-	<meta name="robots" content="index, follow">
-	<meta name="author" content="Felix <sulcmil@gmail.com>">
+    <!-- SEO -->
+    <meta name="keywords" content="{block #keywords}burza, knížky, grk, gfmp, škola, prodej, rychnov, prodej knih{/block}">
+    <meta name="description" content="{block #description}Burza nepotřebných knížek ze středních škol. Nebojte se vložit svoje knížky.{/block}">
+    <meta name="googlebot" content="snippet,archive">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Felix <sulcmil@gmail.com>">
 
-	<!-- FACEBOOK -->
-	<meta property="og:image" content="{$baseUri}/assets/img/logo.png">
-	<meta property="fb:app_id" content="707095916103660">
-	<meta property="og:type" content="website">
-	<meta property="og:title" content="{ifset #title}{include #title|striptags}{else}Burza učebnic | Gymnázium F.M. Pelcla{/ifset}">
-	<meta property="og:url" content="{link //this}">
-	<meta property="og:site_name" content="Burza GRK">
-	<meta property="og:description" content="{include #description}">
+    <!-- FACEBOOK -->
+    <meta property="og:image" content="{$baseUri}/assets/img/logo.png">
+    <meta property="fb:app_id" content="707095916103660">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{ifset #title}{include #title|striptags}{else}Burza učebnic | Gymnázium F.M. Pelcla{/ifset}">
+    <meta property="og:url" content="{link //this}">
+    <meta property="og:site_name" content="Burza GRK">
+    <meta property="og:description" content="{include #description}">
 
-	<!-- CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css">
-	<link href="{$basePath}/assets/css/theme.css?rev={$rev}" rel="stylesheet">
+    <link href="{$basePath}/assets/css/theme.css?rev={$rev}" rel="stylesheet">
 </head>
 <body data-rev="{$rev}" data-basepath="{$basePath}">
-	<!-- Navigation -->
-	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navbar">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
-			</div>
-			<div class="collapse navbar-collapse" id="menu-navbar">
-				<ul class="nav navbar-nav">
-					<li>
-						<a n:href=":Front:Home:">Poslední nabídky</a>
-					</li>
-					<li>
-						<a n:href=":Front:Manage:Profile:" n:if="$user->isLoggedIn()">Můj účet</a>
-					</li>
-				</ul>
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						{if $user->isLoggedIn()}
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$user->identity->username} <span class="caret"></span></a>
-							<ul class="dropdown-menu" role="menu">
-								<li><a n:href=":Front:Manage:Profile:">Můj učet</a></li>
-								<li class="divider"></li>
-								<li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
-							</ul>
-						{else}
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit <span class="caret"></span></a>
-							<div class="dropdown-menu dropdown-sign">
-								{control login:navbar}
-							</div>
-						{/if}
-					</li>
-				</ul>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navbar">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
+            </div>
+            <div class="collapse navbar-collapse" id="menu-navbar">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a n:href=":Front:Home:">Poslední nabídky</a>
+                    </li>
+                    {*<li>*}
+                        {*<a n:href=":Front:Home:">Prvák</a>*}
+                    {*</li>*}
+                    {*<li>*}
+                        {*<a n:href=":Front:Home:">Druhák</a>*}
+                    {*</li>*}
+                    {*<li>*}
+                        {*<a n:href=":Front:Home:">Třeťák</a>*}
+                    {*</li>*}
+                    {*<li>*}
+                        {*<a n:href=":Front:Home:">Čtvrťák</a>*}
+                    {*</li>*}
+                </ul>
 
-				{*<form class="navbar-form navbar-right" role="search">*}
-					{*<div class="form-group">*}
-						{*<input type="text" class="form-control input-large search-query" placeholder="Search">*}
-					{*</div>*}
-					{*<button type="submit" class="btn btn-default">Submit</button>*}
-				{*</form>*}
-			</div>
-		</div>
-	</nav>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        {if $user->isLoggedIn()}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$user->identity->username}
+                                <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a n:href=":Front:Manage:Profile:">Můj učet</a></li>
+                                <li class="divider"></li>
+                                <li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
+                            </ul>
+                        {else}
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit
+                                <span class="caret"></span></a>
+                            <div class="dropdown-menu dropdown-sign">
+                                {control login:navbar}
+                            </div>
+                        {/if}
+                    </li>
+                </ul>
 
-	<!-- Page Content -->
-	<div class="container">
+                {*<form class="navbar-form navbar-right" role="search">*}
+                {*<div class="form-group">*}
+                {*<input type="text" class="form-control input-large search-query" placeholder="Search">*}
+                {*</div>*}
+                {*<button type="submit" class="btn btn-default">Submit</button>*}
+                {*</form>*}
+            </div>
+        </nav>
 
-		<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
-			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			{$flash->message}
-		</div>
+        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            {$flash->message}
+        </div>
 
-		<div class="alert alert-danger" n:if="!$user->isLoggedIn()">
-			Opravili jsme problém s registrací/přihlašováním přes Facebook. Nyní by mělo vše fungovat. <a class="badge" n:href=":Front:Sign:facebook">Vyzkoušejte zde!</a>
-		</div>
-
-		<div class="alert alert-info">
-			Pokud narazíte na chybu nebo máte nějaký napád na vylepšení. <a href="#" class="badge" data-toggle="modal" data-target="#contact-modal">Neváhejte nás kontaktovat.</a>
-		</div>
-
-		<div class="alert alert-warning" n:if="$presenter->isLinkCurrent(':Front:List:*')">
-			Pomozte nám rozšířit databázi, díky které každý najde knížku, kterou hledá. <a class="badge" n:href=":Front:Manage:Book:add">Vložte knížku, kterou už nepotřebujete.</a>
-		</div>
-
-		{block #main}
-		<div class="row">
-			<div class="col-md-3 sidebar">
-                <div class="social-facebook hidden-xs">
-                    <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        {block #main}
+            <div class="row">
+                <div class="col-md-3 sidebar">
+                    <div class="social-facebook hidden-xs">
+                        <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                    </div>
+                    {control category}
                 </div>
-				{control category}
-			</div>
-			<div class="col-md-9">
-				{include #content}
-			</div>
-		</div>
-		{/block}
-	</div>
-	<!-- /.container -->
+                <div class="col-md-9">
+                    {include #content}
+                </div>
+            </div>
+        {/block}
+        <!-- /.container -->
 
-	<div class="container">
-		<hr>
-		<!-- Footer -->
-		<footer>
-			<div class="row">
-				<div class="col-lg-12 clearfix">
-					<p class="pull-left">Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}</p>
-					<p class="pull-right">Developed by <a href="http://jfx.cz">Felix</a></p>
-				</div>
-			</div>
-		</footer>
-	</div>
-	<!-- /.container -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12 clearfix">
+                    <p class="pull-left">
+                        Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}
+                    </p>
 
-	{control contact:modal}
+                    <p class="pull-right">
+                        Developed by <a href="http://jfx.cz">Felix</a>
+                        &nbsp; | &nbsp;
+                        Ver #{$ver}
+                        &nbsp; | &nbsp;
+                        Rev @{$rev}
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <!-- /.container -->
+    </div>
 
-	{if !$debug}
-	<!-- TRACKING -->
-	{include 'parts/@ga.latte'}
-	{/if}
+    {control contact:modal}
 
-	{include 'parts/@fb.latte'}
+    {if !$debug}
+        <!-- TRACKING -->
+        {include 'parts/@ga.latte'}
+    {/if}
 
-	<!-- SCRIPTS -->
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
-	<script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
-	<script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
-	<script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
-	<script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>
+    {include 'parts/@fb.latte'}
+    {include 'parts/@pageinfo.latte'}
+
+    <!-- SCRIPTS -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+    <script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
+    <script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
+    <script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
+    <script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
+    <script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>
 </body>
 </html>

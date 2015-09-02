@@ -5,11 +5,32 @@
  * Common ======================================================================
  */
 body {
-  padding-top: 70px;
+  padding-top: 10px;
   font-family: 'Open Sans', sans-serif;
 }
 footer {
   margin: 20px 0 50px 0;
+}
+/**
+ * Navigation ==================================================================
+ */
+nav.navbar {
+  background: #428bca;
+  border: 0;
+}
+nav.navbar .navbar-brand {
+  color: #fff;
+  text-shadow: none;
+}
+nav.navbar .navbar-brand:hover {
+  color: #fff;
+}
+nav.navbar .navbar-nav li > a {
+  color: #fff;
+  text-shadow: none;
+}
+nav.navbar ul.dropdown-menu li > a {
+  color: #000;
 }
 /**
  * Layout ======================================================================

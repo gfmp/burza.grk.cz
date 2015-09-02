@@ -35,6 +35,7 @@ abstract class BasePresenter extends Presenter
 
         // Deploy
         $this->template->rev = $this->portalConfig->expand('deploy.rev');
+        $this->template->ver = $this->portalConfig->expand('deploy.ver');
         $this->template->debug = $this->portalConfig->expand('debugMode') == TRUE;
     }
 

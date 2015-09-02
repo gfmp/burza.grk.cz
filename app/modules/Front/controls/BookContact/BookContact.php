@@ -126,6 +126,7 @@ final class BookContact extends BaseControl
         $mail->setFrom($this->config->getFrom());
         $mail->addReplyTo($values->email, $values->name);
         $mail->setReturnPath($this->config->getReturnPath());
+        $mail->addBcc($this->config->getBcc());
         $mail->addTo($book->user->username);
         $mail->setSubject('Poptávka: ' . $book->name);
 

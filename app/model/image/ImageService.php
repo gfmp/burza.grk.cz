@@ -9,6 +9,7 @@
 namespace App\Model\Image;
 
 use App\Model\ORM\Entity\Book;
+use App\Model\ORM\Helpers;
 use Nette\NotImplementedException;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Image;
@@ -67,7 +68,7 @@ final class ImageService
             }
 
             if (!file_exists($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename)) {
-                return NULL;
+                $image = Image::fromFile($this->config->getWwwDir() . DIRECTORY_SEPARATOR . Helpers::getPlaceholdImage($book->id));
             } else {
                 // Create image obj
                 $image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);

@@ -8,7 +8,7 @@
 
 namespace App\Routing;
 
-use Nette;
+use App\Model\ORM\Service\RouterService;
 use Nette\Application\IRouter;
 use Nette\Application\Routers\Route;
 use Nette\Application\Routers\RouteList;
@@ -19,10 +19,21 @@ use Nette\Application\Routers\RouteList;
 class RouterFactory
 {
 
+    /** @var RouterService */
+    private $routerService;
+
+    /**
+     * @param RouterService $routerService
+     */
+    function __construct(RouterService $routerService)
+    {
+        $this->routerService = $routerService;
+    }
+
     /**
      * @return IRouter
      */
-    public static function createRouter()
+    public function create()
     {
         $router = new RouteList();
 
@@ -30,16 +41,26 @@ class RouterFactory
         $router[] = new Route('sitemap.xml', 'Front:Generator:sitemap');
 
         // Front ===============================================================
-        $router[] = new Route('category/<categoryId [0-9]+>/', [
+        $router[] = new Route('<categoryId .+>/', [
             'module' => 'Front',
             'presenter' => 'List',
             'action' => 'category',
+            'categoryId' => [
+                Route::FILTER_IN => [$this->routerService, 'categoryIn'],
+                Route::FILTER_OUT => [$this->routerService, 'categoryOut'],
+            ],
         ]);
 
-        $router[] = new Route('book/<bookId [0-9]+>/', [
+        $router[] = new Route('book/<bookId [0-9]+>', 'Front:Book:detail', Route::ONE_WAY);
+
+        $router[] = new Route('kniha/<bookId .+>/', [
             'module' => 'Front',
             'presenter' => 'Book',
             'action' => 'detail',
+            'bookId' => [
+                Route::FILTER_IN => [$this->routerService, 'bookIn'],
+                Route::FILTER_OUT => [$this->routerService, 'bookOut'],
+            ],
         ]);
 
         // Manage ==============================================================

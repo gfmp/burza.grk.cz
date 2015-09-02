@@ -26,7 +26,8 @@ parameters:
 
     # Deploy settings
     deploy:
-        rev: 23062015
+        ver: v1.1
+        rev: 02092015
 
     # Dirs
     # appDir, libsDir, tempDir, logDir -> already configured

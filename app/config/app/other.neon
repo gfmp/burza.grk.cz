@@ -9,7 +9,8 @@
 services:
 
 	# Routing ==============================================
-	router: App\Routing\RouterFactory::createRouter
+	routerFactory: App\Routing\RouterFactory
+	router: @routerFactory::create
 
 	# Facebok ==============================================
 	facebook: App\Model\Facebook\FacebookService(..., %facebook.appId%, %facebook.appSecret%)

@@ -15,14 +15,14 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * User
  *
- * @property string|NULL               $fbid
+ * @property string|NULL            $fbid
  * @property string                 $username
  * @property string                 $password
  * @property string                 $role           {default self::ROLE_USER} {enum self::ROLE_*}
  * @property DateTime               $loggedAt       {default now}
  * @property DateTime               $createdAt      {default now}
- * @property OneHasMany|Book[]      $books          {1:m \App\Model\ORM\Repository\BooksRepository}
- * @property OneHasMany|Message[]   $messages       {1:m \App\Model\ORM\Repository\MessagesRepository}
+ * @property OneHasMany|Book[]      $books          {1:m Book}
+ * @property OneHasMany|Message[]   $messages       {1:m Message}
  */
 final class User extends AbstractEntity
 {

@@ -15,7 +15,8 @@ use Nextras\Orm\Relationships\OneHasMany;
  * Category
  *
  * @property string                 $name
- * @property OneHasMany|Book[]      $allBooks   {1:m \App\Model\ORM\Repository\BooksRepository}
+ * @property string                 $slug
+ * @property OneHasMany|Book[]      $allBooks   {1:m Book}
  * @property ICollection|Book[]     $books      {virtual}
  */
 final class Category extends AbstractEntity

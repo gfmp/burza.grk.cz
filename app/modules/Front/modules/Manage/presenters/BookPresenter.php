@@ -19,6 +19,7 @@ use App\Model\ORM\Repository\BooksRepository;
 use App\Model\ORM\Repository\ImagesRepository;
 use Nette\Http\FileUpload;
 use Nette\Utils\DateTime;
+use Nette\Utils\Strings;
 
 /**
  * Book presenter.
@@ -152,6 +153,7 @@ final class BookPresenter extends BasePresenter
 
         // Reguired
         $book->name = $values->name;
+        $book->slug = Strings::webalize($values->name);
         $book->price = $values->price;
         $book->description = $values->description;
         $book->wear = $values->wear;
