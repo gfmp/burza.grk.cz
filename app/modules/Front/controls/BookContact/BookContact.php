@@ -13,10 +13,12 @@ use App\Core\Controls\BaseControl;
 use App\Model\ORM\Entity\Book;
 use App\Model\ORM\Entity\Message;
 use App\Model\ORM\Repository\BooksRepository;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Mail\IMailer;
 use Nette\Mail\Message as Mail;
 use Nette\Security\User;
+use Tracy\Debugger;
 
 final class BookContact extends BaseControl
 {
@@ -141,8 +143,13 @@ final class BookContact extends BaseControl
         try {
             // Send message
             $this->mailer->send($mail);
-            $this->onSent('Poptávka byla úspěšně odeslána.');
+            try {
+                $this->onSent('Poptávka byla úspěšně odeslána.');
+            } catch (AbortException $e) {
+                // Catch redirects exceptions..
+            }
         } catch (\Exception $e) {
+            Debugger::log($e, Debugger::CRITICAL);
             $this->onError('Vaši zprávu se nepodařilo odeslat.');
         }
 
