@@ -98,6 +98,17 @@
             </div>
         </nav>
 
+        <div class="jumbotron">
+            <div class="container">
+                <h1>Burza GFMP</h1>
+                <p>Naše databáze se pomalu, ale jistě rozrůstá a to hlavně díky vám. <strong>Pomozte</strong> nám ji rozšířit jěště více.</p>
+                <p>Sdílejte na Facebooku, Twitteru, Googlu + a dalších.</p>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=burza.grk.cz" class="btn btn-social btn-lg btn-facebook" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fa fa-facebook"></i>Sdílet na Facebook</a>
+                <a href="https://twitter.com/home?status=Skvela%20burza%20ucebnic!%20Doporucuju.%20http%3A//burza.grk.cz"" class="btn btn-social btn-lg btn-google" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fa fa-google"></i>Sdílet na Google +</a>
+                <a href="https://plus.google.com/share?url=http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-twitter" onclick="_gaq.push(['_trackEvent', 'btn-social', 'click', 'btn-lg']);"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
+            </div>
+        </div>
+
         <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span></button>
@@ -107,9 +118,6 @@
         {block #main}
             <div class="row">
                 <div class="col-md-3 sidebar">
-                    <div class="social-facebook hidden-xs">
-                        <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>
-                    </div>
                     {control category}
                 </div>
                 <div class="col-md-9">
