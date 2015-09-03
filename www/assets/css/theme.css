@@ -39,6 +39,9 @@ nav.navbar ul.dropdown-menu li > a {
   text-align: center;
   margin: 2px 0 8px 0;
 }
+.jumbotron .buttons {
+  margin-bottom: 20px;
+}
 /**
  * Book-list ===================================================================
  */
