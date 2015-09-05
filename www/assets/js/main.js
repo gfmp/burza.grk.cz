@@ -25,4 +25,12 @@ $(function () {
     //$('.thumbnail .price').hover(function () {
     //    $(this).addClass('animated flipInY');
     //});
+
+    // Google Events
+    $('a[data-ga]').on('click', function (e) {
+        var event = $(this).data('ga-event');
+        var category = $(this).data('ga-category');
+        var action = $(this).data('ga-action');
+        ga('send', 'event', event, category, action);
+    });
 });

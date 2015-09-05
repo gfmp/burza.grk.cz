@@ -104,9 +104,9 @@
                 <p>Naše databáze se pomalu, ale jistě rozrůstá a to hlavně díky vám. <strong>Pomozte</strong> nám ji rozšířit jěště více.</p>
                 <p>Sdílejte na Facebooku, Twitteru, Googlu + a dalších.</p>
                 <div class="buttons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=burza.grk.cz" class="btn btn-social btn-lg btn-facebook" onclick="ga('send', 'btn-social', 'click', 'btn-lg', 'facebook');"><i class="fa fa-facebook"></i>Sdílet na Facebook</a>
-                    <a href="https://twitter.com/home?status=Skvela%20burza%20ucebnic!%20Doporucuju.%20http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-google" onclick="ga('send', 'btn-social', 'click', 'btn-lg', 'google');"><i class="fa fa-google"></i>Sdílet na Google +</a>
-                    <a href="https://plus.google.com/share?url=http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-twitter" onclick="ga('send', 'btn-social', 'click', 'btn-lg', 'twitter');"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
+                    <a href="https://www.facebook.com/sharer/sharer.php?u=burza.grk.cz" class="btn btn-social btn-lg btn-facebook" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="facebook"><i class="fa fa-facebook"></i>Sdílet na Facebook</a>
+                    <a href="https://twitter.com/home?status=Skvela%20burza%20ucebnic!%20Doporucuju.%20http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-google" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="google"><i class="fa fa-google"></i>Sdílet na Google +</a>
+                    <a href="https://plus.google.com/share?url=http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-twitter" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="twitter"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
                 </div>
                 <div>
                     <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
@@ -159,10 +159,8 @@
     {include 'parts/@fb.latte'}
     {include 'parts/@pageinfo.latte'}
 
-    {if !$debug}
     <!-- TRACKING -->
     {include 'parts/@ga.latte'}
-    {/if}
 
     <!-- SCRIPTS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
