@@ -33,6 +33,9 @@ abstract class BasePresenter extends Presenter
         $this->template->distPath = $this->template->basePath . '/dist';
         $this->template->vendorPath = $this->template->basePath . '/vendor';
 
+        // Url
+        $this->template->url = $this->getHttpRequest()->getUrl();
+
         // Deploy
         $this->template->rev = $this->portalConfig->expand('deploy.rev');
         $this->template->ver = $this->portalConfig->expand('deploy.ver');

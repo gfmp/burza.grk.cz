@@ -1,6 +1,10 @@
 {block #title}{$book->name}{/block}
 {block #description}{$book->description|striptags|truncate:100}{/block}
 
+{if $book->image}
+    {block #image}{$url->hostUrl}{$book|imgbook:200:200}{/block}
+{/if}
+
 {block #content}
 <div class="row">
     <div class="col-lg-12">
@@ -37,6 +41,12 @@
             </tr>
             </tbody>
         </table>
+
+        <div class="buttons">
+            <a href="https://www.facebook.com/sharer/sharer.php?u={link //this}" class="btn btn-social btn-sm btn-facebook" data-ga="1" data-ga-event="btn-social-detail" data-ga-category="click" data-ga-action="facebook"><i class="fa fa-facebook"></i>Sdílet na Facebook</a>
+            <a href="https://twitter.com/home?status={$book->name}+{link //this}" class="btn btn-social btn-sm btn-twitter" data-ga="1" data-ga-event="btn-social-detail" data-ga-category="click" data-ga-action="twitter"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
+            <a href="https://plus.google.com/share?url={link //this}" class="btn btn-social btn-sm btn-google" data-ga="1" data-ga-event="btn-social-detail" data-ga-category="click" data-ga-action="google"><i class="fa fa-google"></i>Sdílet na Google +</a>
+        </div>
     </div>
     <div n:if="$book->image" class="col-md-4">
         <a class="lightbox img-thumbnail" href="{$book|lightbox}">
