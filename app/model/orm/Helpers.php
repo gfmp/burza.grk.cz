@@ -8,17 +8,7 @@
 
 namespace App\Model\ORM;
 
-use App\Model\ORM\Repository\BooksRepository;
-use App\Model\ORM\Repository\CategoriesRepository;
-use App\Model\ORM\Repository\UsersRepository;
-use Nextras\Orm\Model\Model;
-
-/**
- * @property-read UsersRepository $users
- * @property-read CategoriesRepository $categories
- * @property-read BooksRepository $books
- */
-final class Helpers extends Model
+final class Helpers
 {
 
     /**
