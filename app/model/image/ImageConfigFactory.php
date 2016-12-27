@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -13,47 +13,50 @@ use Nette\Http\Request;
 final class ImageConfigFactory
 {
 
-    /** @var Request */
-    private $httpRequest;
+	/** @var Request */
+	private $httpRequest;
 
-    /** @var string */
-    private $wwwDir;
+	/** @var string */
+	private $wwwDir;
 
-    /** @var string */
-    private $storageDir;
+	/** @var string */
+	private $storageDir;
 
-    /** @var string */
-    private $webtempDir;
+	/** @var string */
+	private $webtempDir;
 
-    /**
-     * @param Request $httpRequest
-     * @param string $storageDir
-     * @param string $wwwDir
-     * @param string $webtempDir
-     */
-    public function __construct(Request $httpRequest, $wwwDir, $storageDir, $webtempDir)
-    {
-        $this->httpRequest = $httpRequest;
-        $this->wwwDir = rtrim($wwwDir);
-        $this->storageDir = rtrim($storageDir, '/');
-        $this->webtempDir = rtrim($webtempDir, '/');
-    }
+	/**
+	 * ImageConfigFactory constructor.
+	 *
+	 * @param Request $httpRequest
+	 * @param string  $wwwDir
+	 * @param string  $storageDir
+	 * @param string  $webtempDir
+	 */
+	public function __construct(Request $httpRequest, $wwwDir, $storageDir, $webtempDir)
+	{
+		$this->httpRequest = $httpRequest;
+		$this->wwwDir      = rtrim($wwwDir);
+		$this->storageDir  = rtrim($storageDir, '/');
+		$this->webtempDir  = rtrim($webtempDir, '/');
+	}
 
-    /**
-     * @return ImageConfig
-     */
-    public function create()
-    {
-        $config = new ImageConfig();
+	/**
+	 * @return ImageConfig
+	 */
+	public function create()
+	{
+		$config = new ImageConfig();
 
-        $baseUrl = rtrim($this->httpRequest->getUrl()->getBaseUrl(), '/');
-        $basePath = preg_replace('#https?://[^/]+#A', '', $baseUrl);
-        $config->setBasePath($basePath);
+		$baseUrl  = rtrim($this->httpRequest->getUrl()->getBaseUrl(), '/');
+		$basePath = preg_replace('#https?://[^/]+#A', '', $baseUrl);
+		$config->setBasePath($basePath);
 
-        $config->setStorageDir($this->storageDir);
-        $config->setWwwDir($this->wwwDir);
-        $config->setWebtempDir($this->webtempDir);
+		$config->setStorageDir($this->storageDir);
+		$config->setWwwDir($this->wwwDir);
+		$config->setWebtempDir($this->webtempDir);
 
-        return $config;
-    }
+		return $config;
+	}
+
 }

@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -18,51 +18,52 @@ use App\Model\ORM\Repository\BooksRepository;
 final class ProfilePresenter extends BasePresenter
 {
 
-    /** @var IBookTableFactory @inject */
-    public $bookTableFactory;
+	/** @var IBookTableFactory @inject */
+	public $bookTableFactory;
 
-    /** @var BooksRepository @inject */
-    public $booksRepository;
+	/** @var BooksRepository @inject */
+	public $booksRepository;
 
-    /**
-     * Active book table
-     *
-     * @return BookTable
-     */
-    protected function createComponentActive()
-    {
-        return $this->bookTableFactory->create(
-            $this->booksRepository
-                ->findSelling()
-                ->findBy(['user' => $this->user->id])
-        );
-    }
+	/**
+	 * Active book table
+	 *
+	 * @return BookTable
+	 */
+	protected function createComponentActive()
+	{
+		return $this->bookTableFactory->create(
+			$this->booksRepository
+				->findSelling()
+				->findBy(['user' => $this->user->id])
+		);
+	}
 
-    /**
-     * Archive book table
-     *
-     * @return BookTable
-     */
-    protected function createComponentArchive()
-    {
-        return $this->bookTableFactory->create(
-            $this->booksRepository
-                ->findArchived()
-                ->findBy(['user' => $this->user->id])
-        );
-    }
+	/**
+	 * Archive book table
+	 *
+	 * @return BookTable
+	 */
+	protected function createComponentArchive()
+	{
+		return $this->bookTableFactory->create(
+			$this->booksRepository
+				->findArchived()
+				->findBy(['user' => $this->user->id])
+		);
+	}
 
-    /**
-     * Sold book table
-     *
-     * @return BookTable
-     */
-    protected function createComponentSold()
-    {
-        return $this->bookTableFactory->create(
-            $this->booksRepository
-                ->findSold()
-                ->findBy(['user' => $this->user->id])
-        );
-    }
+	/**
+	 * Sold book table
+	 *
+	 * @return BookTable
+	 */
+	protected function createComponentSold()
+	{
+		return $this->bookTableFactory->create(
+			$this->booksRepository
+				->findSold()
+				->findBy(['user' => $this->user->id])
+		);
+	}
+
 }

@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -24,56 +24,57 @@ use App\Front\Controls\Statistics\IStatisticsFactory;
 abstract class BasePresenter extends CommonBasePresenter
 {
 
-    /** @var ICategoryFactory @inject */
-    public $categoryFactory;
+	/** @var ICategoryFactory @inject */
+	public $categoryFactory;
 
-    /** @var IIssueContactFactory @inject */
-    public $contactFactory;
+	/** @var IIssueContactFactory @inject */
+	public $contactFactory;
 
-    /** @var ILoginFactory @inject */
-    public $loginFactory;
+	/** @var ILoginFactory @inject */
+	public $loginFactory;
 
-    /** @var IStatisticsFactory @inject */
-    public $statisticsFactory;
+	/** @var IStatisticsFactory @inject */
+	public $statisticsFactory;
 
-    /**
-     * @return Category
-     */
-    protected function createComponentCategory()
-    {
-        return $this->categoryFactory->create();
-    }
+	/**
+	 * @return Category
+	 */
+	protected function createComponentCategory()
+	{
+		return $this->categoryFactory->create();
+	}
 
-    /**
-     * @return Login
-     */
-    protected function createComponentLogin()
-    {
-        $login = $this->loginFactory->create();
+	/**
+	 * @return Login
+	 */
+	protected function createComponentLogin()
+	{
+		$login = $this->loginFactory->create();
 
-        $login->onLogin[] = function () {
-            // Display info
-            $this->flashMessage('Vítejte! Nyní můžete spravovat vaše knihy.', 'success');
-            // Redirect
-            $this->redirect('this');
-        };
+		$login->onLogin[] = function () {
+			// Display info
+			$this->flashMessage('Vítejte! Nyní můžete spravovat vaše knihy.', 'success');
+			// Redirect
+			$this->redirect('this');
+		};
 
-        return $login;
-    }
+		return $login;
+	}
 
-    /**
-     * @return IssueContact
-     */
-    protected function createComponentContact()
-    {
-        return $this->contactFactory->create();
-    }
+	/**
+	 * @return IssueContact
+	 */
+	protected function createComponentContact()
+	{
+		return $this->contactFactory->create();
+	}
 
-    /**
-     * @return Statistics
-     */
-    protected function createComponentStatistics()
-    {
-        return $this->statisticsFactory->create();
-    }
+	/**
+	 * @return Statistics
+	 */
+	protected function createComponentStatistics()
+	{
+		return $this->statisticsFactory->create();
+	}
+
 }

@@ -11,9 +11,48 @@
     "nette/nette": "~2.3.0",
     "nextras/orm": "~1.1.0",
     "nextras/dbal": "~1.0.0",
-    "facebook/php-sdk-v4" : "~4.0.0"
+    "facebook/php-sdk-v4": "~4.0.0"
   },
   "require-dev": {
-    "nette/tester": "~1.5"
+    "nette/tester": "~1.5",
+    "ninjify/qa": "^0.3.3"
+  },
+  "scripts": {
+    "qa": [
+      "@qa-linter",
+      "@qa-codesniffer"
+    ],
+    "qa-codesniffer": [
+      "Ninjify\\Composer\\Script\\CodeSniffer::execute"
+    ],
+    "qa-codefixer": [
+      "Ninjify\\Composer\\Script\\CodeFixer::execute"
+    ],
+    "qa-linter": [
+      "Ninjify\\Composer\\Script\\Linter::execute"
+    ]
+  },
+  "extra": {
+    "ninjify": {
+      "qa": {
+        "codesniffer": {
+          "ruleset": "nette",
+          "folders": [
+            "app"
+          ]
+        },
+        "codefixer": {
+          "ruleset": "nette",
+          "folders": [
+            "app"
+          ]
+        },
+        "linter": {
+          "folders": [
+            "app"
+          ]
+        }
+      }
+    }
   }
 }

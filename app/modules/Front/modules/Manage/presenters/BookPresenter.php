@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -27,219 +27,235 @@ use Nette\Utils\Strings;
 final class BookPresenter extends BasePresenter
 {
 
-    /** @var BooksRepository @inject */
-    public $booksRepository;
+	/** @var BooksRepository @inject */
+	public $booksRepository;
 
-    /** @var ImagesRepository @inject */
-    public $imagesRepository;
+	/** @var ImagesRepository @inject */
+	public $imagesRepository;
 
-    /** @var IBookFormFactory @inject */
-    public $bookFormFactory;
+	/** @var IBookFormFactory @inject */
+	public $bookFormFactory;
 
-    /** @var IImageFormFactory @inject */
-    public $imageFormFactory;
+	/** @var IImageFormFactory @inject */
+	public $imageFormFactory;
 
-    /** @var ImageManager @inject */
-    public $imageManager;
+	/** @var ImageManager @inject */
+	public $imageManager;
 
-    /** @var Book */
-    private $book;
+	/** @var Book */
+	private $book;
 
-    /**
-     * ADD *********************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * ADD *********************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * EDIT ********************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * EDIT ********************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * @param int $bookId
-     */
-    public function actionEdit($bookId)
-    {
-        $this->book = $this->booksRepository->getById($bookId);
+	/**
+	 * @param int $bookId
+	 *
+	 * @return void
+	 */
+	public function actionEdit($bookId)
+	{
+		$this->book = $this->booksRepository->getById($bookId);
 
-        if (!$this->book) {
-            $this->flashMessage('Kniha nebyla nalezena.', 'warning');
-            $this->redirect('Profile:');
-        } else if ($this->book->user->id !== $this->user->identity->id) {
-            $this->flashMessage('Nelze upravovat cizí knihu.', 'danger');
-            $this->redirect('Profile:');
-        }
+		if (!$this->book) {
+			$this->flashMessage('Kniha nebyla nalezena.', 'warning');
+			$this->redirect('Profile:');
+		} elseif ($this->book->user->id !== $this->user->identity->id) {
+			$this->flashMessage('Nelze upravovat cizí knihu.', 'danger');
+			$this->redirect('Profile:');
+		}
 
-        $this['bookForm']->setDefaults($this->book->toArray(Book::TO_ARRAY_RELATIONSHIP_AS_ID));
-        $this['imageForm']->setDefaults(['book' => $this->book->id]);
-    }
+		$this['bookForm']->setDefaults($this->book->toArray(Book::TO_ARRAY_RELATIONSHIP_AS_ID));
+		$this['imageForm']->setDefaults(['book' => $this->book->id]);
+	}
 
-    /**
-     * @param int $bookId
-     */
-    public function renderEdit($bookId)
-    {
-        $this->template->book = $this->book;
-    }
+	/**
+	 * @param int $bookId
+	 *
+	 * @return void
+	 */
+	public function renderEdit($bookId)
+	{
+		$this->template->book = $this->book;
+	}
 
-    /**
-     * HANDLERS ****************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * HANDLERS ****************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * @param int $bookId
-     */
-    public function handleRemoveImage($bookId)
-    {
-        $book = $this->booksRepository->getById($bookId);
-        if ($book) {
-            $book->image = NULL;
-            $this->booksRepository->persistAndFlush($book);
-            $this->flashMessage('Obrázek byl úspěšně smazán.', 'success');
-        }
+	/**
+	 * @param int $bookId
+	 *
+	 * @return void
+	 */
+	public function handleRemoveImage($bookId)
+	{
+		$book = $this->booksRepository->getById($bookId);
+		if ($book) {
+			$book->image = NULL;
+			$this->booksRepository->persistAndFlush($book);
+			$this->flashMessage('Obrázek byl úspěšně smazán.', 'success');
+		}
 
-        $this->redirect('this');
-    }
+		$this->redirect('this');
+	}
 
-    /**
-     * BOOK - FORM *************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * BOOK - FORM *************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * Book form factory.
-     *
-     * @return BookForm
-     */
-    protected function createComponentBookForm()
-    {
-        // Create form
-        $form = $this->bookFormFactory->create();
+	/**
+	 * Book form factory.
+	 *
+	 * @return BookForm
+	 */
+	protected function createComponentBookForm()
+	{
+		// Create form
+		$form = $this->bookFormFactory->create();
 
-        // Attach handle
-        $form->onSuccess[] = callback($this, 'processBookForm');
+		// Attach handle
+		$form->onSuccess[] = callback($this, 'processBookForm');
 
-        return $form;
-    }
+		return $form;
+	}
 
-    /**
-     * Process book form.
-     *
-     * @param BookForm $form
-     */
-    public function processBookForm(BookForm $form)
-    {
-        $values = $form->values;
+	/**
+	 * Process book form.
+	 *
+	 * @param BookForm $form
+	 *
+	 * @return void
+	 */
+	public function processBookForm(BookForm $form)
+	{
+		$values = $form->values;
 
-        if ($values->id != NULL) {
-            // Edit book
-            $book = $this->booksRepository->getById($values->id);
-            if (!$book) {
-                $this->flashMessage('Chyba při editaci knihy. Prosím zkuste znovu.', 'danger');
-                return;
-            }
-            $book->updatedAt = new DateTime();
-        } else {
-            // New book
-            $book = new Book();
-            $book->active = TRUE;
-            $book->state = $book::STATE_SELLING;
-            $book->createdAt = new DateTime();
-        }
+		if ($values->id != NULL) {
+			// Edit book
+			$book = $this->booksRepository->getById($values->id);
+			if (!$book) {
+				$this->flashMessage('Chyba při editaci knihy. Prosím zkuste znovu.', 'danger');
 
-        // Attach book
-        $this->booksRepository->attach($book);
+				return;
+			}
+			$book->updatedAt = new DateTime();
+		} else {
+			// New book
+			$book            = new Book();
+			$book->active    = TRUE;
+			$book->state     = $book::STATE_SELLING;
+			$book->createdAt = new DateTime();
+		}
 
-        // Reguired
-        $book->name = $values->name;
-        $book->slug = Strings::webalize($values->name);
-        $book->price = $values->price;
-        $book->description = $values->description;
-        $book->wear = $values->wear;
-        $book->category = $values->category;
-        $book->user = $this->user->id;
+		// Attach book
+		$this->booksRepository->attach($book);
 
-        // Aditional
-        $book->author = $values->author;
-        $book->publisher = $values->publisher;
-        $book->year = is_numeric($values->year) ? $values->year : NULL;
+		// Reguired
+		$book->name        = $values->name;
+		$book->slug        = Strings::webalize($values->name);
+		$book->price       = $values->price;
+		$book->description = $values->description;
+		$book->wear        = $values->wear;
+		$book->category    = $values->category;
+		$book->user        = $this->user->id;
 
-        try {
-            // Save/update book
-            $this->booksRepository->persistAndFlush($book);
+		// Aditional
+		$book->author    = $values->author;
+		$book->publisher = $values->publisher;
+		$book->year      = is_numeric($values->year) ? $values->year : NULL;
 
-            if ($values->id != NULL) {
-                $this->flashMessage('Kniha byla úšpěšně aktualizována.', 'success');
-                $this->redirect('this');
-                return;
-            } else {
-                $this->flashMessage('Kniha byla úšpěšně přidána.', 'success');
-                $this->redirect('Profile:');
-                return;
-            }
-        } catch (\PDOException $e) {
-            $this->flashMessage('Nepovedlo se uložit knihu. Prosím zkuste znovu.', 'danger');
-            return;
-        }
-    }
+		try {
+			// Save/update book
+			$this->booksRepository->persistAndFlush($book);
 
-    /**
-     * IMAGE - FORM ************************************************************
-     * *************************************************************************
-     */
+			if ($values->id != NULL) {
+				$this->flashMessage('Kniha byla úšpěšně aktualizována.', 'success');
+				$this->redirect('this');
 
-    /**
-     * Image form factory.
-     *
-     * @return ImageForm
-     */
-    protected function createComponentImageForm()
-    {
-        // Create form
-        $form = $this->imageFormFactory->create();
+				return;
+			} else {
+				$this->flashMessage('Kniha byla úšpěšně přidána.', 'success');
+				$this->redirect('Profile:');
 
-        // Attach handle
-        $form->onSuccess[] = callback($this, 'processImageForm');
+				return;
+			}
+		} catch (\PDOException $e) {
+			$this->flashMessage('Nepovedlo se uložit knihu. Prosím zkuste znovu.', 'danger');
 
-        return $form;
-    }
+			return;
+		}
+	}
 
-    /**
-     * Process image form.
-     *
-     * @param ImageForm $form
-     */
-    public function processImageForm(ImageForm $form)
-    {
-        $values = $form->values;
+	/**
+	 * IMAGE - FORM ************************************************************
+	 * *************************************************************************
+	 */
 
-        /** @var FileUpload $file */
-        $file = $values->image;
+	/**
+	 * Image form factory.
+	 *
+	 * @return ImageForm
+	 */
+	protected function createComponentImageForm()
+	{
+		// Create form
+		$form = $this->imageFormFactory->create();
 
-        // Save image
-        $filename = $this->imageManager->save($file);
-        if ($filename != NULL) {
-            $image = new Image();
-            $image->filename = $filename;
+		// Attach handle
+		$form->onSuccess[] = callback($this, 'processImageForm');
 
-            // Save image
-            $this->imagesRepository->persistAndFlush($image);
+		return $form;
+	}
 
-            // Attach image to book
-            $book = $this->booksRepository->getById($values->book);
-            if ($book) {
-                $book->image = $image;
-                $this->booksRepository->persistAndFlush($book);
-            }
+	/**
+	 * Process image form.
+	 *
+	 * @param ImageForm $form
+	 *
+	 * @return void
+	 */
+	public function processImageForm(ImageForm $form)
+	{
+		$values = $form->values;
 
-            // Display info
-            $this->flashMessage('Obrázek byl úspěšně nahrán ke knize.', 'success');
-            // Refresh
-            $this->redirect('this');
-        } else {
-            $this->flashMessage('Nepovedlo se nahrát obrázek. Prosím zkuste znovu.', 'warning');
-            return;
-        }
-    }
+		/** @var FileUpload $file */
+		$file = $values->image;
+
+		// Save image
+		$filename = $this->imageManager->save($file);
+		if ($filename != NULL) {
+			$image           = new Image();
+			$image->filename = $filename;
+
+			// Save image
+			$this->imagesRepository->persistAndFlush($image);
+
+			// Attach image to book
+			$book = $this->booksRepository->getById($values->book);
+			if ($book) {
+				$book->image = $image;
+				$this->booksRepository->persistAndFlush($book);
+			}
+
+			// Display info
+			$this->flashMessage('Obrázek byl úspěšně nahrán ke knize.', 'success');
+			// Refresh
+			$this->redirect('this');
+		} else {
+			$this->flashMessage('Nepovedlo se nahrát obrázek. Prosím zkuste znovu.', 'warning');
+
+			return;
+		}
+	}
+
 }

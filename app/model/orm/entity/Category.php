@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -14,19 +14,20 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * Category
  *
- * @property string                 $name
- * @property string                 $slug
- * @property OneHasMany|Book[]      $allBooks   {1:m Book}
- * @property ICollection|Book[]     $books      {virtual}
+ * @property string             $name
+ * @property string             $slug
+ * @property OneHasMany|Book[]  $allBooks   {1:m Book}
+ * @property ICollection|Book[] $books      {virtual}
  */
 final class Category extends AbstractEntity
 {
 
-    /**
-     * @return ICollection
-     */
-    protected function getterBooks()
-    {
-        return $this->allBooks->get()->findBy(['active' => TRUE]);
-    }
+	/**
+	 * @return ICollection
+	 */
+	protected function getterBooks()
+	{
+		return $this->allBooks->get()->findBy(['active' => TRUE]);
+	}
+
 }

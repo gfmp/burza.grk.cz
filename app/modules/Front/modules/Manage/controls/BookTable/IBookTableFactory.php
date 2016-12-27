@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -13,9 +13,11 @@ use Nextras\Orm\Collection\ICollection;
 interface IBookTableFactory
 {
 
-    /**
-     * @param ICollection $collection
-     * @return BookTable
-     */
-    function create(ICollection $collection);
+	/**
+	 * @param ICollection $collection
+	 *
+	 * @return BookTable
+	 */
+	public function create(ICollection $collection);
+
 }

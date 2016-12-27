@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -13,9 +13,11 @@ use App\Model\ORM\Entity\Book;
 interface IBookContactFactory
 {
 
-    /**
-     * @param Book $book
-     * @return BookContact
-     */
-    function create(Book $book);
+	/**
+	 * @param Book $book
+	 *
+	 * @return BookContact
+	 */
+	public function create(Book $book);
+
 }

@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -17,89 +17,93 @@ use Nette\Utils\Image;
 final class ImageService
 {
 
-    /** @var ImageConfig */
-    private $config;
+	/** @var ImageConfig */
+	private $config;
 
-    /**
-     * @param ImageConfig $config
-     */
-    public function __construct(ImageConfig $config)
-    {
-        $this->config = $config;
-    }
+	/**
+	 * @param ImageConfig $config
+	 */
+	public function __construct(ImageConfig $config)
+	{
+		$this->config = $config;
+	}
 
-    /**
-     * @param string $image
-     * @param int|NULL $width
-     * @param int|NULL $height
-     * @param int $method
-     * @return string
-     */
-    public function fromString($image, $width, $height, $method)
-    {
-        throw new NotImplementedException;
-    }
+	/**
+	 * @param string   $image
+	 * @param int|NULL $width
+	 * @param int|NULL $height
+	 * @param int      $method
+	 *
+	 * @return void //string
+	 */
+	public function fromString($image, $width, $height, $method)
+	{
+		throw new NotImplementedException;
+	}
 
-    /**
-     * @param Book $book
-     * @param int|NULL $width
-     * @param int|NULL $height
-     * @param int $method
-     * @return string
-     */
-    public function fromBookEntity(Book $book, $width, $height, $method)
-    {
-        if ($book->image == NULL) {
-            return $this->config->getBasePath() . '/' . $book->mainImage;
-        } else {
-            // Generate image unique name
-            $filename = "{$width}x{$height}/" . $book->image->filename;
+	/**
+	 * @param Book     $book
+	 * @param int|NULL $width
+	 * @param int|NULL $height
+	 * @param int      $method
+	 *
+	 * @return string
+	 */
+	public function fromBookEntity(Book $book, $width, $height, $method)
+	{
+		if ($book->image == NULL) {
+			return $this->config->getBasePath() . '/' . $book->mainImage;
+		} else {
+			// Generate image unique name
+			$filename = $width . 'x' . $height . '/' . $book->image->filename;
 
-            // Absolute path
-            $absPath = $this->config->getWebtempDir() . '/' . $filename;
+			// Absolute path
+			$absPath = $this->config->getWebtempDir() . '/' . $filename;
 
-            // Relative path
-            $relPath = $this->config->getBasePath() . '/'
-                . str_replace($this->config->getWwwDir() . '/', NULL, $this->config->getWebtempDir()) . '/'
-                . $filename;
+			// Relative path
+			$relPath = $this->config->getBasePath() . '/'
+				. str_replace($this->config->getWwwDir() . '/', NULL, $this->config->getWebtempDir()) . '/'
+				. $filename;
 
-            if (file_exists($absPath)) {
-                return $relPath;
-            }
+			if (file_exists($absPath)) {
+				return $relPath;
+			}
 
-            if (!file_exists($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename)) {
-                $image = Image::fromFile($this->config->getWwwDir() . DIRECTORY_SEPARATOR . Helpers::getPlaceholdImage($book->id));
-            } else {
-                // Create image obj
-                $image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);
+			if (!file_exists($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename)) {
+				$image = Image::fromFile($this->config->getWwwDir() . DIRECTORY_SEPARATOR . Helpers::getPlaceholdImage($book->id));
+			} else {
+				// Create image obj
+				$image = Image::fromFile($this->config->getStorageDir() . DIRECTORY_SEPARATOR . $book->image->filename);
 
-                if ($image->width > $image->height) {
-                    $image = $image->rotate(-90, Image::rgb(0,0,0));
-                }
-            }
+				if ($image->width > $image->height) {
+					$image = $image->rotate(-90, Image::rgb(0, 0, 0));
+				}
+			}
 
-            // Resize
-            $image->resize($width, $height, $method);
+			// Resize
+			$image->resize($width, $height, $method);
 
-            // Create dir
-            FileSystem::createDir(dirname($absPath));
+			// Create dir
+			FileSystem::createDir(dirname($absPath));
 
-            // Save image
-            $image->save($absPath, 80);
+			// Save image
+			$image->save($absPath, 80);
 
-            return $relPath;
-        }
-    }
+			return $relPath;
+		}
+	}
 
-    /**
-     * @param Image $image
-     * @param int|NULL $width
-     * @param int|NULL $height
-     * @param int $method
-     * @return string
-     */
-    public function fromImageEntity(Image $image, $width, $height, $method)
-    {
-        throw new NotImplementedException;
-    }
+	/**
+	 * @param Image    $image
+	 * @param int|NULL $width
+	 * @param int|NULL $height
+	 * @param int      $method
+	 *
+	 * @return void //string
+	 */
+	public function fromImageEntity(Image $image, $width, $height, $method)
+	{
+		throw new NotImplementedException;
+	}
+
 }

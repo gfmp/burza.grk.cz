@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -14,8 +14,9 @@ namespace App\Front\Controls\Sitemap;
 interface ISitemapControlFactory
 {
 
-    /**
-     * @return SitemapControl
-     */
-    function create();
+	/**
+	 * @return SitemapControl
+	 */
+	public function create();
+
 }
