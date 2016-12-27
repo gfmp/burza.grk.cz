@@ -51,7 +51,7 @@ final class PortalConfig
 	 */
 	public function expand($name, $recursive = FALSE)
 	{
-		return Helpers::expand('%$name%', $this->parameters, $recursive);
+		return Helpers::expand('%' . $name . '%', $this->parameters, $recursive);
 	}
 
 	/**

@@ -47,15 +47,15 @@ final class Registration extends BaseControl
 	{
 		$form = new Form();
 
-		$form->addText('username', 'Uživatelské jméno')
+		$form->addText('username', 'Uživatelské jméno *')
 			->setAttribute('autofocus')
 			->setRequired('Uživatelské jméno je povinné!')
 			->addRule($form::EMAIL, 'Vyplňte prosím email ve správném formátu.');
 
-		$form->addPassword('password1', 'Heslo')
+		$form->addPassword('password1', 'Heslo *')
 			->setRequired('Heslo musí být vyplněno!');
 
-		$form->addPassword('password2', 'Kontrola hesla')
+		$form->addPassword('password2', 'Kontrola hesla *')
 			->setRequired('Kontrola hesla musí být vyplněna!')
 			->addRule($form::EQUAL, 'Hesla musí být stejná.', $form['password1']);
 

@@ -77,18 +77,18 @@ final class BookContact extends BaseControl
 		// Create form
 		$form = new Form();
 
-		$form->addText('name', 'Vaše jméno')
+		$form->addText('name', 'Vaše jméno *')
 			->setRequired('Vaše jméno je povinné.');
 
 		$form->addText('phone', 'Váš telefon')
 			->addCondition($form::FILLED)
 			->addRule($form::INTEGER, 'Telefon musí být složen jenom z čísel bez předvolby.');
 
-		$form->addText('email', 'Váš e-mail')
+		$form->addText('email', 'Váš e-mail *')
 			->setRequired('Vaše e-mail je povinný.')
 			->addRule($form::EMAIL, 'Váš e-mail nemá správný formát.');
 
-		$form->addTextArea('message', 'Vaše zpráva')
+		$form->addTextArea('message', 'Vaše zpráva *')
 			->setRequired('Vaše zpráva je povinná.')
 			->addRule($form::MIN_LENGTH, 'Minimálně prosím napište %s znaky.', 15);
 

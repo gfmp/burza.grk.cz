@@ -22,14 +22,14 @@ final class BookForm extends Form
 	{
 		//        $this->addCheckbox('active', 'Je knížka k prodeji?');
 
-		$this->addText('name', 'Název')
+		$this->addText('name', 'Název *')
 			->setRequired('Název knihy je povinný.');
 
-		$this->addText('price', 'Cena')
+		$this->addText('price', 'Cena *')
 			->addRule(self::INTEGER, 'Cena musí být celočíselná.')
 			->setRequired('Cena knihy je povinná.');
 
-		$this->addSelect('category', 'Kategorie')
+		$this->addSelect('category', 'Kategorie *')
 			->setPrompt('--- Kategorie ---')
 			->setItems($categoriesRepository
 				->findAll()
@@ -37,10 +37,10 @@ final class BookForm extends Form
 				->fetchPairs('id', 'name'))
 			->setRequired('Kategorie knihy je povinná.');
 
-		$this->addTextArea('description', 'Popisek')
+		$this->addTextArea('description', 'Popisek *')
 			->setRequired('Popisek knihy je povinný.');
 
-		$this->addRadioList('wear', 'Opotřebení')
+		$this->addRadioList('wear', 'Opotřebení *')
 			->setItems(Helpers::getWears())
 			->setRequired('Opotřebení knihy je povinné.');
 

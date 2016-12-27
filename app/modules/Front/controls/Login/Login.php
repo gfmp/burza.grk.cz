@@ -46,12 +46,12 @@ final class Login extends BaseControl
 	{
 		$form = new Form();
 
-		$form->addText('username', 'Uživatelské jméno')
+		$form->addText('username', 'Uživatelské jméno *')
 			->setAttribute('autofocus')
 			->setRequired('Uživatelské jméno je povinné!')
 			->addRule($form::EMAIL, 'Vyplňte prosím email ve správném formátu.');
 
-		$form->addPassword('password', 'Heslo')
+		$form->addPassword('password', 'Heslo *')
 			->setRequired('Heslo musí být vyplněno!');
 
 		$form->addCheckbox('remember', 'Zapamatovat')
