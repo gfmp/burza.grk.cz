@@ -10,3 +10,5 @@
 /composer.lock
 /app/config/config.local.neon
 /app/config/config.server.neon
+
+/docker/db

@@ -1,0 +1,54 @@
+    version: '2'
+    services:
+        php7:
+          build: ./docker/php7
+
+          links:
+            - db
+
+          volumes_from:
+            - data
+
+        nginx:
+          image: nginx:1.11
+
+          ports:
+            - 8000:8000
+            - 8001:8001
+
+          links:
+            - php7
+
+          volumes:
+            - ./docker/conf/nginx.conf:/etc/nginx/nginx.conf:ro
+
+          volumes_from:
+            - data
+
+        db:
+          image: mariadb
+
+          volumes:
+            - ./docker/db:/var/lib/mysql
+
+          volumes_from:
+            - data
+
+          environment:
+            - MYSQL_ROOT_PASSWORD=root
+
+        phpmyadmin:
+          image: phpmyadmin/phpmyadmin
+
+          ports:
+            - 10000:80
+
+          links:
+            - db
+
+        data:
+          image: busybox:latest
+
+          volumes:
+            - ./:/srv
+            - ./docker/conf/config.local.neon:/srv/app/config/config.local.neon
