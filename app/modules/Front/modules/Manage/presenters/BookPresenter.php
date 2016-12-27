@@ -124,7 +124,7 @@ final class BookPresenter extends BasePresenter
 		$form = $this->bookFormFactory->create();
 
 		// Attach handle
-		$form->onSuccess[] = callback($this, 'processBookForm');
+		$form->onSuccess[] = [$this, 'processBookForm'];
 
 		return $form;
 	}
@@ -212,7 +212,7 @@ final class BookPresenter extends BasePresenter
 		$form = $this->imageFormFactory->create();
 
 		// Attach handle
-		$form->onSuccess[] = callback($this, 'processImageForm');
+		$form->onSuccess[] = [$this, 'processImageForm'];
 
 		return $form;
 	}

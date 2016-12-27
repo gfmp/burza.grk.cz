@@ -8,7 +8,7 @@
   ],
   "require": {
     "php": ">= 5.5",
-    "nette/nette": "~2.3.0",
+    "nette/nette": "~2.4.0",
     "nextras/orm": "~1.1.0",
     "nextras/dbal": "~1.0.0",
     "facebook/php-sdk-v4": "~4.0.0"

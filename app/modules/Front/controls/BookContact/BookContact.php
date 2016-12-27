@@ -95,7 +95,7 @@ final class BookContact extends BaseControl
 		$form->addSubmit('send', 'Odeslat poptávku');
 
 		// Attach handle
-		$form->onSuccess[] = callback($this, 'processForm');
+		$form->onSuccess[] = [$this, 'processForm'];
 
 		return $form;
 	}

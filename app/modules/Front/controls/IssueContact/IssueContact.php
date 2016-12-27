@@ -58,7 +58,7 @@ final class IssueContact extends BaseControl
 		$form->addSubmit('send', 'Odeslat zprávu');
 
 		// Attach handle
-		$form->onSuccess[] = callback($this, 'processForm');
+		$form->onSuccess[] = [$this, 'processForm'];
 
 		return $form;
 	}
