@@ -13,9 +13,10 @@ use Nette\Utils\DateTime;
 /**
  * Message
  *
+ * @property int $id {primary}
  * @property string   $message
- * @property User     $user                     {m:1 User}
- * @property Book     $book                     {m:1 Book}
+ * @property User     $user                     {m:1 User::$messages}
+ * @property Book     $book                     {m:1 Book::$messages}
  * @property DateTime $createdAt                {default now}
  */
 final class Message extends AbstractEntity

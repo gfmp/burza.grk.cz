@@ -9,9 +9,10 @@
   "require": {
     "php": ">= 5.5",
     "nette/nette": "~2.4.0",
-    "nextras/orm": "~1.1.0",
-    "nextras/dbal": "~1.0.0",
-    "facebook/php-sdk-v4": "~4.0.0"
+    "nextras/orm": "~2.2.0",
+    "nextras/dbal": "~2.1.0",
+    "facebook/php-sdk-v4": "~4.0.0",
+    "oodle/inflect": "^0.2.0"
   },
   "require-dev": {
     "nette/tester": "~1.5",

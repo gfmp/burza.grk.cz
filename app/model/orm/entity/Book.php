@@ -16,11 +16,12 @@ use Nextras\Orm\Relationships\OneHasMany;
 /**
  * Book
  *
+ * @property int $id {primary}
  * @property Category             $category                     {m:1 Category::$allBooks}
- * @property User                 $user                         {m:1 User}
- * @property Image|NULL           $image                        {1:1d Image primary}
- * @property ManyHasMany|Image[]  $images                       {m:n Image primary}
- * @property OneHasMany|Message[] $messages                     {1:m Message}
+ * @property User                 $user                         {m:1 User::$books}
+ * @property Image|NULL           $image                        {1:1 Image::$book, isMain=true}
+ * @property ManyHasMany|Image[]  $images                       {m:n Image::$books, isMain=true}
+ * @property OneHasMany|Message[] $messages                     {1:m Message::$book}
  * @property string               $name
  * @property string               $slug
  * @property int                  $price
