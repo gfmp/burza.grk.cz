@@ -5,6 +5,6 @@
     <a n:class="$presenter->isLinkCurrent('List:category', $category->id) ? active, list-group-item"
             href="{plink List:category, $category->id}">
         {$category->name}
-        <span class="badge badge-">{count($category->books)}</span>
+        <span class="badge badge-">{$categoriesCount[$category->id]}</span>
     </a>
 </div>

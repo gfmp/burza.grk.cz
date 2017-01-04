@@ -9,21 +9,29 @@
 namespace App\Front\Controls\Category;
 
 use App\Core\Controls\BaseControl;
+use App\Model\ORM\Repository\BooksRepository;
 use App\Model\ORM\Repository\CategoriesRepository;
 
 final class Category extends BaseControl
 {
 
 	/** @var CategoriesRepository */
-	private $repository;
+	private $categoriesRepository;
+
+	/**
+	 * @var BooksRepository
+	 */
+	private $booksRepository;
 
 	/**
 	 * @param CategoriesRepository $repository
+	 * @param BooksRepository      $booksRepository
 	 */
-	public function __construct(CategoriesRepository $repository)
+	public function __construct(CategoriesRepository $repository, BooksRepository $booksRepository)
 	{
 		parent::__construct();
-		$this->repository = $repository;
+		$this->categoriesRepository = $repository;
+		$this->booksRepository      = $booksRepository;
 	}
 
 	/**
@@ -33,8 +41,11 @@ final class Category extends BaseControl
 	 */
 	public function render()
 	{
-		$categories                 = $this->repository->findAll()->orderBy('name', 'ASC');
-		$this->template->categories = $categories;
+		$categories      = $this->categoriesRepository->findAll()->orderBy('name', 'ASC');
+		$categoriesCount = $this->booksRepository->countSellingByCategories($categories);
+
+		$this->template->categories      = $categories;
+		$this->template->categoriesCount = $categoriesCount;
 
 		$this->template->setFile(__DIR__ . '/templates/sidebar.latte');
 		$this->template->render();
