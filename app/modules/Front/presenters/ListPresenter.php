@@ -23,7 +23,7 @@ final class ListPresenter extends BasePresenter
 	public $bookListFactory;
 
 	/** @var BooksRepository @inject */
-	public $booksReposity;
+	public $booksRepository;
 
 	/** @var ICollection */
 	private $booksCollection;
@@ -36,7 +36,7 @@ final class ListPresenter extends BasePresenter
 	 */
 	public function actionDefault()
 	{
-		$this->booksCollection = $this->booksReposity
+		$this->booksCollection = $this->booksRepository
 			->findSelling()
 			->orderBy('id', 'DESC')
 			->limitBy(12);
@@ -50,16 +50,22 @@ final class ListPresenter extends BasePresenter
 	 */
 
 	/**
-	 * @param int $categoryId
+	 * @param int    $categoryId
+	 * @param string $query
 	 *
 	 * @return void
 	 */
-	public function actionCategory($categoryId)
+	public function actionCategory($categoryId, $query)
 	{
-		$this->booksCollection = $this->booksReposity
-			->findSelling()
-			->findBy(['category' => $categoryId])
+		$collection = $this->booksRepository
+			->findSellingByName($query)
 			->orderBy('id', 'DESC');
+
+		if ($categoryId) {
+			$collection = $collection->findBy(['category' => $categoryId]);
+		}
+
+		$this->booksCollection = $collection;
 
 		$this->template->books = $this->booksCollection;
 	}

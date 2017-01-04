@@ -41,7 +41,7 @@ class RouterFactory
 		$router[] = new Route('sitemap.xml', 'Front:Generator:sitemap');
 
 		// Front ===============================================================
-		$router[] = new Route('<categoryId .+>/', [
+		$router[] = new Route('<categoryId .+>', [
 			'module'     => 'Front',
 			'presenter'  => 'List',
 			'action'     => 'category',
@@ -49,6 +49,7 @@ class RouterFactory
 				Route::FILTER_IN  => [$this->routerService, 'categoryIn'],
 				Route::FILTER_OUT => [$this->routerService, 'categoryOut'],
 			],
+			'query'      => '',
 		]);
 
 		$router[] = new Route('book/<bookId [0-9]+>', 'Front:Book:detail', Route::ONE_WAY);

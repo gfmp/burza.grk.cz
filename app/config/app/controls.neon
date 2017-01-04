@@ -8,17 +8,20 @@
 #
 services:
 
-    - App\Front\Controls\Category\ICategoryFactory
-    - App\Front\Controls\Statistics\IStatisticsFactory
+	- App\Front\Controls\Category\ICategoryFactory
+	- App\Front\Controls\Statistics\IStatisticsFactory
 
-    - App\Front\Controls\Login\ILoginFactory
-    - App\Front\Controls\Registration\IRegistrationFactory
+	- App\Front\Controls\Login\ILoginFactory
+	- App\Front\Controls\Registration\IRegistrationFactory
 
-    - App\Front\Controls\BookContact\IBookContactFactory
-    - App\Front\Controls\BookList\IBookListFactory
+	- App\Front\Controls\Search\ISearchFactory
 
-    - App\Front\Controls\IssueContact\IIssueContactFactory
 
-    - App\Front\Controls\Sitemap\ISitemapControlFactory
+	- App\Front\Controls\BookContact\IBookContactFactory
+	- App\Front\Controls\BookList\IBookListFactory
 
-    - App\Front\Manage\Controls\BookTable\IBookTableFactory
+	- App\Front\Controls\IssueContact\IIssueContactFactory
+
+	- App\Front\Controls\Sitemap\ISitemapControlFactory
+
+	- App\Front\Manage\Controls\BookTable\IBookTableFactory

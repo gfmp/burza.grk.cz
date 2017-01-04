@@ -11,6 +11,13 @@ namespace App\Model\ORM\Repository;
 use App\Model\ORM\Entity\Book;
 use Nextras\Orm\Collection\ICollection;
 
+/**
+ * Class BooksRepository
+ *
+ * @method ICollection|Book[] findSellingByName($name)
+ *
+ * @package App\Model\ORM\Repository
+ */
 final class BooksRepository extends AbstractRepository
 {
 
