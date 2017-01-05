@@ -1,13 +1,17 @@
 ################################################################################
 #
-# Nextras/ORM
+# Contributte/Console
 #
 # @package burza.grk.cz
 # @author Milan Felix Sulc <sulcmil@gmail.com>
 # @version $$REV$$
 #
 extensions:
-	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+	console: Contributte\Console\DI\ConsoleExtension
 
-orm:
-	model: App\Model\ORM\Orm
+console:
+	name: Acme Project
+	version: 1.0
+	catchExceptions: true
+	autoExit: true
+	url: #www.acme.com

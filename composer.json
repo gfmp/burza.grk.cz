@@ -12,7 +12,8 @@
     "nextras/orm": "~2.2.0",
     "nextras/dbal": "~2.1.0",
     "facebook/php-sdk-v4": "~4.0.0",
-    "oodle/inflect": "^0.2.0"
+    "oodle/inflect": "^0.2.0",
+    "contributte/console": "dev-master"
   },
   "require-dev": {
     "nette/tester": "~1.5",

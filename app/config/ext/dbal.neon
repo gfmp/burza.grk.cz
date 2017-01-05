@@ -7,7 +7,7 @@
 # @version $$REV$$
 #
 extensions:
-    dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
+	dbal: Nextras\Dbal\Bridges\NetteDI\DbalExtension
 
 dbal:
 	driver: %database.driver%

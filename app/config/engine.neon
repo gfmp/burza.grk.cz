@@ -16,5 +16,6 @@ includes:
 	- app/other.neon
 
 	# Extensions configs
+	- ext/console.neon
 	- ext/dbal.neon
 	- ext/orm.neon
