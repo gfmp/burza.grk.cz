@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -17,65 +17,70 @@ use Nette\Application\UI\Presenter;
 abstract class BasePresenter extends Presenter
 {
 
-    /** @var PortalConfig @inject */
-    public $portalConfig;
+	/** @var PortalConfig @inject */
+	public $portalConfig;
 
-    /**
-     * Common render method.
-     */
-    protected function beforeRender()
-    {
-        parent::beforeRender();
+	/**
+	 * Common render method.
+	 *
+	 * @return void
+	 */
+	protected function beforeRender()
+	{
+		parent::beforeRender();
 
-        // Paths
-        $this->template->storagePath = $this->template->basePath . '/' . $this->portalConfig->expand('paths.storage');
-        $this->template->assetsPath = $this->template->basePath . '/assets';
-        $this->template->distPath = $this->template->basePath . '/dist';
-        $this->template->vendorPath = $this->template->basePath . '/vendor';
+		// Paths
+		$this->template->storagePath = $this->template->basePath . '/' . $this->portalConfig->expand('paths.storage');
+		$this->template->assetsPath  = $this->template->basePath . '/assets';
+		$this->template->distPath    = $this->template->basePath . '/dist';
+		$this->template->vendorPath  = $this->template->basePath . '/vendor';
 
-        // Url
-        $this->template->url = $this->getHttpRequest()->getUrl();
+		// Url
+		$this->template->url = $this->getHttpRequest()->getUrl();
 
-        // Deploy
-        $this->template->rev = $this->portalConfig->expand('deploy.rev');
-        $this->template->ver = $this->portalConfig->expand('deploy.ver');
-        $this->template->debug = $this->portalConfig->expand('debugMode') == TRUE;
-    }
+		// Deploy
+		$this->template->rev   = $this->portalConfig->expand('deploy.rev');
+		$this->template->ver   = $this->portalConfig->expand('deploy.ver');
+		$this->template->debug = $this->portalConfig->expand('debugMode') == TRUE;
+	}
 
-    /**
-     * COMMON HELPERS **********************************************************
-     * *************************************************************************
-     */
+	/**
+	 * COMMON HELPERS **********************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * Gets module name
-     *
-     * @return string
-     */
-    public function getModuleName()
-    {
-        $parts = explode(':', $this->getName());
-        return current($parts);
-    }
+	/**
+	 * Gets module name
+	 *
+	 * @return string
+	 */
+	public function getModuleName()
+	{
+		$parts = explode(':', $this->getName());
 
-    /**
-     * Is current module active?
-     *
-     * @param string $module Module name
-     * @return boolean
-     */
-    public function isModuleCurrent($module)
-    {
-        return strpos($this->getAction(TRUE), $module) !== FALSE;
-    }
+		return current($parts);
+	}
 
-    /**
-     * Gets template dir
-     *
-     * @return string
-     */
-    public function getTemplateDir()
-    {
-        return realpath(dirname($this->getReflection()->getFileName()) . '/../templates');
-    }
+	/**
+	 * Is current module active?
+	 *
+	 * @param string $module Module name
+	 *
+	 * @return boolean
+	 */
+	public function isModuleCurrent($module)
+	{
+		return strpos($this->getAction(TRUE), $module) !== FALSE;
+	}
+
+	/**
+	 * Gets template dir
+	 *
+	 * @return string
+	 */
+	public function getTemplateDir()
+	{
+		return realpath(dirname($this->getReflection()->getFileName()) . '/../templates');
+	}
+
 }

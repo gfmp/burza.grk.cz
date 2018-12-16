@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -19,67 +19,71 @@ use App\Model\ORM\Repository\BooksRepository;
 final class BookPresenter extends BasePresenter
 {
 
-    /** @var IBookContactFactory @inject */
-    public $bookContactFactory;
+	/** @var IBookContactFactory @inject */
+	public $bookContactFactory;
 
-    /** @var BooksRepository @inject */
-    public $booksRepository;
+	/** @var BooksRepository @inject */
+	public $booksRepository;
 
-    /** @var Book */
-    private $book;
+	/** @var Book */
+	private $book;
 
-    /**
-     * DETAIL ******************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * DETAIL ******************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * @param int $bookId
-     */
-    public function actionDetail($bookId)
-    {
-        $this->book = $this->booksRepository->getById($bookId);
+	/**
+	 * @param int $bookId
+	 *
+	 * @return void
+	 */
+	public function actionDetail($bookId)
+	{
+		$this->book = $this->booksRepository->getById($bookId);
 
-        if (!$this->book) {
-            $this->flashMessage('Kniha nebyla nalezena.', 'warning');
-            $this->redirect('Home:');
-        }
-    }
+		if (!$this->book) {
+			$this->flashMessage('Kniha nebyla nalezena.', 'warning');
+			$this->redirect('Home:');
+		}
+	}
 
-    /**
-     * @param int $bookId
-     */
-    public function renderDetail($bookId)
-    {
-        $this->template->book = $this->book;
-    }
+	/**
+	 * @param int $bookId
+	 *
+	 * @return void
+	 */
+	public function renderDetail($bookId)
+	{
+		$this->template->book = $this->book;
+	}
 
 
-    /**
-     * CONTACT *****************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * CONTACT *****************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * BookContact factory.
-     *
-     * @return BookContact
-     */
-    protected function createComponentBookContact()
-    {
-        $control = $this->bookContactFactory->create($this->book);
+	/**
+	 * BookContact factory.
+	 *
+	 * @return BookContact
+	 */
+	protected function createComponentBookContact()
+	{
+		$control = $this->bookContactFactory->create($this->book);
 
-        $control->onSent[] = function ($message) {
-            $this->flashMessage($message, 'success');
-            $this->redirect('this');
-        };
+		$control->onSent[] = function ($message) {
+			$this->flashMessage($message, 'success');
+			$this->redirect('this');
+		};
 
-        $control->onError[] = function ($message) {
-            $this->flashMessage($message, 'danger');
-            $this->redirect('this');
-        };
+		$control->onError[] = function ($message) {
+			$this->flashMessage($message, 'danger');
+			$this->redirect('this');
+		};
 
-        return $control;
-    }
+		return $control;
+	}
 
 }

@@ -1,8 +1,10 @@
 {block}
-<a class="btn btn-success btn-block visible-xs-block" aria-expanded="true" data-toggle="collapse" data-target="#category-tree">Kategorie</a>
+<a class="btn btn-success btn-block visible-xs-block" aria-expanded="true" data-toggle="collapse"
+   data-target="#category-tree">Kategorie</a>
 <div class="collapse in" id="category-tree" n:inner-foreach="$categories as $category">
-    <a n:class="$presenter->isLinkCurrent('List:category', $category->id) ? active, list-group-item" href="{plink List:category, $category->id}">
+    <a n:class="$presenter->isLinkCurrent('List:category', $category->id) ? active, list-group-item"
+            href="{plink List:category, $category->id}">
         {$category->name}
-        <span class="badge badge-">{count($category->books)}</span>
+        <span class="badge badge-">{$categoriesCount[$category->id]}</span>
     </a>
 </div>

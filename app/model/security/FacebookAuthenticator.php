@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -20,69 +20,81 @@ use Nette\Utils\DateTime;
 final class FacebookAuthenticator implements IAuthenticator
 {
 
-    /** @var UsersRepository */
-    private $repository;
+	/** @var UsersRepository */
+	private $repository;
 
-    /**
-     * @param UsersRepository $repository
-     */
-    public function __construct(UsersRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+	/**
+	 * @param UsersRepository $repository
+	 */
+	public function __construct(UsersRepository $repository)
+	{
+		$this->repository = $repository;
+	}
 
-    /**
-     * Performs an authentication.
-     *
-     * @return Identity
-     * @throws AuthenticationException
-     */
-    public function authenticate(array $credentials)
-    {
-        /** @var GraphObject $me */
-        list($me) = $credentials;
+	/**
+	 * Performs an authentication.
+	 *
+	 * @param array $credentials
+	 *
+	 * @return Identity
+	 * @throws AuthenticationException
+	 */
+	public function authenticate(array $credentials)
+	{
+		/** @var GraphObject $me */
+		list($me) = $credentials;
 
-        $fbid = $me->getProperty('id');
-        $email = $me->getProperty('email');
+		$fbid  = $me->getProperty('id');
+		$email = $me->getProperty('email');
 
-        if (!$fbid || !$email) {
-            throw new AuthenticationException('Registrace proběhla neúspěšně. Prosím registrujte se ručně.', self::FAILURE);
-        }
+		if (!$fbid || !$email) {
+			throw new AuthenticationException(
+				'Registrace proběhla neúspěšně. Prosím registrujte se ručně.',
+				self::FAILURE
+			);
+		}
 
-        // Exists user with this FBID?
-        $user = $this->repository->getBy(['fbid' => $fbid]);
-        if ($user) {
-            return $user->toIdentity();
-        }
+		// Exists user with this FBID?
+		$user = $this->repository->getBy(['fbid' => $fbid]);
+		if ($user) {
+			return $user->toIdentity();
+		}
 
-        // Exists user with this USERNAME?
-        $user = $this->repository->getBy(['username' => $email]);
-        if ($user) {
-            try {
-                // Update fbid
-                $user->fbid = $fbid;
-                $user->loggedAt = new DateTime();
+		// Exists user with this USERNAME?
+		$user = $this->repository->getBy(['username' => $email]);
+		if ($user) {
+			try {
+				// Update fbid
+				$user->fbid     = $fbid;
+				$user->loggedAt = new DateTime();
 
-                // Save user
-                $this->repository->persistAndFlush($user);
-            } catch (\PDOException $e) {
-                throw new AuthenticationException('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', self::FAILURE);
-            }
-        } else {
-            try {
-                $user = new User();
-                $user->fbid = $fbid;
-                $user->username = $email;
-                $user->password = Passwords::hash(time() . $me->getProperty('id'));
-                $user->loggedAt = new DateTime();
+				// Save user
+				$this->repository->persistAndFlush($user);
+			} catch (\PDOException $e) {
+				throw new AuthenticationException(
+					'Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.',
+					self::FAILURE
+				);
+			}
+		} else {
+			try {
+				$user           = new User();
+				$user->fbid     = $fbid;
+				$user->username = $email;
+				$user->password = Passwords::hash(time() . $me->getProperty('id'));
+				$user->loggedAt = new DateTime();
 
-                // Save user
-                $this->repository->persistAndFlush($user);
-            } catch (\PDOException $e) {
-                throw new AuthenticationException('Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.', self::FAILURE);
-            }
-        }
+				// Save user
+				$this->repository->persistAndFlush($user);
+			} catch (\PDOException $e) {
+				throw new AuthenticationException(
+					'Registrace proběhla neúspěšně. Prosím zkuste to za chvíli.',
+					self::FAILURE
+				);
+			}
+		}
 
-        return $user->toIdentity();
-    }
+		return $user->toIdentity();
+	}
+
 }

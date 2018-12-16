@@ -10,7 +10,8 @@
                         <span class="price">{$book->price|price}</span> <span class="wear">{$book->wear|wear}</span>
                     </div>
                     <div class="col-md-7 image">
-                        <a href="{plink :Front:Book:detail, $book->id}"><img src="{$book|imgbook:105:140:0}" alt="{$book->name}" title="{$book->name}"></a>
+                        <a href="{plink :Front:Book:detail, $book->id}"><img src="{$book|imgbook:105:140:0}"
+                                                                             alt="{$book->name}" title="{$book->name}"></a>
                     </div>
                 </div>
                 <h3><a href="{plink :Front:Book:detail, $book->id}">{$book->name|truncate:80}</a></h3>

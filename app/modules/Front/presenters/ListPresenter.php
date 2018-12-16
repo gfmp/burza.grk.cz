@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -19,62 +19,73 @@ use Nextras\Orm\Collection\ICollection;
 final class ListPresenter extends BasePresenter
 {
 
-    /** @var IBookListFactory @inject */
-    public $bookListFactory;
+	/** @var IBookListFactory @inject */
+	public $bookListFactory;
 
-    /** @var BooksRepository @inject */
-    public $booksReposity;
+	/** @var BooksRepository @inject */
+	public $booksRepository;
 
-    /** @var ICollection */
-    private $booksCollection;
+	/** @var ICollection */
+	private $booksCollection;
 
-    /**
-     * DEFAULT *****************************************************************
-     * *************************************************************************
-     */
-    public function actionDefault()
-    {
-        $this->booksCollection = $this->booksReposity
-            ->findSelling()
-            ->orderBy('id', 'DESC')
-            ->limitBy(12);
+	/**
+	 * DEFAULT *****************************************************************
+	 * *************************************************************************
+	 *
+	 * @return void
+	 */
+	public function actionDefault()
+	{
+		$this->booksCollection = $this->booksRepository
+			->findSelling()
+			->orderBy('id', 'DESC')
+			->limitBy(12);
 
-        $this->template->books = $this->booksCollection;
-    }
+		$this->template->books = $this->booksCollection;
+	}
 
-    /**
-     * CATEGORY ****************************************************************
-     * *************************************************************************
-     */
+	/**
+	 * CATEGORY ****************************************************************
+	 * *************************************************************************
+	 */
 
-    /**
-     * @param int $categoryId
-     */
-    public function actionCategory($categoryId)
-    {
-        $this->booksCollection = $this->booksReposity
-            ->findSelling()
-            ->findBy(['category' => $categoryId])
-            ->orderBy('id', 'DESC');
+	/**
+	 * @param int    $categoryId
+	 * @param string $query
+	 *
+	 * @return void
+	 */
+	public function actionCategory($categoryId, $query)
+	{
+		$collection = $this->booksRepository
+			->findSellingByName($query)
+			->orderBy('id', 'DESC');
 
-        $this->template->books = $this->booksCollection;
-    }
+		if ($categoryId) {
+			$collection = $collection->findBy(['category' => $categoryId]);
+		}
 
-    /**
-     * BOOK LIST ***************************************************************
-     * *************************************************************************
-     */
+		$this->booksCollection = $collection;
 
-    /**
-     * BookList control factory.
-     *
-     * @return BookList
-     */
-    protected function createComponentBookList()
-    {
-        // Create control
-        $control = $this->bookListFactory->create($this->booksCollection);
+		$this->template->books = $this->booksCollection;
+	}
 
-        return $control;
-    }
+	/**
+	 * BOOK LIST ***************************************************************
+	 * *************************************************************************
+	 */
+
+	/**
+	 * BookList control factory.
+	 *
+	 * @return BookList
+	 */
+	protected function createComponentBookList()
+	{
+		// Create control
+		$control = $this->bookListFactory->create($this->booksCollection);
+
+		return $control;
+	}
+
 }

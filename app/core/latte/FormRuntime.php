@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -14,34 +14,37 @@ use Nette\Utils\Html;
 final class FormRuntime
 {
 
-    /**
-     * @param Form $form
-     */
-    public static function renderFormErrors(Form $form)
-    {
-        if ($form->hasErrors()) {
-            $alert = Html::el('div', [
-                'class' => 'alert alert-danger alert-dismissible',
-                'role' => 'alert'
-            ]);
+	/**
+	 * @param Form $form
+	 *
+	 * @return void
+	 */
+	public static function renderFormErrors(Form $form)
+	{
+		if ($form->hasErrors()) {
+			$alert = Html::el('div', [
+				'class' => 'alert alert-danger alert-dismissible',
+				'role'  => 'alert',
+			]);
 
-            $button = Html::el('button', [
-                'type' => 'button',
-                'class' => 'close',
-                'data-dismiss' => 'alert',
-                'aria-label' => 'Close',
-            ]);
+			$button = Html::el('button', [
+				'type'         => 'button',
+				'class'        => 'close',
+				'data-dismiss' => 'alert',
+				'aria-label'   => 'Close',
+			]);
 
-            $span = Html::el('span', ['aria-hidden' => TRUE])
-                ->setHtml('&times');
+			$span = Html::el('span', ['aria-hidden' => TRUE])
+				->setHtml('&times');
 
-            $alert->add($button->add($span));
+			$alert->add($button->add($span));
 
-            foreach ($form->errors as $error) {
-                $el = clone $alert;
-                $el->add($error);
-                echo $el;
-            }
-        }
-    }
+			foreach ($form->errors as $error) {
+				$el = clone $alert;
+				$el->add($error);
+				echo $el;
+			}
+		}
+	}
+
 }

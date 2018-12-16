@@ -1,0 +1,17 @@
+################################################################################
+#
+# Contributte/Console
+#
+# @package burza.grk.cz
+# @author Milan Felix Sulc <sulcmil@gmail.com>
+# @version $$REV$$
+#
+extensions:
+	console: Contributte\Console\DI\ConsoleExtension
+
+console:
+	name: Acme Project
+	version: 1.0
+	catchExceptions: true
+	autoExit: true
+	url: #www.acme.com

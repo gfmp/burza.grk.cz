@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -14,28 +14,30 @@ use App\Model\ORM\Repository\BooksRepository;
 final class Statistics extends BaseControl
 {
 
-    /** @var BooksRepository */
-    private $booksRepository;
+	/** @var BooksRepository */
+	private $booksRepository;
 
-    /**
-     * @param BooksRepository $booksRepository
-     */
-    public function __construct(BooksRepository $booksRepository)
-    {
-        parent::__construct();
-        $this->booksRepository = $booksRepository;
-    }
+	/**
+	 * @param BooksRepository $booksRepository
+	 */
+	public function __construct(BooksRepository $booksRepository)
+	{
+		parent::__construct();
+		$this->booksRepository = $booksRepository;
+	}
 
+	/**
+	 * Render list
+	 *
+	 * @return void
+	 */
+	public function renderBooks()
+	{
+		$this->template->selling = $this->booksRepository->findSelling()->countStored();
+		$this->template->sold    = $this->booksRepository->findSold()->countStored();
 
-    /**
-     * Render list
-     */
-    public function renderBooks()
-    {
-        $this->template->selling = $this->booksRepository->findSelling()->countStored();
-        $this->template->sold = $this->booksRepository->findSold()->countStored();
+		$this->template->setFile(__DIR__ . '/templates/books.latte');
+		$this->template->render();
+	}
 
-        $this->template->setFile(__DIR__ . '/templates/books.latte');
-        $this->template->render();
-    }
 }

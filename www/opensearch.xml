@@ -1,0 +1,9 @@
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+    <ShortName>Burza učebnic</ShortName>
+    <LongName>Burza učebnic: hledání učebnice</LongName>
+    <Description>Burza učebnic: hledání učebnice</Description>
+    <InputEncoding>UTF-8</InputEncoding>
+    <OutputEncoding>UTF-8</OutputEncoding>
+    <Url type="text/html" method="GET" template="http://localhost:8000/list/category?query={searchTerms}"/>
+    <Query role="example" searchTerms="český jazyk"/>
+</OpenSearchDescription>

@@ -9,14 +9,15 @@ namespace Common\Controls\VisualPaginator;
 /**
  * Visual Paginator Control Factory Interface
  *
- * @author Milan Felix Sulc <sulc@webtoad.cz>
+ * @author    Milan Felix Sulc <sulc@webtoad.cz>
  * @copyright WebToad s.r.o. <info@webtoad.cz>
  */
 interface IControlFactory
 {
 
-    /**
-     * @return Control
-     */
-    function create();
+	/**
+	 * @return Control
+	 */
+	public function create();
+
 }

@@ -7,7 +7,7 @@
 # @version $$REV$$
 #
 includes:
-    # Application configs
+	# Application configs
 	- app/app.neon
 	- app/forms.neon
 	- app/controls.neon
@@ -16,5 +16,6 @@ includes:
 	- app/other.neon
 
 	# Extensions configs
+	- ext/console.neon
 	- ext/dbal.neon
 	- ext/orm.neon

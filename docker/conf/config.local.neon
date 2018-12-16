@@ -1,0 +1,11 @@
+parameters:
+	database:
+		driver: mysqli
+		host: db
+		database: burza_grk
+		username: root
+		password: root
+	facebook:
+		appId:
+		appSecret:
+

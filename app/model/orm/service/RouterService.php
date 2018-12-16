@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -17,96 +17,110 @@ use Nette\Utils\Strings;
 final class RouterService
 {
 
-    /** @var BooksRepository */
-    private $booksRepository;
+	/** @var BooksRepository */
+	private $booksRepository;
 
-    /** @var CategoriesRepository */
-    private $categoryRepository;
+	/** @var CategoriesRepository */
+	private $categoryRepository;
 
-    /** @var Cache */
-    private $cache;
+	/** @var Cache */
+	private $cache;
 
-    /**
-     * @param BooksRepository $booksRepository
-     * @param CategoriesRepository $categoryRepository
-     * @param IStorage $cacheStorage
-     */
-    function __construct(
-        BooksRepository $booksRepository,
-        CategoriesRepository $categoryRepository,
-        IStorage $cacheStorage
-    )
-    {
-        $this->booksRepository = $booksRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->cache = new Cache($cacheStorage, 'Burza.Router');
+	/**
+	 * @param BooksRepository      $booksRepository
+	 * @param CategoriesRepository $categoryRepository
+	 * @param IStorage             $cacheStorage
+	 */
+	public function __construct(
+		BooksRepository $booksRepository,
+		CategoriesRepository $categoryRepository,
+		IStorage $cacheStorage
+	)
+	{
+		$this->booksRepository    = $booksRepository;
+		$this->categoryRepository = $categoryRepository;
+		$this->cache              = new Cache($cacheStorage, 'Burza.Router');
 
-        // Build caches
-        $this->categoryBuildCache();
-        $this->bookBuildCache();
-    }
+		// Build caches
+		$this->categoryBuildCache();
+		$this->bookBuildCache();
+	}
 
-    /**
-     * CATEGORY ****************************************************************
-     */
+	/**
+	 * CATEGORY ****************************************************************
+	 */
 
-    protected function categoryBuildCache()
-    {
-        $cache = $this->categoryRepository->findAll()->fetchPairs('id', 'slug');
-        $this->cache->save('category', $cache, [Cache::TAGS => ['router', 'category'], Cache::EXPIRE => '+ 1 day']);
-    }
+	/**
+	 * @return void
+	 */
+	protected function categoryBuildCache()
+	{
+		$cache = $this->categoryRepository->findAll()->fetchPairs('id', 'slug');
+		$this->cache->save('category', $cache, [Cache::TAGS => ['router', 'category'], Cache::EXPIRE => '+ 1 day']);
+	}
 
-    /**
-     * @param string $slug
-     * @return int
-     */
-    public function categoryIn($slug)
-    {
-        $cache = $this->cache->load('category');
-        $category = array_search($slug, $cache);
-        return $category ? $category : NULL;
-    }
+	/**
+	 * @param string $slug
+	 *
+	 * @return int
+	 */
+	public function categoryIn($slug)
+	{
+		$cache    = $this->cache->load('category');
+		$category = array_search($slug, $cache);
 
-    /**
-     * @param int $id
-     * @return string|NULL
-     */
-    public function categoryOut($id)
-    {
-        $id = intval($id);
-        $cache = $this->cache->load('category');
-        return isset($cache[$id]) ? $cache[$id] : NULL;
-    }
+		return $category ? $category : NULL;
+	}
 
-    /**
-     * BOOK ********************************************************************
-     */
+	/**
+	 * @param int $id
+	 *
+	 * @return string|NULL
+	 */
+	public function categoryOut($id)
+	{
+		$id    = intval($id);
+		$cache = $this->cache->load('category');
 
-    protected function bookBuildCache()
-    {
-        $cache = $this->booksRepository->findAll()->fetchPairs('id', 'slug');
-        $this->cache->save('book', $cache, [Cache::TAGS => ['router', 'book'], Cache::EXPIRE => '+ 1 hour']);
-    }
+		return isset($cache[$id]) ? $cache[$id] : NULL;
+	}
 
-    /**
-     * @param string $slug
-     * @return int
-     */
-    public function bookIn($slug)
-    {
-        list($whole, $id, $slug) = Strings::match($slug, '#([0-9]+)\-(.*)#');
-        return $id;
-    }
+	/**
+	 * BOOK ********************************************************************
+	 */
 
-    /**
-     * @param int $id
-     * @return string|NULL
-     */
-    public function bookOut($id)
-    {
-        $id = intval($id);
-        $cache = $this->cache->load('book');
-        return isset($cache[$id]) ? $id . '-' . $cache[$id] : $id . '-' . time();
-    }
+	/**
+	 * @return void
+	 */
+	protected function bookBuildCache()
+	{
+		$cache = $this->booksRepository->findAll()->fetchPairs('id', 'slug');
+		$this->cache->save('book', $cache, [Cache::TAGS => ['router', 'book'], Cache::EXPIRE => '+ 1 hour']);
+	}
+
+	/**
+	 * @param string $slug
+	 *
+	 * @return int
+	 */
+	public function bookIn($slug)
+	{
+		list($whole, $id, $slug) = Strings::match($slug, '#([0-9]+)\-(.*)#');
+
+		return $id;
+	}
+
+	/**
+	 * @param int $id
+	 *
+	 * @return string|NULL
+	 */
+	public function bookOut($id)
+	{
+		$id    = intval($id);
+		$cache = $this->cache->load('book');
+
+		return isset($cache[$id]) ? $id . '-' . $cache[$id] : $id . '-' . time();
+	}
 
 }

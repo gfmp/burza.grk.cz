@@ -5,33 +5,33 @@
     <title>{$mail->subject}</title>
 </head>
 <body>
-    <h1>Hurá! Nová poptávka</h1>
+<h1>Hurá! Nová poptávka</h1>
 
-    <h2>{$book->name}</h2>
+<h2>{$book->name}</h2>
 
-    <table>
-        <tr>
-            <th>Poptávající:</th>
-            <td>{$form->name}</td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td><a href="mailto: {$form->email}">{$form->email}</a></td>
-        </tr>
-        <tr>
-            <th>Telefon:</th>
-            <td>{if $form->phone}{$form->phone}{else}Nevyplněn{/if}</td>
-        </tr>
-        <tr>
-            <th>Zpráva:</th>
-            <td>{$form->message|nl2br|noescape}</td>
-        </tr>
-    </table>
+<table>
+    <tr>
+        <th>Poptávající:</th>
+        <td>{$form->name}</td>
+    </tr>
+    <tr>
+        <th>Email:</th>
+        <td><a href="mailto: {$form->email}">{$form->email}</a></td>
+    </tr>
+    <tr>
+        <th>Telefon:</th>
+        <td>{if $form->phone}{$form->phone}{else}Nevyplněn{/if}</td>
+    </tr>
+    <tr>
+        <th>Zpráva:</th>
+        <td>{$form->message|nl2br|noescape}</td>
+    </tr>
+</table>
 
-    <hr>
+<hr>
 
-    <small>Zprávu vygeneroval systém
-        <a href="{plink //:Front:Home:default}">burza.grk.cz</a> dne {date('d.m.Y')} v {date('H:i:s')}.
-    </small>
+<small>Zprávu vygeneroval systém
+    <a href="{plink //:Front:Home:default}">burza.grk.cz</a> dne {date('d.m.Y')} v {date('H:i:s')}.
+</small>
 </body>
 </html>

@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -13,49 +13,51 @@ use App\Model\ORM\Repository\UsersRepository;
 use Nette\Security\AuthenticationException;
 use Nette\Security\IAuthenticator;
 use Nette\Security\Identity;
-use Nette\Security\IIdentity;
 use Nette\Security\Passwords;
 use Nette\Utils\DateTime;
 
 final class SiteAuthenticator implements IAuthenticator
 {
 
-    /** @var UsersRepository */
-    private $repository;
+	/** @var UsersRepository */
+	private $repository;
 
-    /**
-     * @param UsersRepository $repository
-     */
-    public function __construct(UsersRepository $repository)
-    {
-        $this->repository = $repository;
-    }
+	/**
+	 * @param UsersRepository $repository
+	 */
+	public function __construct(UsersRepository $repository)
+	{
+		$this->repository = $repository;
+	}
 
-    /**
-     * Performs an authentication.
-     *
-     * @return Identity
-     * @throws AuthenticationException
-     */
-    public function authenticate(array $credentials)
-    {
-        list($username, $password) = $credentials;
+	/**
+	 * Performs an authentication.
+	 *
+	 * @param array $credentials
+	 *
+	 * @return Identity
+	 * @throws AuthenticationException
+	 */
+	public function authenticate(array $credentials)
+	{
+		list($username, $password) = $credentials;
 
-        /** @var User $user */
-        $user = $this->repository->getBy(['username' => $username]);
+		/** @var User $user */
+		$user = $this->repository->getBy(['username' => $username]);
 
-        if (!$user) {
-            throw new AuthenticationException('Špatné uživatelské jméno.', self::IDENTITY_NOT_FOUND);
-        }
+		if (!$user) {
+			throw new AuthenticationException('Špatné uživatelské jméno.', self::IDENTITY_NOT_FOUND);
+		}
 
-        if (!Passwords::verify($password, $user->password)) {
-            throw new AuthenticationException('Špatné heslo', self::INVALID_CREDENTIAL);
-        }
+		if (!Passwords::verify($password, $user->password)) {
+			throw new AuthenticationException('Špatné heslo', self::INVALID_CREDENTIAL);
+		}
 
-        // Update logged date
-        $user->loggedAt = new DateTime();
-        $this->repository->persistAndFlush($user);
+		// Update logged date
+		$user->loggedAt = new DateTime();
+		$this->repository->persistAndFlush($user);
 
-        return $user->toIdentity();
-    }
+		return $user->toIdentity();
+	}
+
 }

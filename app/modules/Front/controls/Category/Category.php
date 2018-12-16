@@ -2,39 +2,53 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
 namespace App\Front\Controls\Category;
 
 use App\Core\Controls\BaseControl;
+use App\Model\ORM\Repository\BooksRepository;
 use App\Model\ORM\Repository\CategoriesRepository;
 
 final class Category extends BaseControl
 {
 
-    /** @var CategoriesRepository */
-    private $repository;
+	/** @var CategoriesRepository */
+	private $categoriesRepository;
 
-    /**
-     * @param CategoriesRepository $repository
-     */
-    public function __construct(CategoriesRepository $repository)
-    {
-        parent::__construct();
-        $this->repository = $repository;
-    }
+	/**
+	 * @var BooksRepository
+	 */
+	private $booksRepository;
 
-    /**
-     * Render list
-     */
-    public function render()
-    {
-        $categories = $this->repository->findAll()->orderBy('name', 'ASC');
-        $this->template->categories = $categories;
+	/**
+	 * @param CategoriesRepository $repository
+	 * @param BooksRepository      $booksRepository
+	 */
+	public function __construct(CategoriesRepository $repository, BooksRepository $booksRepository)
+	{
+		parent::__construct();
+		$this->categoriesRepository = $repository;
+		$this->booksRepository      = $booksRepository;
+	}
 
-        $this->template->setFile(__DIR__ . '/templates/sidebar.latte');
-        $this->template->render();
-    }
+	/**
+	 * Render list
+	 *
+	 * @return void
+	 */
+	public function render()
+	{
+		$categories      = $this->categoriesRepository->findAll()->orderBy('name', 'ASC');
+		$categoriesCount = $this->booksRepository->countSellingByCategories($categories);
+
+		$this->template->categories      = $categories;
+		$this->template->categoriesCount = $categoriesCount;
+
+		$this->template->setFile(__DIR__ . '/templates/sidebar.latte');
+		$this->template->render();
+	}
+
 }

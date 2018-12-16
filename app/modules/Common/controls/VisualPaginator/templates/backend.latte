@@ -3,7 +3,8 @@
     <div class="pagination">
         <ul class="pagination">
             <li n:class="$paginator->isFirst() ? disabled">
-                <a n:tag-if="!$paginator->isFirst()" href="{link this, 'page' => $paginator->page - 1}"><span>&laquo;</span></a>
+                <a n:tag-if="!$paginator->isFirst()"
+                        href="{link this, 'page' => $paginator->page - 1}"><span>&laquo;</span></a>
             </li>
             <li n:foreach="$steps as $step" n:class="$step == $paginator->page ? active">
                 {if $step == $paginator->page}
@@ -13,7 +14,8 @@
                 {/if}
             </li>
             <li n:class="$paginator->isLast() ? disabled">
-                <a n:tag-if="!$paginator->isLast()" href="{link this, 'page' => $paginator->page + 1}"><span>&raquo;</span></a>
+                <a n:tag-if="!$paginator->isLast()"
+                        href="{link this, 'page' => $paginator->page + 1}"><span>&raquo;</span></a>
             </li>
         </ul>
     </div>

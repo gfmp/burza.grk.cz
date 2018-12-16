@@ -7,7 +7,7 @@
 # @version $$REV$$
 #
 extensions:
-    orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
+	orm: Nextras\Orm\Bridges\NetteDI\OrmExtension
 
 orm:
-    model: App\Model\ORM\Orm
+	model: App\Model\ORM\Orm

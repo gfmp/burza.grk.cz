@@ -2,7 +2,7 @@
 
 /**
  * @package burza.grk.cz
- * @author Milan Felix Sulc <sulcmil@gmail.com>
+ * @author  Milan Felix Sulc <sulcmil@gmail.com>
  * @version $$REV$$
  */
 
@@ -16,23 +16,28 @@ use Latte\PhpWriter;
 final class FormMacros extends MacroSet
 {
 
-    /**
-     * @param Compiler $compiler
-     */
-    public static function install(Compiler $compiler)
-    {
-        $me = new static($compiler);
-        $me->addMacro('formErrors', [$me, 'macroFormErrors']);
-    }
+	/**
+	 * @param Compiler $compiler
+	 *
+	 * @return void
+	 */
+	public static function install(Compiler $compiler)
+	{
+		$me = new static($compiler);
+		$me->addMacro('formErrors', [$me, 'macroFormErrors']);
+	}
 
-    /**
-     *  {formErrors}
-     *
-     * @param MacroNode $node
-     * @param PhpWriter $writer
-     */
-    public function macroFormErrors(MacroNode $node, PhpWriter $writer)
-    {
-        return $writer->write('echo App\Core\Latte\FormRuntime::renderFormErrors($_form)');
-    }
+	/**
+	 *  {formErrors}
+	 *
+	 * @param MacroNode $node
+	 * @param PhpWriter $writer
+	 *
+	 * @return string
+	 */
+	public function macroFormErrors(MacroNode $node, PhpWriter $writer)
+	{
+		return $writer->write('echo App\Core\Latte\FormRuntime::renderFormErrors($_form)');
+	}
+
 }

@@ -15,8 +15,10 @@
     {/ifset}
 
     <!-- SEO -->
-    <meta name="keywords" content="{block #keywords}burza, knížky, grk, gfmp, škola, prodej, rychnov, prodej knih{/block}">
-    <meta name="description" content="{block #description}Burza nepotřebných knížek ze středních škol. Nebojte se vložit svoje knížky.{/block}">
+    <meta name="keywords"
+          content="{block #keywords}burza, knížky, grk, gfmp, škola, prodej, rychnov, prodej knih{/block}">
+    <meta name="description"
+          content="{block #description}Burza nepotřebných knížek ze středních škol. Nebojte se vložit svoje knížky.{/block}">
     <meta name="googlebot" content="snippet,archive">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Felix <sulcmil@gmail.com>">
@@ -25,7 +27,8 @@
     <meta property="og:image" content="{block #image}{$baseUri}/assets/img/logo.png{/block}">
     <meta property="fb:app_id" content="707095916103660">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{ifset #title}{include #title|striptags}{else}Burza učebnic | Gymnázium F.M. Pelcla{/ifset}">
+    <meta property="og:title"
+          content="{ifset #title}{include #title|striptags}{else}Burza učebnic | Gymnázium F.M. Pelcla{/ifset}">
     <meta property="og:url" content="{link //this}">
     <meta property="og:site_name" content="Burza GRK">
     <meta property="og:description" content="{include #description}">
@@ -36,140 +39,156 @@
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.3.0/animate.min.css">
     <link href="{$basePath}/assets/css/theme.css?rev={$rev}" rel="stylesheet">
+
+    <!-- OPEN SEARCH -->
+    <link rel="search" type="application/opensearchdescription+xml" title="Burza učebnic" href="{$basePath}/opensearch.xml">
+
 </head>
 <body data-rev="{$rev}" data-basepath="{$basePath}">
 
-    <!-- Page Content -->
-    <div class="container">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navbar">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
-                    <span class="icon-bar"></span> <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
+<!-- Page Content -->
+<div class="container">
+    <!-- Navigation -->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#menu-navbar">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span>
+                <span class="icon-bar"></span> <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" n:href=":Front:Home:">BURZA</a>
+        </div>
+        <div class="collapse navbar-collapse" id="menu-navbar">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a n:href=":Front:Home:">Poslední nabídky</a>
+                </li>
+                {*<li>*}
+                {*<a n:href=":Front:Home:">Prvák</a>*}
+                {*</li>*}
+                {*<li>*}
+                {*<a n:href=":Front:Home:">Druhák</a>*}
+                {*</li>*}
+                {*<li>*}
+                {*<a n:href=":Front:Home:">Třeťák</a>*}
+                {*</li>*}
+                {*<li>*}
+                {*<a n:href=":Front:Home:">Čtvrťák</a>*}
+                {*</li>*}
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    {if $user->isLoggedIn()}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-expanded="false">{$user->identity->username}
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a n:href=":Front:Manage:Profile:">Můj učet</a></li>
+                            <li class="divider"></li>
+                            <li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
+                        </ul>
+                    {else}
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit
+                            <span class="caret"></span></a>
+                        <div class="dropdown-menu dropdown-sign">
+                            {control login:navbar}
+                        </div>
+                    {/if}
+                </li>
+            </ul>
+
+            {*<form class="navbar-form navbar-right" role="search">*}
+            {*<div class="form-group">*}
+            {*<input type="text" class="form-control input-large search-query" placeholder="Search">*}
+            {*</div>*}
+            {*<button type="submit" class="btn btn-default">Submit</button>*}
+            {*</form>*}
+        </div>
+    </nav>
+
+    <div n:if="$presenter->isLinkCurrent(':Front:List:*')" class="jumbotron">
+        <div class="container">
+            <h1>Burza GFMP</h1>
+            <p>Naše databáze se pomalu, ale jistě rozrůstá a to hlavně díky vám. <strong>Pomozte</strong> nám ji
+                rozšířit jěště více.</p>
+            <p>Sdílejte na Facebooku, Twitteru, Googlu + a dalších.</p>
+            <div class="buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=burza.grk.cz"
+                   class="btn btn-social btn-lg btn-facebook" data-ga="1" data-ga-event="btn-social"
+                   data-ga-category="click" data-ga-action="facebook"><i class="fa fa-facebook"></i>Sdílet na
+                    Facebook</a>
+                <a href="https://twitter.com/home?status=Skvela%20burza%20ucebnic!%20Doporucuju.%20http%3A//burza.grk.cz"
+                   class="btn btn-social btn-lg btn-twitter" data-ga="1" data-ga-event="btn-social"
+                   data-ga-category="click" data-ga-action="twitter"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
+                <a href="https://plus.google.com/share?url=http%3A//burza.grk.cz"
+                   class="btn btn-social btn-lg btn-google" data-ga="1" data-ga-event="btn-social"
+                   data-ga-category="click" data-ga-action="google"><i class="fa fa-google"></i>Sdílet na Google +</a>
             </div>
-            <div class="collapse navbar-collapse" id="menu-navbar">
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a n:href=":Front:Home:">Poslední nabídky</a>
-                    </li>
-                    {*<li>*}
-                        {*<a n:href=":Front:Home:">Prvák</a>*}
-                    {*</li>*}
-                    {*<li>*}
-                        {*<a n:href=":Front:Home:">Druhák</a>*}
-                    {*</li>*}
-                    {*<li>*}
-                        {*<a n:href=":Front:Home:">Třeťák</a>*}
-                    {*</li>*}
-                    {*<li>*}
-                        {*<a n:href=":Front:Home:">Čtvrťák</a>*}
-                    {*</li>*}
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        {if $user->isLoggedIn()}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{$user->identity->username}
-                                <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a n:href=":Front:Manage:Profile:">Můj učet</a></li>
-                                <li class="divider"></li>
-                                <li><a n:href=":Front:Sign:out">Odhlásit se</a></li>
-                            </ul>
-                        {else}
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Přihlásit
-                                <span class="caret"></span></a>
-                            <div class="dropdown-menu dropdown-sign">
-                                {control login:navbar}
-                            </div>
-                        {/if}
-                    </li>
-                </ul>
-
-                {*<form class="navbar-form navbar-right" role="search">*}
-                {*<div class="form-group">*}
-                {*<input type="text" class="form-control input-large search-query" placeholder="Search">*}
-                {*</div>*}
-                {*<button type="submit" class="btn btn-default">Submit</button>*}
-                {*</form>*}
-            </div>
-        </nav>
-
-        <div n:if="$presenter->isLinkCurrent(':Front:List:*')" class="jumbotron">
-            <div class="container">
-                <h1>Burza GFMP</h1>
-                <p>Naše databáze se pomalu, ale jistě rozrůstá a to hlavně díky vám. <strong>Pomozte</strong> nám ji rozšířit jěště více.</p>
-                <p>Sdílejte na Facebooku, Twitteru, Googlu + a dalších.</p>
-                <div class="buttons">
-                    <a href="https://www.facebook.com/sharer/sharer.php?u=burza.grk.cz" class="btn btn-social btn-lg btn-facebook" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="facebook"><i class="fa fa-facebook"></i>Sdílet na Facebook</a>
-                    <a href="https://twitter.com/home?status=Skvela%20burza%20ucebnic!%20Doporucuju.%20http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-twitter" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="twitter"><i class="fa fa-twitter"></i>Sdílet na Twitteru</a>
-                    <a href="https://plus.google.com/share?url=http%3A//burza.grk.cz" class="btn btn-social btn-lg btn-google" data-ga="1" data-ga-event="btn-social" data-ga-category="click" data-ga-action="google"><i class="fa fa-google"></i>Sdílet na Google +</a>
-                </div>
-                <div>
-                    <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like" data-show-faces="false" data-share="true"></div>
-                </div>
+            <div>
+                <div class="fb-like" data-href="http://burza.grk.cz" data-layout="button_count" data-action="like"
+                     data-show-faces="false" data-share="true"></div>
             </div>
         </div>
-
-        <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span></button>
-            {$flash->message}
-        </div>
-
-        {block #main}
-            <div class="row">
-                <div class="col-md-3 sidebar">
-                    {control category}
-                </div>
-                <div class="col-md-9">
-                    {include #content}
-                </div>
-            </div>
-        {/block}
-        <!-- /.container -->
-
-        <hr>
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12 clearfix">
-                    <p class="pull-left">
-                        Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}
-                    </p>
-
-                    <p class="pull-right">
-                        Developed by <a href="http://jfx.cz">Felix</a>
-                        &nbsp; | &nbsp;
-                        Ver #{$ver}
-                        &nbsp; | &nbsp;
-                        Rev @{$rev}
-                    </p>
-                </div>
-            </div>
-        </footer>
-        <!-- /.container -->
     </div>
 
-    {control contact:modal}
+    <div n:foreach="$flashes as $flash" class="alert alert-{$flash->type} alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+        {$flash->message}
+    </div>
 
-    {include 'parts/@fb.latte'}
-    {include 'parts/@pageinfo.latte'}
+    {control search}
 
-    <!-- TRACKING -->
-    {include 'parts/@ga.latte'}
+    {block #main}
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                {control category}
+            </div>
+            <div class="col-md-9">
+                {include #content}
+            </div>
+        </div>
+    {/block}
+    <!-- /.container -->
 
-    <!-- SCRIPTS -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
-    <script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
-    <script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
-    <script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
-    <script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
-    <script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="row">
+            <div class="col-lg-12 clearfix">
+                <p class="pull-left">
+                    Copyright &copy; <a href="http://burza.grk.cz">burza.grk.cz</a> {=date('Y')}
+                </p>
+
+                <p class="pull-right">
+                    Developed by <a href="http://jfx.cz">Felix</a>
+                    &nbsp; | &nbsp;
+                    Ver #{$ver}
+                    &nbsp; | &nbsp;
+                    Rev @{$rev}
+                </p>
+            </div>
+        </div>
+    </footer>
+    <!-- /.container -->
+</div>
+
+{control contact:modal}
+
+{include 'parts/@fb.latte'}
+{include 'parts/@pageinfo.latte'}
+
+<!-- TRACKING -->
+{include 'parts/@ga.latte'}
+
+<!-- SCRIPTS -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="//tinymce.cachefly.net/4.1/tinymce.min.js"></script>
+<script src="{$basePath}/vendor/colorbox/jquery.colorbox-min.js?rev={$rev}"></script>
+<script src="{$basePath}/vendor/colorbox/jquery.colorbox-cs.js?rev={$rev}"></script>
+<script src="{$basePath}/vendor/nette/nette.forms.js?rev={$rev}"></script>
+<script src="{$basePath}/vendor/nette/nette.ajax.js?rev={$rev}"></script>
+<script src="{$basePath}/assets/js/main.js?rev={$rev}"></script>
 </body>
 </html>
